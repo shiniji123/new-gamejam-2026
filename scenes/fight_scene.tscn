@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://chw44qtrb7t82"]
+
+[ext_resource type="Script" uid="uid://qbvxpklkysc8" path="res://scenes/fight_scene.gd" id="1_nff5x"]
+[ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
+[ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player.tscn" id="2_keksv"]
+
+[node name="fight_scene" type="Node2D" unique_id=261381658]
+script = ExtResource("1_nff5x")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1029775760]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_p8b18")
+
+[node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_keksv")]
