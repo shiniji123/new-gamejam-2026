@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c2d51w3m01gbq"]
+
+[ext_resource type="Script" uid="uid://gujc4q5px2lj" path="res://scripts/combat/projectile.gd" id="1_a85iw"]
+[ext_resource type="Texture2D" uid="uid://cc5im22dn2c7n" path="res://assets/fight/attack.png" id="2_ptxme"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
+
+[node name="Projectile" type="Area2D" unique_id=569714409]
+script = ExtResource("1_a85iw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=542190823]
+texture = ExtResource("2_ptxme")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=707515788]
+position = Vector2(-1, 3)
+shape = SubResource("CircleShape2D_qxf0c")

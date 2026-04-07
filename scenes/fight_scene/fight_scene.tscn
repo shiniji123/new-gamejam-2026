@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://chw44qtrb7t82"]
+
+[ext_resource type="Script" uid="uid://qbvxpklkysc8" path="res://scripts/fight_scene/fight_scene.gd" id="1_nff5x"]
+[ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
+[ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_keksv"]
+[ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
+a = Vector2(0, 648)
+b = Vector2(-2, -11)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_7aqs0"]
+a = Vector2(1151, -2)
+b = Vector2(1154, 649)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bu534"]
+a = Vector2(-2, -2)
+b = Vector2(1153, 5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_reipo"]
+a = Vector2(0, 648)
+b = Vector2(1154, 649)
+
+[node name="fight_scene" type="Node2D" unique_id=261381658]
+script = ExtResource("1_nff5x")
+
+[node name="Background" type="TextureRect" parent="." unique_id=946857701]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_p8b18")
+
+[node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_keksv")]
+position = Vector2(596, 340)
+
+[node name="Enemy" parent="." unique_id=1434182547 instance=ExtResource("4_gksjr")]
+position = Vector2(752, 339)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=285344162]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1727499014]
+shape = SubResource("SegmentShape2D_gksjr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=141713112]
+shape = SubResource("SegmentShape2D_7aqs0")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1475874584]
+shape = SubResource("SegmentShape2D_bu534")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=602206411]
+shape = SubResource("SegmentShape2D_reipo")
