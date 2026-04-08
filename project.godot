@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Autoload="*uid://byjlhhw0hvid5"
 InteractionManager="*uid://dy65k31msecat"
+Autoload="*uid://byjlhhw0hvid5"
 
 [input]
 

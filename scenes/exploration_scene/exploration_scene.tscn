@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://digsbby3mhceu" path="res://assets/map/Main/WINDOW_BG.jpeg" id="1_7rycx"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
+[ext_resource type="Resource" uid="uid://b0hceqnndnnv8" path="res://scenes/change_scene/combat_zone.tres" id="4_uvqa3"]
 
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 
@@ -13,7 +14,10 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_7rycx")
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
+speed = 150.0
+friction = 0.1
+knockback_power = 150.0
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
 position = Vector2(230, 74)
-target_scene_path = "uid://chw44qtrb7t82"
+scene_path = ExtResource("4_uvqa3")

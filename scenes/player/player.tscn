@@ -818,6 +818,9 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=45369660 groups=["player"]]
 script = ExtResource("13_8k2jx")
+speed = null
+friction = null
+knockback_power = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1867769633]
 material = SubResource("ShaderMaterial_8ydkj")

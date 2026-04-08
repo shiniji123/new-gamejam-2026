@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_keksv"]
 [ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="5_3g10t"]
+[ext_resource type="Resource" uid="uid://v66yuyels70s" path="res://scenes/change_scene/exploration_zone.tres" id="6_pxly3"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -52,4 +53,4 @@ shape = SubResource("SegmentShape2D_reipo")
 
 [node name="TransitionArea" parent="." unique_id=901084205 instance=ExtResource("5_3g10t")]
 position = Vector2(575, 226)
-target_scene_path = "uid://dpucpeempaxyb"
+scene_path = ExtResource("6_pxly3")
