@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name BaseEnemy
 
 # --- การตั้งค่าที่ปรับแต่งได้ (Inspector) ---
 @export_group("AI Settings")
@@ -9,6 +10,7 @@ extends CharacterBody2D
 @export var damage: float = 10.0            # ดาเมจที่ทำใส่ผู้เล่นเมื่อชน
 @export var knockback_power: float = 150.0  # แรงกระเด็นเมื่อศัตรูโดนโจมตี
 @export var friction: float = 0.1           # ความหนืดเมื่อกระเด็น (0.1 = ลื่นนิดๆ, 1.0 = หยุดทันที)
+@export var knockback_resistance: float = 0.0 # ความต้านทานแรงดีด (0.0 = กระเด็นปกติ, 1.0 = บอสตัวแข็งไม่ขยับเลย)
 # ------------------------------
 
 # --- ตัวแปรภายใน ---
@@ -50,7 +52,7 @@ func _physics_process(_delta):
 	
 	# 2. ป้องกันศัตรูขยับต่อถ้าผู้เล่นตายไปแล้ว
 	if player.has_method("is_dead") and player.is_dead: 
-		animated_sprite.play("idle")
+		if animated_sprite: animated_sprite.play("idle")
 		return
 		
 	# 3. คำนวณทิศทางเพื่อมุ่งหน้าหา Player
@@ -64,16 +66,16 @@ func _physics_process(_delta):
 	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, friction)
 	
 	# 6. จัดการการหันหน้าของภาพ (Flip) 
-	# (หากรูปต้นฉบับหันซ้าย ถ้าต้องไปขวาก็สั่งให้ Flip ภาพครับ)
-	if move_direction.x > 0:
-		animated_sprite.flip_h = true 
-	else:
-		animated_sprite.flip_h = false
-		
-	# 7. สั่งเคลื่อนที่และเล่นท่าเดิน
-	move_and_slide()
 	if animated_sprite:
+		if move_direction.x > 0:
+			animated_sprite.flip_h = true 
+		else:
+			animated_sprite.flip_h = false
+		
+		# 7. สั่งเคลื่อนที่และเล่นท่าเดิน
 		animated_sprite.play("walk")
+		
+	move_and_slide()
 		
 	# 8. ตรวจสอบการเดินชนผู้เล่นเพื่อทำดาเมจ
 	for i in get_slide_collision_count():
@@ -89,7 +91,10 @@ func _physics_process(_delta):
 func _on_took_damage(_hp, _attacker_pos):
 	# คำนวณทิศแรงดีด (ดีดตัวออกจากตำแหน่งกระสุน)
 	var knockback_dir = _attacker_pos.direction_to(global_position)
-	knockback_velocity = knockback_dir * knockback_power
+	
+	# คำนวณแรงดีดโดยหักลบค่า "ความต้านทาน" (Resistance) ออกครับ
+	var final_knockback = knockback_power * (1.0 - knockback_resistance)
+	knockback_velocity = knockback_dir * final_knockback
 	
 	# สั่งรันเอฟเฟกต์แฟลชขาว (ถ้ามีโหนดนี้เป็นลูก)
 	if has_node("FlashEffects"):
@@ -109,3 +114,7 @@ func _on_died():
 		if frames.has_animation("dead"):
 			frames.set_animation_loop("dead", false)
 		animated_sprite.play("dead")
+
+		# รอ 2 วินาทีเพื่อให้เห็นท่าตายก่อนหายไป
+		await get_tree().create_timer(2.0).timeout
+		queue_free()

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="5_3g10t"]
 [ext_resource type="Resource" uid="uid://v66yuyels70s" path="res://scenes/change_scene/exploration_zone.tres" id="6_pxly3"]
+[ext_resource type="PackedScene" uid="uid://bbrrbau5kqd0o" path="res://scenes/combat/spawner.tscn" id="7_885g1"]
+[ext_resource type="PackedScene" uid="uid://ci2efubk23ul3" path="res://scenes/combat/wave_manager.tscn" id="8_gnakn"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -54,3 +56,22 @@ shape = SubResource("SegmentShape2D_reipo")
 [node name="TransitionArea" parent="." unique_id=901084205 instance=ExtResource("5_3g10t")]
 position = Vector2(575, 226)
 scene_path = ExtResource("6_pxly3")
+
+[node name="Spawner" parent="." unique_id=2017816843 instance=ExtResource("7_885g1")]
+min_radius = 150.0
+max_radius = 300.0
+
+[node name="WaveManager" parent="." unique_id=705366377 instance=ExtResource("8_gnakn")]
+waves = Array[Dictionary]([{
+"boss": 1,
+"elite": 1,
+"normal": 1
+}, {
+"boss": 0,
+"elite": 1,
+"normal": 4
+}, {
+"boss": 1,
+"elite": 0,
+"normal": 4
+}])
