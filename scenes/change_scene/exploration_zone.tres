@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SceneConfig" format=3 uid="uid://v66yuyels70s"]
 
-[ext_resource type="Script" uid="uid://baejlt047cjaw" path="res://SceneConfig.gd" id="1_xg2gk"]
+[ext_resource type="Script" uid="uid://baejlt047cjaw" path="res://SceneConfig.gd" id="1_rap18"]
 
 [resource]
-script = ExtResource("1_xg2gk")
+script = ExtResource("1_rap18")
 scene_path = "uid://dpucpeempaxyb"
 metadata/_custom_type_script = "uid://baejlt047cjaw"

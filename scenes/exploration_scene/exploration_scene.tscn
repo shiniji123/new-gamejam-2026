@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
 [ext_resource type="Resource" uid="uid://b0hceqnndnnv8" path="res://scenes/change_scene/combat_zone.tres" id="4_uvqa3"]
+[ext_resource type="PackedScene" uid="uid://b80wrbbyhmueq" path="res://scenes/component/icon.tscn" id="5_iwiyl"]
 
-[node name="ExplorationScene" type="Node2D" unique_id=641967867]
+[node name="ExplorationScene" type="Node2D" unique_id=641967867 groups=["player"]]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1692693402]
 offset_right = 40.0
@@ -21,3 +22,6 @@ knockback_power = 150.0
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
 position = Vector2(230, 74)
 scene_path = ExtResource("4_uvqa3")
+
+[node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
+position = Vector2(93, 72)

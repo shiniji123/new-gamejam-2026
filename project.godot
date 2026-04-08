@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 InteractionManager="*uid://dy65k31msecat"
 Autoload="*uid://byjlhhw0hvid5"
 
+[global_group]
+
+player=""
+
 [input]
 
 left={

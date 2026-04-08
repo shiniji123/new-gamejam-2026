@@ -4,7 +4,7 @@
 
 [node name="InteractiveArea" type="Area2D" unique_id=1537300196]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 1
 script = ExtResource("1_ixtgu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
