@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dyeksunnultlj"]
+
+[ext_resource type="Script" uid="uid://cnkt08ro68241" path="res://interaction/interactive_area/interactive_area.gd" id="1_ixtgu"]
+
+[node name="InteractiveArea" type="Area2D" unique_id=1537300196]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ixtgu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

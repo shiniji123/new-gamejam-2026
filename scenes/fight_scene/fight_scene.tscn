@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_keksv"]
 [ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
+[ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="5_3g10t"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -48,3 +49,7 @@ shape = SubResource("SegmentShape2D_bu534")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=602206411]
 shape = SubResource("SegmentShape2D_reipo")
+
+[node name="TransitionArea" parent="." unique_id=901084205 instance=ExtResource("5_3g10t")]
+position = Vector2(575, 226)
+target_scene_path = "uid://dpucpeempaxyb"
