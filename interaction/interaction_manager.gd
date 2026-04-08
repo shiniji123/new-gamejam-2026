@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var player = get_tree().get_first_node_in_group("player")
-@onready var label = $Label
+@onready var label: Label = get_node_or_null("Label")
  
 const base_text = "[E] to "
 
@@ -16,8 +16,15 @@ func unregister_area(area:InteractionArea):
 	if index != -1:
 		active_area.remove_at(index)
 
-func _process(delta):
+func _process(_delta):
+	if label == null: return # ป้องกันโปรแกรมค้างถ้าหา Label ไม่เจอ
+	
 	if active_area.size() > 0 && can_interact:
+		# ต้องเช็คด้วยว่ามี Player อยู่ในฉากหรือไม่
+		if not player:
+			player = get_tree().get_first_node_in_group("player")
+			if not player: return
+
 		active_area.sort_custom(_sort_by_distace_to_player)
 		
 		var action_label : String 

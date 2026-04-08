@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name BaseEnemy # ระบุชื่อ Class เพื่อให้ศัตรูตัวอื่น (Elite/Boss) สืบทอด (Inherit) ได้ง่ายครับ
 
 # --- การตั้งค่าที่ปรับแต่งได้ (Inspector) ---
 @export_group("AI Settings")
@@ -33,6 +34,7 @@ func _ready():
 	# 3. เชื่อมต่อระบบเลือด (ถ้าใน Editor มีการแปะ HurtboxComponent ไว้)
 	if has_node("HurtboxComponent"):
 		var hurtbox = get_node("HurtboxComponent")
+		# เชื่อมต่อสัญญาณเมื่อตาย และเมื่อโดนดาเมจ
 		hurtbox.died.connect(_on_died)
 		hurtbox.took_damage.connect(_on_took_damage)
 
@@ -50,7 +52,7 @@ func _physics_process(_delta):
 	
 	# 2. ป้องกันศัตรูขยับต่อถ้าผู้เล่นตายไปแล้ว
 	if player.has_method("is_dead") and player.is_dead: 
-		animated_sprite.play("idle")
+		if animated_sprite: animated_sprite.play("idle")
 		return
 		
 	# 3. คำนวณทิศทางเพื่อมุ่งหน้าหา Player
@@ -64,23 +66,23 @@ func _physics_process(_delta):
 	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, friction)
 	
 	# 6. จัดการการหันหน้าของภาพ (Flip) 
-	# (หากรูปต้นฉบับหันซ้าย ถ้าต้องไปขวาก็สั่งให้ Flip ภาพครับ)
-	if move_direction.x > 0:
-		animated_sprite.flip_h = true 
-	else:
-		animated_sprite.flip_h = false
-		
-	# 7. สั่งเคลื่อนที่และเล่นท่าเดิน
-	move_and_slide()
 	if animated_sprite:
+		if move_direction.x > 0:
+			animated_sprite.flip_h = true 
+		else:
+			animated_sprite.flip_h = false
+		
+		# 7. สั่งเคลื่อนที่และเล่นท่าเดิน
 		animated_sprite.play("walk")
+		
+	move_and_slide()
 		
 	# 8. ตรวจสอบการเดินชนผู้เล่นเพื่อทำดาเมจ
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		if collider.is_in_group("player"):
-			# ถ้าชนผู้เล่นสำเร็จ ให้สั่งผู้เล่นลดเลือด
+			# ถ้าชนผู้เล่นสำเร็จ ให้สั่งผู้เล่นลดเลือดผ่าน Hurtbox
 			if collider.has_node("HurtboxComponent"):
 				collider.get_node("HurtboxComponent").take_damage(damage, global_position)
 
@@ -99,6 +101,9 @@ func _on_died():
 	if is_dead: return
 	is_dead = true
 	
+	# บอกให้ Tree รู้ว่าตัวนี้ตายแล้ว (เป็นประโยชน์สำหรับระบบ Wave)
+	# เราสามารถลบตัวเองทิ้งหลังจากเล่น Animation จบ หรือใช้วิธีอื่นก็ได้ครับ
+	
 	# หยุดการเคลื่อนที่ทั้งหมด
 	velocity = Vector2.ZERO
 	knockback_velocity = Vector2.ZERO
@@ -109,3 +114,7 @@ func _on_died():
 		if frames.has_animation("dead"):
 			frames.set_animation_loop("dead", false)
 		animated_sprite.play("dead")
+		
+		# สอน: หลังจากเล่นท่าตายจบ 2 วินาที ค่อยลบ Object ทิ้งครับ (เพื่อให้เห็นท่าตายก่อน)
+		await get_tree().create_timer(2.0).timeout
+		queue_free()
