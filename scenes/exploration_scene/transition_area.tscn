@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c78l0u7y5qw2o"]
+
+[ext_resource type="Script" uid="uid://cqofd3wwofqhi" path="res://scripts/exploration_scene/transition_area.gd" id="1_ms6a7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_np6uo"]
+radius = 28.0
+
+[node name="TransitionArea" type="Area2D" unique_id=901084205]
+script = ExtResource("1_ms6a7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1944061491]
+shape = SubResource("CircleShape2D_np6uo")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=559952104]
+offset_left = -28.0
+offset_top = -30.0
+offset_right = 29.0
+offset_bottom = 28.0
+color = Color(0.11372549, 1, 0.10980392, 0.3019608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

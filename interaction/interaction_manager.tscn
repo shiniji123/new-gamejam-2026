@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dy65k31msecat"]
+
+[ext_resource type="Script" path="res://interaction/interaction_manager.gd" id="1_bisbg"]
+
+[node name="Interaction_Manager" type="Node2D" unique_id=340026935]
+script = ExtResource("1_bisbg")
+
+[node name="Label" type="Label" parent="." unique_id=87964824]
+z_index = 50
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -156.0
+offset_right = 156.0
+offset_bottom = 74.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 15
+text = "[E] to"
+horizontal_alignment = 1
+vertical_alignment = 1
