@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var interaction_area: InteractionArea = $InteractiveArea
-var player = null
+@onready var player = get_tree().get_first_node_in_group("player")
 #===============================================
 #INTERACTION
 func _ready():

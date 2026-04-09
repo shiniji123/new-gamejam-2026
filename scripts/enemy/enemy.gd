@@ -40,15 +40,17 @@ func _ready():
 
 func _physics_process(_delta):
 	# ไม่ทำอะไรต่อถ้าตายแล้ว หรือยังอยู่ในช่วงดีเลย์การเกิด
-	if is_dead or is_spawning: return
+	if is_dead or is_spawning: 
+		return
 	
 	# 1. ค้นหา Player ในกลุ่ม "player" (ทำครั้งแรกครั้งเดียว)
 	if not player:
 		var players = get_tree().get_nodes_in_group("player")
 		if players.size() > 0:
 			player = players[0]
-			
-	if not player: return # ถ้าไม่เจอผู้เล่นในฉาก ก็ไม่ต้องเดิน
+	
+	if not player: 
+		return # ถ้าไม่เจอผู้เล่นในฉาก ก็ไม่ต้องเดิน
 	
 	# 2. ป้องกันศัตรูขยับต่อถ้าผู้เล่นตายไปแล้ว
 	if player.has_method("is_dead") and player.is_dead: 
