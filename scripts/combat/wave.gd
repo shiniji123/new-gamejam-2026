@@ -56,6 +56,8 @@ func spawn_one(scene):
 	if instance:
 		instance.tree_exited.connect(_on_enemy_cleared)
 
+signal wave_cleared(wave_index: int)
+
 func _on_enemy_cleared():
 	# ป้องกัน Error ตอนเปลี่ยนฉาก หรือปิดเกมที่โหนดถูกลบไปแล้ว
 	if not get_tree(): return
@@ -63,8 +65,5 @@ func _on_enemy_cleared():
 	enemies_left -= 1
 	if enemies_left <= 0:
 		print("Wave เคลียร์!")
-		await get_tree().create_timer(2.0).timeout
-		
-		# เช็คอีกครั้งเผื่อโหนดโดนลบตอนกำลังรอ Timer 2 วินาที
-		if not get_tree(): return
-		start_next_wave()
+		# ผู้จัดการ Wave จะไม่เล่นต่ออัตโนมัติ ให้ฉากต่อตู้หรือ RewardUI เป็นคนสั่งลุยเวฟต่อไป
+		wave_cleared.emit(current_wave_index)

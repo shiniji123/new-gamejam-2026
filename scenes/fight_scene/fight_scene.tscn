@@ -13,6 +13,13 @@
 [ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="11_fgyv5"]
 [ext_resource type="Script" uid="uid://dd1lyaul6fcbo" path="res://scripts/ui/volume_slider.gd" id="12_261b0"]
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="13_plvsq"]
+[ext_resource type="Script" uid="uid://cqjkxp6kciiro" path="res://scripts/ui/reward_ui.gd" id="14_gugfg"]
+[ext_resource type="PackedScene" uid="uid://cfbkv27l685vq" path="res://scenes/ui/reward_choice_card.tscn" id="14_jyjil"]
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="15_o1sxk"]
+[ext_resource type="Resource" uid="uid://bkmmyy3ji5d0v" path="res://assets/data/perks/damage_up.tres" id="16_qqmyc"]
+[ext_resource type="Resource" uid="uid://bkuv1eahym0qh" path="res://assets/data/perks/attack_speed_up.tres" id="17_qqmyc"]
+[ext_resource type="Resource" uid="uid://8t54vjj1d52g" path="res://assets/data/perks/projectile_plus.tres" id="18_olvwu"]
+[ext_resource type="Resource" uid="uid://bohb2ghi1287m" path="res://assets/data/perks/pierce_bonus.tres" id="19_olvwu"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -69,8 +76,8 @@ max_radius = 300.0
 [node name="WaveManager" parent="." unique_id=705366377 instance=ExtResource("8_gnakn")]
 waves = Array[Dictionary]([{
 "boss": 1,
-"elite": 8,
-"normal": 1
+"elite": 0,
+"normal": 0
 }, {
 "boss": 0,
 "elite": 1,
@@ -94,6 +101,7 @@ stretch_margin_right = 4
 texture_under = ExtResource("9_a5mk7")
 texture_progress = ExtResource("10_fgyv5")
 script = ExtResource("11_fgyv5")
+metadata/_edit_use_anchors_ = true
 
 [node name="HSlider" type="HSlider" parent="UI" unique_id=1243814843]
 offset_left = 50.0
@@ -104,6 +112,7 @@ max_value = 1.0
 step = 0.01
 ticks_on_borders = true
 script = ExtResource("12_261b0")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="UI" unique_id=1676526455]
 offset_left = 62.0
@@ -111,3 +120,29 @@ offset_top = 71.0
 offset_right = 264.0
 offset_bottom = 94.0
 script = ExtResource("13_plvsq")
+metadata/_edit_use_anchors_ = true
+
+[node name="RewardUI" type="ColorRect" parent="UI" unique_id=744901654 node_paths=PackedStringArray("cards_container")]
+offset_left = 154.0
+offset_top = 37.0
+offset_right = 1038.0
+offset_bottom = 390.0
+color = Color(0, 0, 0.21960784, 1)
+script = ExtResource("14_gugfg")
+perk_pool = Array[ExtResource("15_o1sxk")]([ExtResource("16_qqmyc"), ExtResource("17_qqmyc"), ExtResource("18_olvwu"), ExtResource("19_olvwu")])
+cards_container = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RewardUI" unique_id=545414841]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 758.0
+offset_bottom = 398.0
+
+[node name="reward" parent="UI/RewardUI/HBoxContainer" unique_id=132454399 instance=ExtResource("14_jyjil")]
+layout_mode = 2
+
+[node name="reward2" parent="UI/RewardUI/HBoxContainer" unique_id=1106077555 instance=ExtResource("14_jyjil")]
+layout_mode = 2
+
+[node name="reward3" parent="UI/RewardUI/HBoxContainer" unique_id=153919626 instance=ExtResource("14_jyjil")]
+layout_mode = 2

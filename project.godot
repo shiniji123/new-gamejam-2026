@@ -21,6 +21,8 @@ InteractionManager="*res://interaction/interaction_manager.tscn"
 AudioManager="*res://scripts/autoloads/audio_manager.gd"
 Autoload="*res://scripts/autoloads/autoload.gd"
 SceneManager="*res://scripts/autoloads/scene_manager.gd"
+RunManager="*res://scripts/autoloads/run_manager.gd"
+StatCalculator="*res://scripts/system/stat_calculator.gd"
 
 [global_group]
 

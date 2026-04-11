@@ -55,10 +55,12 @@ func fire_at_target(target: Node2D) -> void:
 	if shoot_sound:
 		AudioManager.play_sfx(shoot_sound, true)
 		
-	var final_damage: float = damage * (1.0 + Autoload.damage_bonus)
-	var total_shots: int = 1 + Autoload.multishot_level
-	var spread_angle_deg: float = 15.0 
+	# เรียกใช้ StatCalculator เพื่อคำนวณดาเมจ จำนวนกระสุน และการโจมตีทะลุรวม (Perks + Shop + Base)
+	var final_damage: float = StatCalculator.get_player_damage(damage)
+	var total_shots: int = StatCalculator.get_projectile_count(1)
+	var final_pierce: int = StatCalculator.get_pierce_count(0) # เริ่มต้นทะลุไม่ได้ (0)
 	
+	var spread_angle_deg: float = 15.0 
 	var base_dir: Vector2 = target.global_position - global_position
 	
 	for i in range(total_shots):
@@ -79,4 +81,4 @@ func fire_at_target(target: Node2D) -> void:
 		var final_dir: Vector2 = base_dir.rotated(angle_offset)
 		
 		if proj.has_method("setup"):
-			proj.setup(final_dir, projectile_speed, final_damage)
+			proj.setup(final_dir, projectile_speed, final_damage, final_pierce)

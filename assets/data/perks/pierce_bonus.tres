@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PerkData" format=3 uid="uid://bohb2ghi1287m"]
+
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="1_0jvqu"]
+[ext_resource type="Texture2D" uid="uid://76wc5oiih43e" path="res://assets/icons_perk/hailStorm.png" id="1_yqfiy"]
+
+[resource]
+script = ExtResource("1_0jvqu")
+id = &"pierce"
+title = "Piercing"
+description = "Pierce 1 Enemy"
+icon = ExtResource("1_yqfiy")
+modifiers = {
+"pierce_bonus": 1.0
+}
+metadata/_custom_type_script = "uid://be4seik8otyv2"

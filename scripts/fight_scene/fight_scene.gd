@@ -12,6 +12,14 @@ func _ready() -> void:
 	# ส่วนเลข 1.5 คือระยะเวลา (Fade-in) ที่จะค่อยๆ เร่งเสียงดังขึ้น 1.5 วินาที
 	var my_battle_music = preload("res://assets/sounds/fight_scene_bg.wav")
 	AudioManager.play_bgm(my_battle_music, 1.5)
+	
+	# ผูกระบบหน้าต่างรางวัล (Reward UI) เข้ากับระบบควบคุมศัตรู (Wave Manager)
+	# ตรวจสอบว่าในฉากมีโหนด RewardUI ($UI/RewardUI) และ WaveManager หรือไม่
+	var wave_manager = get_node_or_null("WaveManager")
+	var reward_ui = get_node_or_null("UI/RewardUI")
+	if wave_manager and reward_ui and reward_ui.has_method("connect_to_wave_manager"):
+		reward_ui.connect_to_wave_manager(wave_manager)
+	
 	# 🛠️ ระบบจัดการกล้องอัตโนมัติ:
 	# เราจะสั่งให้กล้องที่ติดอยู่กับตัวผู้เล่น ไม่สามารถเลื่อนออกไปนอกพื้นหลังได้ครับ
 	
