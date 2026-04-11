@@ -20,6 +20,11 @@ func spawn_enemy(enemy_scene: PackedScene) -> Node2D:
 	
 	var enemy = enemy_scene.instantiate()
 	enemy.global_position = spawn_pos
-	get_tree().root.add_child(enemy)
+	
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		current_scene.add_child(enemy)
+	else:
+		get_tree().root.add_child(enemy)
 	
 	return enemy

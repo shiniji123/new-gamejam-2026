@@ -57,8 +57,14 @@ func spawn_one(scene):
 		instance.tree_exited.connect(_on_enemy_cleared)
 
 func _on_enemy_cleared():
+	# ป้องกัน Error ตอนเปลี่ยนฉาก หรือปิดเกมที่โหนดถูกลบไปแล้ว
+	if not get_tree(): return
+	
 	enemies_left -= 1
 	if enemies_left <= 0:
 		print("Wave เคลียร์!")
 		await get_tree().create_timer(2.0).timeout
+		
+		# เช็คอีกครั้งเผื่อโหนดโดนลบตอนกำลังรอ Timer 2 วินาที
+		if not get_tree(): return
 		start_next_wave()

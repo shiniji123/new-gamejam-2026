@@ -11,70 +11,64 @@ class_name BaseEnemy
 @export var knockback_power: float = 150.0  # แรงกระเด็นเมื่อศัตรูโดนโจมตี
 @export var friction: float = 0.1           # ความหนืดเมื่อกระเด็น (0.1 = ลื่นนิดๆ, 1.0 = หยุดทันที)
 @export var knockback_resistance: float = 0.0 # ความต้านทานแรงดีด (0.0 = กระเด็นปกติ, 1.0 = บอสตัวแข็งไม่ขยับเลย)
+
+@export_group("Economy (ระบบเงินทอง)")
+@export var reward_money: int = 15          # เงินที่จะดรอปเมื่อมอนสเตอร์ตัวนี้ตาย
+# ------------------------------
+
+@export_group("Audio")
+@export var hit_sound: AudioStream            # ลากไฟล์เสียงตอนถูกตีมาใส่
 # ------------------------------
 
 # --- ตัวแปรภายใน ---
-var player: CharacterBody2D = null          # ตัวแปรเก็บตำแหน่งผู้เล่น
-var is_spawning: bool = true                # สถานะกำลังเกิด (ยังไม่ขยับ)
-var is_dead: bool = false                    # สถานะตาย
-var knockback_velocity: Vector2 = Vector2.ZERO # แรงที่ได้รับจากการโดนยิง
+var player: CharacterBody2D = null           # บังคับประเภทผู้เล่นให้เป็นแพทเทิร์นชัดเจน
+var is_spawning: bool = true                
+var is_dead: bool = false                    
+var knockback_velocity: Vector2 = Vector2.ZERO 
 
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-func _ready():
-	# เพิ่มเข้ากลุ่มเพื่อให้ระบบยิงอัตโนมัติหาเจอ
+func _ready() -> void:
 	add_to_group("enemy")
 	
-	# 1. เล่นท่า Idle (ท่ายืน) ทันทีที่เกิด
 	if animated_sprite:
 		animated_sprite.play("idle")
 	
-	# 2. เริ่มนับเวลาหน่วงการเกิด
 	get_tree().create_timer(spawn_delay).timeout.connect(func(): is_spawning = false)
 	
-	# 3. เชื่อมต่อระบบเลือด (ถ้าใน Editor มีการแปะ HurtboxComponent ไว้)
 	if has_node("HurtboxComponent"):
 		var hurtbox = get_node("HurtboxComponent")
 		hurtbox.died.connect(_on_died)
 		hurtbox.took_damage.connect(_on_took_damage)
 
-func _physics_process(_delta):
-	# ไม่ทำอะไรต่อถ้าตายแล้ว หรือยังอยู่ในช่วงดีเลย์การเกิด
+func _physics_process(_delta: float) -> void:
 	if is_dead or is_spawning: 
 		return
 	
-	# 1. ค้นหา Player ในกลุ่ม "player" (ทำครั้งแรกครั้งเดียว)
-	if not player:
-		var players = get_tree().get_nodes_in_group("player")
-		if players.size() > 0:
-			player = players[0]
+	if not is_instance_valid(player):
+		var players: Array = get_tree().get_nodes_in_group("player")
+		for p in players:
+			if p is CharacterBody2D:
+				player = p
+				break
 	
-	if not player: 
-		return # ถ้าไม่เจอผู้เล่นในฉาก ก็ไม่ต้องเดิน
+	# ป้องกันเกมพังกรณีผู้เล่นโดนลบทิ้งกะทันหัน
+	if not is_instance_valid(player): 
+		return 
 	
-	# 2. ป้องกันศัตรูขยับต่อถ้าผู้เล่นตายไปแล้ว
 	if player.has_method("is_dead") and player.is_dead: 
 		if animated_sprite: animated_sprite.play("idle")
 		return
 		
-	# 3. คำนวณทิศทางเพื่อมุ่งหน้าหา Player
-	var move_direction = global_position.direction_to(player.global_position)
+	var move_direction: Vector2 = global_position.direction_to(player.global_position)
 	
-	# 4. คำนวณความเร็ว (Velocity)
-	# รวมแรงเดินปกติ เข้ากับ แรงกระเด็นจากกระสุน (Knockback)
 	velocity = (move_direction * speed) + knockback_velocity
 	
-	# 5. จัดการความหนืดของแรงกระเด็น
-	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, friction)
+	# [ระบบ AAA] นำเวลา Delta มาคำนวณความหนืด (เฟรม 60Hz และ 144Hz จะหนืดเท่ากัน!)
+	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 1.0 - exp(-friction * 60.0 * _delta))
 	
-	# 6. จัดการการหันหน้าของภาพ (Flip) 
 	if animated_sprite:
-		if move_direction.x > 0:
-			animated_sprite.flip_h = true 
-		else:
-			animated_sprite.flip_h = false
-		
-		# 7. สั่งเคลื่อนที่และเล่นท่าเดิน
+		animated_sprite.flip_h = move_direction.x > 0
 		animated_sprite.play("walk")
 		
 	move_and_slide()
@@ -91,6 +85,10 @@ func _physics_process(_delta):
 # --- ส่วนรับสัญญาณจากโหนดย่อย (Signals) ---
 
 func _on_took_damage(_hp, _attacker_pos):
+	# เล่นเสียงร้องเจ็บปวด
+	if hit_sound:
+		AudioManager.play_sfx(hit_sound, true)
+		
 	# คำนวณทิศแรงดีด (ดีดตัวออกจากตำแหน่งกระสุน)
 	var knockback_dir = _attacker_pos.direction_to(global_position)
 	
@@ -102,21 +100,23 @@ func _on_took_damage(_hp, _attacker_pos):
 	if has_node("FlashEffects"):
 		get_node("FlashEffects").flash()
 
-func _on_died():
+func _on_died() -> void:
 	if is_dead: return
 	is_dead = true
 	
-	# หยุดการเคลื่อนที่ทั้งหมด
 	velocity = Vector2.ZERO
 	knockback_velocity = Vector2.ZERO
 	
-	# เล่นท่าตายรอบเดียว (ห้ามวนลูป)
+	Autoload.coin += reward_money
+	
 	if animated_sprite:
-		var frames = animated_sprite.sprite_frames
+		var frames: SpriteFrames = animated_sprite.sprite_frames
 		if frames.has_animation("dead"):
 			frames.set_animation_loop("dead", false)
 		animated_sprite.play("dead")
 
-		# รอ 2 วินาทีเพื่อให้เห็นท่าตายก่อนหายไป
 		await get_tree().create_timer(2.0).timeout
-		queue_free()
+		
+		# [ระบบ AAA] เช็คว่าออบเจกต์นี้ยังมีชีวิตรอดบนจออยู่ไหมก่อนจะสั่งลบ! (ป้องกันแคลชตอนเปลี่ยนฉาก)
+		if is_instance_valid(self):
+			queue_free()

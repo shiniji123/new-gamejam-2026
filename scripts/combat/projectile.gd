@@ -1,8 +1,10 @@
 extends Area2D
 
+@export var hit_effect_scene: PackedScene # ลากไฟล์ hit_effect.tscn มาใส่ตรงนี้ใน Inspector ของ Projectile Scene ครับ
+
 # --- การตั้งค่าภายใน ---
 var speed: float = 400.0             # ความเร็วที่ได้รับจาก CombatSystem
-var damage: float = 20.0            # ดาเมจที่ได้รับจาก CombatSystem
+var damage: float = 50.0          # ดาเมจที่ได้รับจาก CombatSystem
 var direction: Vector2 = Vector2.ZERO # ทิศทางที่จะวิ่งไป
 var lifetime: float = 5.0           # วินาที: ลบตัวเองทิ้งถ้าไม่ชนอะไรเลย เพื่อประหยัดแรม
 
@@ -42,5 +44,12 @@ func _on_area_entered(area):
 			# สั่งลดเลือดศัตรู และส่งตำแหน่งปัจจุบันของเราไปเพื่อทำแรงดีด (Knockback)
 			body.get_node("HurtboxComponent").take_damage(damage, global_position)
 			
-			# เมื่อทำดาเมจสำเร็จแล้ว ให้ลบกระสุนทิ้งทันที
+			# เสก Effect ระเบิดขึ้นมาในตำแหน่งที่ชน
+			if hit_effect_scene:
+				var effect = hit_effect_scene.instantiate()
+				# แปะไว้ที่ root ของเกม เพื่อไม่ให้หมุนหรือหายไปพร้อมกับอย่างอื่น
+				get_tree().current_scene.add_child(effect)
+				effect.global_position = global_position
+			
+			# เมื่อทำดาเมจและเสก Effect สำเร็จแล้ว ให้ลบกระสุนทิ้งทันที
 			queue_free()

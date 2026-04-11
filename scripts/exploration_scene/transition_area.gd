@@ -12,7 +12,13 @@ func _on_body_entered(body):
 		call_deferred("_change_state")
 		
 func _change_scene():
-	get_tree().change_scene_to_file(scene_path.scene_path)
+	# เรียกใช้ระบบใหม่ที่หล่อเท่ (ถ้าลงทะเบียน Autoload ไว้แล้วนะ!)
+	if get_tree().root.has_node("SceneManager"):
+		var sm = get_tree().root.get_node("SceneManager")
+		sm.change_scene(scene_path.scene_path)
+	else:
+		# ถ้ายังไม่ได้ลงทะเบียน ก็ใช้ของเก่าไปก่อนกัน Error
+		get_tree().change_scene_to_file(scene_path.scene_path)
 	
 func _change_state():
 	var scene_state = scene_path.scene_state

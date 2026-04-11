@@ -8,6 +8,11 @@
 [ext_resource type="Resource" uid="uid://v66yuyels70s" path="res://scenes/change_scene/exploration_zone.tres" id="6_pxly3"]
 [ext_resource type="PackedScene" uid="uid://bbrrbau5kqd0o" path="res://scenes/combat/spawner.tscn" id="7_885g1"]
 [ext_resource type="PackedScene" uid="uid://ci2efubk23ul3" path="res://scenes/combat/wave_manager.tscn" id="8_gnakn"]
+[ext_resource type="Texture2D" uid="uid://y7b4xy4yd5cp" path="res://assets/health_bar/empthy.png" id="9_a5mk7"]
+[ext_resource type="Texture2D" uid="uid://bw1hfqngui4fc" path="res://assets/health_bar/max.png" id="10_fgyv5"]
+[ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="11_fgyv5"]
+[ext_resource type="Script" uid="uid://dd1lyaul6fcbo" path="res://scripts/ui/volume_slider.gd" id="12_261b0"]
+[ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="13_plvsq"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -64,7 +69,7 @@ max_radius = 300.0
 [node name="WaveManager" parent="." unique_id=705366377 instance=ExtResource("8_gnakn")]
 waves = Array[Dictionary]([{
 "boss": 1,
-"elite": 1,
+"elite": 8,
 "normal": 1
 }, {
 "boss": 0,
@@ -75,3 +80,34 @@ waves = Array[Dictionary]([{
 "elite": 0,
 "normal": 4
 }])
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1996911686]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI" unique_id=1022639855]
+offset_left = 46.0
+offset_top = 31.0
+offset_right = 394.0
+offset_bottom = 71.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_right = 4
+texture_under = ExtResource("9_a5mk7")
+texture_progress = ExtResource("10_fgyv5")
+script = ExtResource("11_fgyv5")
+
+[node name="HSlider" type="HSlider" parent="UI" unique_id=1243814843]
+offset_left = 50.0
+offset_top = -10.0
+offset_right = 359.0
+offset_bottom = 81.0
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+script = ExtResource("12_261b0")
+
+[node name="Label" type="Label" parent="UI" unique_id=1676526455]
+offset_left = 62.0
+offset_top = 71.0
+offset_right = 264.0
+offset_bottom = 94.0
+script = ExtResource("13_plvsq")

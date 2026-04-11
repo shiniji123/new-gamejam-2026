@@ -7,6 +7,7 @@ func _ready():
 	damage *= 3.0
 	speed *= 0.7 # บอสตัวใหญ่อาจจะเดินอืดลงนิดนึงครับ
 	knockback_resistance = 0.8 # ต้านทานแรงดีด 80% (ตัวหนักมาก)
+	reward_money = 200         # เงินรางวัลชนะบอส
 	
 	if has_node("HurtboxComponent"):
 		var hurtbox = get_node("HurtboxComponent")

@@ -1,23 +1,93 @@
 [gd_scene format=3 uid="uid://dpucpeempaxyb"]
 
 [ext_resource type="Texture2D" uid="uid://digsbby3mhceu" path="res://assets/map/Main/WINDOW_BG.jpeg" id="1_7rycx"]
+[ext_resource type="Script" uid="uid://bqa5r53v8d61i" path="res://scripts/exploration_scene/exploration_scene.gd" id="1_shpba"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
 [ext_resource type="Resource" uid="uid://b0hceqnndnnv8" path="res://scenes/change_scene/combat_zone.tres" id="4_uvqa3"]
 [ext_resource type="PackedScene" uid="uid://b80wrbbyhmueq" path="res://scenes/component/icon.tscn" id="5_iwiyl"]
+[ext_resource type="Texture2D" uid="uid://fnvmjl3cvdmy" path="res://assets/effect/sprite-sheet.png" id="7_fnwyb"]
+[ext_resource type="Script" uid="uid://ch21kng8l8s1h" path="res://scripts/shop_npc.gd" id="7_m6i2j"]
+[ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="8_fnwyb"]
+[ext_resource type="PackedScene" uid="uid://bgfjoa0qvyob4" path="res://scenes/ui/shop_ui.tscn" id="9_hpjf3"]
+[ext_resource type="Script" uid="uid://cnkt08ro68241" path="res://interaction/interactive_area/interactive_area.gd" id="10_hpjf3"]
+[ext_resource type="Texture2D" uid="uid://y7b4xy4yd5cp" path="res://assets/health_bar/empthy.png" id="12_1wjfq"]
+[ext_resource type="Texture2D" uid="uid://bw1hfqngui4fc" path="res://assets/health_bar/max.png" id="13_wef41"]
+[ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="14_8casv"]
+[ext_resource type="Script" uid="uid://dd1lyaul6fcbo" path="res://scripts/ui/volume_slider.gd" id="15_rc7ga"]
+[ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
 
-[node name="ExplorationScene" type="Node2D" unique_id=641967867 groups=["player"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(0, 0, 64, 64)
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1692693402]
-offset_right = 40.0
-offset_bottom = 40.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_un5d4"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2766l"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0w0c"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g471u"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wjfq"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wef41"]
+atlas = ExtResource("7_fnwyb")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8casv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpjf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un5d4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2766l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0w0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g471u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wjfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wef41")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_un5d4"]
+radius = 14.764823
+
+[node name="ExplorationScene" type="Node2D" unique_id=641967867]
+script = ExtResource("1_shpba")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1692693402]
+offset_right = 1200.0
+offset_bottom = 1200.0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_7rycx")
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
-speed = 150.0
-friction = 0.1
-knockback_power = 150.0
+position = Vector2(31, 72)
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
 position = Vector2(230, 74)
@@ -25,3 +95,56 @@ scene_path = ExtResource("4_uvqa3")
 
 [node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
 position = Vector2(93, 72)
+
+[node name="Shop" type="AnimatedSprite2D" parent="." unique_id=909600885 node_paths=PackedStringArray("interaction_area", "shop_ui", "animated_sprite")]
+position = Vector2(377, 70)
+sprite_frames = SubResource("SpriteFrames_8casv")
+script = ExtResource("7_m6i2j")
+interaction_area = NodePath("Area2D")
+shop_ui = NodePath("../ShopUI")
+animated_sprite = NodePath(".")
+
+[node name="InteractiveArea" parent="Shop" unique_id=1537300196 instance=ExtResource("8_fnwyb")]
+position = Vector2(0, 6)
+
+[node name="Area2D" type="Area2D" parent="Shop" unique_id=937741140]
+position = Vector2(2, 5)
+script = ExtResource("10_hpjf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/Area2D" unique_id=2039638490]
+position = Vector2(3, -3)
+shape = SubResource("CircleShape2D_un5d4")
+
+[node name="ShopUI" parent="." unique_id=1950074557 instance=ExtResource("9_hpjf3")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=13284102]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI" unique_id=584667549]
+offset_left = 46.0
+offset_top = 31.0
+offset_right = 394.0
+offset_bottom = 71.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_right = 4
+texture_under = ExtResource("12_1wjfq")
+texture_progress = ExtResource("13_wef41")
+script = ExtResource("14_8casv")
+metadata/_edit_use_anchors_ = true
+
+[node name="HSlider" type="HSlider" parent="UI" unique_id=1090675875]
+offset_left = 50.0
+offset_top = -10.0
+offset_right = 359.0
+offset_bottom = 81.0
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+script = ExtResource("15_rc7ga")
+
+[node name="Label" type="Label" parent="UI" unique_id=1040935337]
+offset_left = 62.0
+offset_top = 71.0
+offset_right = 264.0
+offset_bottom = 94.0
+script = ExtResource("16_1tvuq")

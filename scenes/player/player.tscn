@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://6h1qunxstw30"]
 
 [ext_resource type="Texture2D" uid="uid://btswsccen4uxv" path="res://assets/character/player/Idle/Idle_Left_Down.png" id="1_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://siqc0wh6p634" path="res://assets/sounds/player_hurt.wav" id="2_3j4b4"]
 [ext_resource type="Texture2D" uid="uid://dnyixh6bpmp4n" path="res://assets/character/player/Death/death_Left_Down.png" id="2_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dtt07lnpevbi" path="res://assets/character/player/Idle/Idle_Down.png" id="2_jej6c"]
 [ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="2_kvlxm"]
@@ -19,6 +20,7 @@
 [ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="17_lgqa7"]
 [ext_resource type="Script" uid="uid://cgai7s2gbxlnv" path="res://scripts/combat/combat_system.gd" id="18_lgqa7"]
 [ext_resource type="PackedScene" uid="uid://c2d51w3m01gbq" path="res://scenes/combat/projectile.tscn" id="19_8ydkj"]
+[ext_resource type="AudioStream" uid="uid://dnfp74twaiyt2" path="res://assets/sounds/player_attack.wav" id="21_yj68g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ydkj"]
 shader = ExtResource("2_kvlxm")
@@ -818,9 +820,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=45369660 groups=["player"]]
 script = ExtResource("13_8k2jx")
-speed = null
-friction = null
-knockback_power = null
+hit_sound = ExtResource("2_3j4b4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1867769633]
 material = SubResource("ShaderMaterial_8ydkj")
@@ -844,3 +844,5 @@ script = ExtResource("17_lgqa7")
 [node name="CombatSystem" type="Node2D" parent="." unique_id=767596063]
 script = ExtResource("18_lgqa7")
 projectile_scene = ExtResource("19_8ydkj")
+damage = 500.0
+shoot_sound = ExtResource("21_yj68g")

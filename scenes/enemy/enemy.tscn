@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cmtdj7wjxikvf"]
 
-[ext_resource type="Texture2D" uid="uid://yaiqvbkej8f1" path="res://assets/character/enemy/Death/death_normal_left_down.png" id="1_4ra3w"]
-[ext_resource type="Texture2D" uid="uid://bpsajya6w3r5a" path="res://assets/character/enemy/Idle/idle_left_down.png" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://yaiqvbkej8f1" path="res://assets/character/enemy/normal/Death/death_normal_left_down.png" id="1_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://bpsajya6w3r5a" path="res://assets/character/enemy/normal/Idle/idle_left_down.png" id="1_md0e3"]
 [ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_nbhyu"]
-[ext_resource type="Texture2D" uid="uid://r86c1ar8nig2" path="res://assets/character/enemy/Walk/walk_left_down.png" id="2_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://r86c1ar8nig2" path="res://assets/character/enemy/normal/Walk/walk_left_down.png" id="2_4ra3w"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="2_13gj6"]
 [ext_resource type="Script" uid="uid://n8bhnuxeqffd" path="res://scripts/enemy/enemy.gd" id="3_4ra3w"]
 [ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="5_cwlon"]
 [ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="6_nbhyu"]
@@ -200,6 +201,7 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("3_4ra3w")
+hit_sound = ExtResource("2_13gj6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=661418559]
 material = SubResource("ShaderMaterial_nbhyu")

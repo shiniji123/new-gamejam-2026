@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://gujc4q5px2lj" path="res://scripts/combat/projectile.gd" id="1_a85iw"]
 [ext_resource type="Texture2D" uid="uid://cc5im22dn2c7n" path="res://assets/fight/attack.png" id="2_ptxme"]
+[ext_resource type="PackedScene" uid="uid://dan4rvdwayyco" path="res://scenes/combat/hit_effect.tscn" id="2_s7a20"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
 
 [node name="Projectile" type="Area2D" unique_id=569714409]
 script = ExtResource("1_a85iw")
+hit_effect_scene = ExtResource("2_s7a20")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=542190823]
 texture = ExtResource("2_ptxme")

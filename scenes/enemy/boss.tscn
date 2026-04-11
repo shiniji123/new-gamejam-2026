@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://ch8c5nxexyaij"]
 
 [ext_resource type="Script" uid="uid://8udq2qfjaoqg" path="res://scripts/enemy/boss.gd" id="1_7chxf"]
+[ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_ee08l"]
 [ext_resource type="Texture2D" uid="uid://b6kvyawm83rx0" path="res://assets/character/enemy/boss/boss_dead.PNG" id="2_e3jr6"]
 [ext_resource type="Texture2D" uid="uid://cdhtr5hr1ffk3" path="res://assets/character/enemy/boss/boss_idle.PNG" id="3_b0cli"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="3_mibu8"]
 [ext_resource type="Texture2D" uid="uid://dqanan7heds84" path="res://assets/character/enemy/boss/boss_walk.PNG" id="4_40x6t"]
 [ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="5_40x6t"]
 [ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="6_ee08l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mibu8"]
+shader = ExtResource("1_ee08l")
+shader_parameter/flash_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ee08l"]
 atlas = ExtResource("2_e3jr6")
@@ -564,7 +571,9 @@ radius = 61.846584
 radius = 36.013885
 
 [node name="boss" type="CharacterBody2D" unique_id=276659941]
+material = SubResource("ShaderMaterial_mibu8")
 script = ExtResource("1_7chxf")
+hit_sound = ExtResource("3_mibu8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2144888717]
 sprite_frames = SubResource("SpriteFrames_ymjoj")

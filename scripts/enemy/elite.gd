@@ -8,6 +8,7 @@ func _ready():
 	damage *= 1.5
 	speed *= 1.2
 	knockback_resistance = 0.3 # ต้านทานแรงดีด 30%
+	reward_money = 30          # เงินรางวัลมากขึ้น
 	
 	# เพิ่มเลือดถ้ามี HurtboxComponent
 	if has_node("HurtboxComponent"):

@@ -7,38 +7,57 @@ extends CharacterBody2D
 
 @export_group("Combat Effects")
 @export var knockback_power: float = 150.0    # ความแรงเมื่อโดนดีด
+
+@export_group("UI Interfaces")
+# เปิดกว้างให้รองรับหลอดเลือดได้ทุกประเภท (Control แทนที่จะเจาะจง TextureProgressBar) ยืดหยุ่นกว่า!
+@export var health_bar: Control              
+
+@export_group("Audio")
+@export var hit_sound: AudioStream            
 # ------------------------------
 
 # --- ตัวแปรภายใน ---
-var last_dir = "down"                         # เอาไว้จำทิศทางล่าสุดสำหรับเล่นท่า Idle
-var is_dead: bool = false                      # สถานะตาย
-var knockback_velocity: Vector2 = Vector2.ZERO # แรงที่ได้รับจากการโดนโจมตี
+var last_dir: String = "down"                         
+var is_dead: bool = false                      
+var knockback_velocity: Vector2 = Vector2.ZERO 
 
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-func _ready():
-	# เพิ่มเข้ากลุ่ม player เพื่อลอจิกอื่นๆ เช่น กล้อง หรือ AI ศัตรู
+func _ready() -> void:
 	add_to_group("player")
+	
+	if has_node("HurtboxComponent"):
+		var hurtbox = get_node("HurtboxComponent")
+		if not hurtbox.died.is_connected(_on_died):
+			hurtbox.died.connect(_on_died)
+		if not hurtbox.took_damage.is_connected(_on_took_damage):
+			hurtbox.took_damage.connect(_on_took_damage)
+			
+		call_deferred("_sync_initial_health")
 
-func _physics_process(_delta):
-	# ถ้าตายแล้ว ไม่ต้องทำอะไรต่อ
+func _sync_initial_health() -> void:
+	if has_node("HurtboxComponent"):
+		var hurtbox = get_node("HurtboxComponent")
+		if not health_bar:
+			var bars: Array = get_tree().get_nodes_in_group("player_health_bar")
+			if bars.size() > 0:
+				health_bar = bars[0]
+		
+		# เช็คให้ชัวร์ว่ามันมีฟังก์ชัน update_health ค่อยเรียก (กัน Error ล่ม)
+		if health_bar and health_bar.has_method("update_health"):
+			health_bar.update_health(hurtbox.current_hp, hurtbox.max_hp)
+
+func _physics_process(_delta: float) -> void:
 	if is_dead: return
 	
-	# 1. รับค่าการเคลื่อนที่จากปุ่มที่ตั้งไว้ใน Input Map (Project Settings)
-	var direction = Input.get_vector("left", "right", "up", "down")
+	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")
 	
-	# 2. คำนวณความเร็ว (Velocity)
-	# รวมแรงเดินปกติ เข้ากับ แรงกระเด็น (Knockback)
 	velocity = (direction * speed) + knockback_velocity
 	
-	# 3. จัดการความหนืดของแรงกระเด็น (Friction)
-	# ทำให้แรงดีดค่อยๆ หายไปจนเป็น 0 อย่างนุ่มนวล
-	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, friction)
+	# [ระบบ AAA] นำเวลาแต่ละเฟรม (Delta) มารวมคำนวณ เพื่อให้จอ 60fps และ 144fps ลื่นไหลหนืดเท่ากัน 100%
+	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 1.0 - exp(-friction * 60.0 * _delta))
 	
-	# 4. สั่งให้ตัวละครเคลื่อนที่ตามฟิสิกส์
 	move_and_slide()
-	
-	# 5. อัปเดตท่าทางตามทิศทางที่กด
 	update_animation(direction)
 
 func update_animation(direction: Vector2):
@@ -74,6 +93,23 @@ func update_animation(direction: Vector2):
 
 func _on_took_damage(current_hp, attacker_pos):
 	print("Player took damage! HP เหลือ: ", current_hp)
+	
+	# เล่นเสียงร้องเจ็บปวด (ถ้าใส่ไฟล์เสียงไว้แล้ว)
+	if hit_sound:
+		AudioManager.play_sfx(hit_sound, true)
+		
+	# เช็คว่าถ้าผู้เล่นลืมโยงสายหลอดเลือด ก็ไปงมหาจากในฉากเองเลย!
+	if not health_bar:
+		var bars = get_tree().get_nodes_in_group("player_health_bar")
+		if bars.size() > 0:
+			health_bar = bars[0]
+			print("[ระบบ] หาหลอดเลือดเจออัตโนมัติแล้ว!")
+	
+	# ส่งคำสั่งไปบอกหลอดเลือดให้อัปเดตลดลง
+	if health_bar and has_node("HurtboxComponent"):
+		health_bar.update_health(current_hp, get_node("HurtboxComponent").max_hp)
+	else:
+		print("[ความผิดพลาด] ไม่สามารถปรับหลอดเลือดได้เพราะหาไม่พบ!")
 	
 	# คำนวณทิศทางที่ต้องกระเด็น (ดีดตัวออกจากตำแหน่งผู้โจมตี)
 	var knockback_dir = attacker_pos.direction_to(global_position)

@@ -2,10 +2,17 @@
 
 [ext_resource type="Script" uid="uid://hsoyv2c3h5p6" path="res://scripts/enemy/elite.gd" id="1_muqbo"]
 [ext_resource type="Texture2D" uid="uid://wsiafq7312yk" path="res://assets/character/enemy/elite/elite_dead.PNG" id="2_5pwvq"]
+[ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="2_jvtf1"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="2_mg3tp"]
 [ext_resource type="Texture2D" uid="uid://bunoiyl1frfxm" path="res://assets/character/enemy/elite/elite_idle.PNG" id="2_vf1fr"]
 [ext_resource type="Texture2D" uid="uid://dc4b5ockmtnxr" path="res://assets/character/enemy/elite/elite_walk.PNG" id="4_ql4fk"]
 [ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="5_gnhr8"]
 [ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="6_jvtf1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mg3tp"]
+shader = ExtResource("2_jvtf1")
+shader_parameter/flash_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mg3tp"]
 atlas = ExtResource("2_5pwvq")
@@ -257,8 +264,10 @@ radius = 17.029387
 
 [node name="Elite" type="CharacterBody2D" unique_id=606497566]
 script = ExtResource("1_muqbo")
+hit_sound = ExtResource("2_mg3tp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1669502972]
+material = SubResource("ShaderMaterial_mg3tp")
 sprite_frames = SubResource("SpriteFrames_muqbo")
 animation = &"dead"
 

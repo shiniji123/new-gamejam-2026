@@ -10,3 +10,8 @@ script = ExtResource("1_y5bi5")
 normal_scene = ExtResource("2_k13ow")
 elite_scene = ExtResource("3_h77ms")
 boss_scene = ExtResource("4_5wq58")
+waves = Array[Dictionary]([{
+"boss": 1,
+"elite": 1,
+"normal": 1
+}, {}, {}])

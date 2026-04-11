@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dan4rvdwayyco"]
+
+[ext_resource type="Texture2D" uid="uid://crro2tv5pf7bn" path="res://assets/effect/Blast.png" id="1_xv3kg"]
+[ext_resource type="Script" uid="uid://ci7v1e5s23p4w" path="res://scripts/combat/hit_effect.gd" id="2_3tlhx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32oex"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg66s"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1bak"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7wo7"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7be3v"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywhh3"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb3vw"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lebjm"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_832bg"]
+atlas = ExtResource("1_xv3kg")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ntm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32oex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg66s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1bak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7wo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7be3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywhh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tb3vw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lebjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_832bg")
+}],
+"loop": true,
+"name": &"blast",
+"speed": 5.0
+}]
+
+[node name="hit_effect" type="AnimatedSprite2D" unique_id=848946726]
+sprite_frames = SubResource("SpriteFrames_6ntm2")
+animation = &"blast"
+script = ExtResource("2_3tlhx")
