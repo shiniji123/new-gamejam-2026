@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddt0bjwienta0"
-valid=false
+uid="uid://2xsprlxvdeuy"
+path="res://.godot/imported/default.PNG-744bf26d5e1b5f4f17b2d36a84a0f629.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/portraits/player/default.png"
+source_file="res://assets/portraits/player/default.PNG"
+dest_files=["res://.godot/imported/default.PNG-744bf26d5e1b5f4f17b2d36a84a0f629.ctex"]
 
 [params]
 

@@ -203,26 +203,18 @@ func set_portrait(side: String, character: String, pose: String = "default") -> 
 
 	var portrait_node: TextureRect = left_portrait if side == "left" else right_portrait
 
-	var tex: Texture2D = null
-	
-	# วิธีที่ 1: โหลดผ่าน ResourceLoader (เหมาะกับรูปที่ Godot นำเข้าแล้ว)
-	if ResourceLoader.exists(path):
-		tex = load(path)
-	
-	# วิธีที่ 2: โหลดสดๆ จากไฟล์ (กรณี Godot ยังไม่อัปเดต .import)
-	if tex == null and FileAccess.file_exists(path):
-		var img = Image.load_from_file(path)
-		if img != null:
-			tex = ImageTexture.create_from_image(img)
+	if not ResourceLoader.exists(path) and not FileAccess.file_exists(path):
+		push_warning("[Balloon] Portrait not found: %s" % path)
+		return
 
+	var tex = load(path)
 	if tex == null:
-		push_warning("[Balloon] ไม่พบรูปภาพหรือโหลดไม่ได้: %s" % path)
-		print("[Balloon] ❌ โหลดรูปภาพไม่สำเร็จ: ", path)
+		push_warning("[Balloon] Failed to load portrait: %s" % path)
 		return
 
 	portrait_node.texture = tex
 	portrait_node.show()
-	print("[Balloon] ✅ portrait node shown!")
+	print("[Balloon] portrait node shown!")
 
 	if side == "left":
 		_left_char = character.to_lower()

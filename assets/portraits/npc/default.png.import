@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf3jp72t1qh6x"
-valid=false
+uid="uid://to2ku5140kbn"
+path="res://.godot/imported/default.png-dd7e36a01ddd97afa1626f4e47701ce3.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/portraits/npc/default.png"
+dest_files=["res://.godot/imported/default.png-dd7e36a01ddd97afa1626f4e47701ce3.ctex"]
 
 [params]
 

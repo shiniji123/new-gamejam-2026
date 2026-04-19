@@ -55,15 +55,15 @@ func _start_new_bgm(stream: AudioStream, fade_duration: float):
 	bgm_player.stream = stream
 	bgm_player.play()
 	
+	var target_volume = -20.0 # <--- กำหนดความดังที่ต้องการตรงนี้ (ยิ่งลบเยอะยิ่งเบา)
+	
 	if fade_duration > 0:
-		# เริ่มจากเสียงเบาสุดๆ
 		bgm_player.volume_db = -80.0
-		
-		# หรี่ดังขึ้นมาจบที่ 0.0 เดซิเบล (ระดับเสียงที่บันทึกมาดั้งเดิม)
 		tween = create_tween()
-		tween.tween_property(bgm_player, "volume_db", 0.0, fade_duration).set_trans(Tween.TRANS_SINE)
+		# เปลี่ยนจาก 0.0 เป็น target_volume
+		tween.tween_property(bgm_player, "volume_db", target_volume, fade_duration).set_trans(Tween.TRANS_SINE)
 	else:
-		bgm_player.volume_db = 0.0
+		bgm_player.volume_db = target_volume
 
 # ฟังก์ชันเผื่อเอาไว้ดับเพลงเฉยๆ 
 func stop_bgm(fade_duration: float = 1.0):

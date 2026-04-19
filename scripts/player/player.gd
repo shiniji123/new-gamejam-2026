@@ -26,6 +26,12 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	add_to_group("player")
 	
+	# ตั้งค่ากล้องให้ติดตามตัวละครทันที
+	if has_node("Camera2D"):
+		var cam = $Camera2D
+		cam.enabled = true
+		cam.make_current()
+	
 	if has_node("HurtboxComponent"):
 		var hurtbox = get_node("HurtboxComponent")
 		if not hurtbox.died.is_connected(_on_died):

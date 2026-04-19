@@ -5,6 +5,9 @@ var color_rect: ColorRect
 var tween: Tween
 var is_transitioning: bool = false
 
+# เก็บตำแหน่งตัวละครในแต่ละฉาก { "path/to/scene.tscn": Vector2 }
+var scene_positions: Dictionary = {}
+
 # ตัวแปรล่อเป้า ให้ Tween มองเห็นได้ง่ายๆ (แก้บั๊ก Godot หาตัวแปร Shader แบบ Real-time ไม่เจอ)
 var shader_progress: float = 0.0:
 	set(val):
@@ -14,30 +17,18 @@ var shader_progress: float = 0.0:
 
 
 # ========================================================
-# MATHEMATICAL SHADER: โค้ดคณิตศาสตร์บังคับการ์ดจอบีบวงกลม
+# CLASSIC FADE SHADER: โค้ดสำหรับทำให้จอมืดลงแบบนุ่มนวล
 # ========================================================
 const SHADER_CODE = """
 shader_type canvas_item;
 
-// ควบคุมค่าจาก 0.0 (ชัดเจน) ไป 1.0 (จอมืดมิด)
+// ควบคุมค่าจาก 0.0 (ใส) ไป 1.0 (จอมืดมิด)
 uniform float progress : hint_range(0.0, 1.0) = 0.0;
 uniform vec4 transition_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 
 void fragment() {
-	// คำนวณระยะห่างของแต่ละพิกเซลบนหน้าจอจากจุดกึ่งกลาง (0.5, 0.5)
-	float d = distance(UV, vec2(0.5, 0.5));
-	
-	// ถอยหลังสูตร: ถ้า progress มากขึ้น รัศมี (Radius) จะยิ่งเล็กลง
-	// รัศมีเริ่มต้นต้องเกิน 1.0 (เผื่อขอบจอ 16:9) เลยใช้ 1.5 ป้องกันมุมขอบดำครับ
-	float radius = (1.0 - progress) * 1.5;
-	
-	if (d > radius) {
-		// นอกรัศมี: ให้เทสีดำทับ
-		COLOR = transition_color;
-	} else {
-		// ในรัศมี: ให้โปร่งใส 100% (มองทะลุเห็นเกม)
-		COLOR = vec4(0.0, 0.0, 0.0, 0.0);
-	}
+	// ใช้ค่า progress เป็นค่าความโปร่งใส (Alpha)
+	COLOR = vec4(transition_color.rgb, progress);
 }
 """
 
@@ -64,11 +55,18 @@ func _ready() -> void:
 
 
 # คำสั่งหลักที่คุณสามารถเรียกตอนไหนก็ได้: SceneManager.change_scene("พาธของด่าน")
-func change_scene(scene_path: String, duration: float = 0.6) -> void:
+func change_scene(scene_path: String, duration: float = 0.6, fade_in_delay: float = 0.1) -> void:
 	# พิมพ์กันคนกดปุ่มรัวๆ บั๊ก
 	if is_transitioning:
 		return
 	is_transitioning = true
+	
+	# --- เก็บตำแหน่งปัจจุบันก่อนย้าย ---
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			scene_positions[current_scene.scene_file_path] = player.global_position
 	
 	# ปิดไม่ให้ผู้เล่นกดปุ่มอะไรได้เลยตอนกำลังมืด!
 	color_rect.mouse_filter = Control.MOUSE_FILTER_STOP 
@@ -81,6 +79,8 @@ func change_scene(scene_path: String, duration: float = 0.6) -> void:
 	
 	# จังหวะ 1: ยืดวงกลมบีบเข้าหากันจนมืด (Fade Out)
 	if tween and tween.is_valid():
+		# kill existing tween instead of killing the global variable
+		# actually tween = create_tween() kills previous one if it was local but here it's member
 		tween.kill()
 	tween = create_tween()
 	# เปลี่ยนมาใช้ตัวแปรแบบ Proxy เพื่อความนิ่งของโค้ดแทนการอ้างอิง Property ตรงๆ ใน Godot 4
@@ -93,8 +93,15 @@ func change_scene(scene_path: String, duration: float = 0.6) -> void:
 	# จังหวะ 2: ฉากวับ! เปลี่ยนฉากเบื้องหลังตอนคนมองไม่เห็น
 	get_tree().change_scene_to_file(scene_path)
 	
-	# ถ่วงเวลาให้ฉากใหม่โหลด 0.1 วินาทีกันกระตุก
-	await get_tree().create_timer(0.1).timeout
+	# ถ่วงเวลาให้ฉากใหม่โหลด 0.1 วินาทีกันกระตุก หรือตามค่า fade_in_delay ที่ตั้งมา
+	if fade_in_delay > 0:
+		await get_tree().create_timer(fade_in_delay).timeout
+	
+	# --- ย้ายตัวละครไปยังตำแหน่งเดิมที่เคยจำไว้ ---
+	if scene_positions.has(scene_path):
+		var new_player = get_tree().get_first_node_in_group("player")
+		if new_player:
+			new_player.global_position = scene_positions[scene_path]
 	
 	# จังหวะ 3: ขยายวงกลมเปิดออกให้เห็นฉากใหม่ (Fade In)
 	tween = create_tween()
