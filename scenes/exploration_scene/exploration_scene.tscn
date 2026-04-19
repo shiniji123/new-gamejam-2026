@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="14_8casv"]
 [ext_resource type="Script" uid="uid://dd1lyaul6fcbo" path="res://scripts/ui/volume_slider.gd" id="15_rc7ga"]
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
+[ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="18_8casv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -148,3 +150,8 @@ offset_top = 71.0
 offset_right = 264.0
 offset_bottom = 94.0
 script = ExtResource("16_1tvuq")
+
+[node name="ExampleBalloon" parent="." unique_id=1434168376 instance=ExtResource("17_wef41")]
+
+[node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
+position = Vector2(163, 206)

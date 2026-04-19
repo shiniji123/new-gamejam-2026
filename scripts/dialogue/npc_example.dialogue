@@ -1,0 +1,8 @@
+~ start
+do set_portrait("left", "npc", "default")
+do set_portrait("right", "player", "default")
+NPC: สวัสดี!
+do set_portrait("left", "npc", "angry")
+NPC: อย่ามายุ่งกับข้าน้า!
+do hide_portrait("all")
+=> END
