@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SceneConfig" format=3 uid="uid://b0hceqnndnnv8"]
+
+[ext_resource type="Script" uid="uid://baejlt047cjaw" path="res://SceneConfig.gd" id="1_26w3a"]
+
+[resource]
+script = ExtResource("1_26w3a")
+scene_path = "uid://chw44qtrb7t82"
+scene_state = 1
+metadata/_custom_type_script = "uid://baejlt047cjaw"

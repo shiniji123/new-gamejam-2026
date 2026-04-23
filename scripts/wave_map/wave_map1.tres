@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://15m6ktsdk1ds"]
+
+[ext_resource type="Script" uid="uid://oqel7k2mh7th" path="res://scripts/data/wave_data.gd" id="1_481wb"]
+
+[resource]
+script = ExtResource("1_481wb")
+elite_count = 1
+boss_count = 1
+metadata/_custom_type_script = "uid://oqel7k2mh7th"

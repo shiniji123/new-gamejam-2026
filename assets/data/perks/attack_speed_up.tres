@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PerkData" format=3 uid="uid://bkuv1eahym0qh"]
+
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="1_imvqs"]
+[ext_resource type="Texture2D" uid="uid://cwmtm6pyjwgqh" path="res://assets/icons_perk/bloodDrain.png" id="1_wwkte"]
+
+[resource]
+script = ExtResource("1_imvqs")
+title = "ATK Speed up"
+description = "Boost ATK Speed up 25%"
+icon = ExtResource("1_wwkte")
+modifiers = {
+"fire_rate_multiplier": 0.25
+}
+metadata/_custom_type_script = "uid://be4seik8otyv2"

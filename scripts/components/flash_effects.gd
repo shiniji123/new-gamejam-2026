@@ -9,6 +9,12 @@ class_name FlashEffects
 # อ้างอิงไปยัง Sprite ของตัวละคร (ต้องเป็น AnimatedSprite2D)
 @onready var parent_sprite: AnimatedSprite2D = get_parent().get_node("AnimatedSprite2D")
 
+func _ready():
+	# สำคัญมาก: ก็อปปี้ Shader สต็อกกลางแยกออกมาเป็นของศัตรูแต่ละตัว!
+	# (ถ้าไม่ทำอย่างนี้ เวลาเปลี่ยนสี ศัตรูทุกตัวที่ใช้ Material เดียวกันจะกระพริบพร้อมกันหมดครับ)
+	if parent_sprite and parent_sprite.material:
+		parent_sprite.material = parent_sprite.material.duplicate()
+
 func flash(duration: float = 0.0):
 	# ถ้าไม่ได้ระบุเวลามาตอนเรียกใช้ ให้ใช้ค่าเริ่มต้นจาก Inspector
 	var active_duration = duration if duration > 0 else flash_duration

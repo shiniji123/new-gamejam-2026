@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PerkData" format=3 uid="uid://8t54vjj1d52g"]
+
+[ext_resource type="Texture2D" uid="uid://dl54x01kwd65a" path="res://assets/icons_perk/firestorm.png" id="1_5fv36"]
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="1_ksmh4"]
+
+[resource]
+script = ExtResource("1_ksmh4")
+id = &"multishot"
+title = "Projectile Plus"
+description = "Double Ammo"
+icon = ExtResource("1_5fv36")
+modifiers = {
+"projectile_count": 1.0
+}
+metadata/_custom_type_script = "uid://be4seik8otyv2"

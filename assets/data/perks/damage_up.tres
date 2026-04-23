@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PerkData" format=3 uid="uid://bkmmyy3ji5d0v"]
+
+[ext_resource type="Texture2D" uid="uid://bxyncy80kat5c" path="res://assets/icons_perk/fireball.png" id="1_377n8"]
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="1_dpq4j"]
+
+[resource]
+script = ExtResource("1_dpq4j")
+title = "Damage Up"
+description = "boost damage 25%"
+icon = ExtResource("1_377n8")
+modifiers = {
+"damage_multiplier": 0.25
+}
+metadata/_custom_type_script = "uid://be4seik8otyv2"

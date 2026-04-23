@@ -2,9 +2,25 @@
 
 [ext_resource type="Script" uid="uid://qbvxpklkysc8" path="res://scripts/fight_scene/fight_scene.gd" id="1_nff5x"]
 [ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
+[ext_resource type="AudioStream" uid="uid://crif56nfbs633" path="res://assets/sounds/fight_scene_bg.wav" id="2_28its"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_keksv"]
-[ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="5_3g10t"]
+[ext_resource type="Resource" uid="uid://v66yuyels70s" path="res://scenes/change_scene/exploration_zone.tres" id="6_pxly3"]
+[ext_resource type="PackedScene" uid="uid://bbrrbau5kqd0o" path="res://scenes/combat/spawner.tscn" id="7_885g1"]
+[ext_resource type="PackedScene" uid="uid://ci2efubk23ul3" path="res://scenes/combat/wave_manager.tscn" id="8_gnakn"]
+[ext_resource type="Script" uid="uid://dp8b0767lodiu" path="res://scripts/combat/wave_item.gd" id="9_28its"]
+[ext_resource type="Texture2D" uid="uid://y7b4xy4yd5cp" path="res://assets/health_bar/empthy.png" id="9_a5mk7"]
+[ext_resource type="Texture2D" uid="uid://bw1hfqngui4fc" path="res://assets/health_bar/max.png" id="10_fgyv5"]
+[ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="11_fgyv5"]
+[ext_resource type="Script" uid="uid://dd1lyaul6fcbo" path="res://scripts/ui/volume_slider.gd" id="12_261b0"]
+[ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="13_plvsq"]
+[ext_resource type="Script" uid="uid://cqjkxp6kciiro" path="res://scripts/ui/reward_ui.gd" id="14_gugfg"]
+[ext_resource type="PackedScene" uid="uid://cfbkv27l685vq" path="res://scenes/ui/reward_choice_card.tscn" id="14_jyjil"]
+[ext_resource type="Script" uid="uid://be4seik8otyv2" path="res://scripts/data/perk_data.gd" id="15_o1sxk"]
+[ext_resource type="Resource" uid="uid://bkmmyy3ji5d0v" path="res://assets/data/perks/damage_up.tres" id="16_qqmyc"]
+[ext_resource type="Resource" uid="uid://bkuv1eahym0qh" path="res://assets/data/perks/attack_speed_up.tres" id="17_qqmyc"]
+[ext_resource type="Resource" uid="uid://8t54vjj1d52g" path="res://assets/data/perks/projectile_plus.tres" id="18_olvwu"]
+[ext_resource type="Resource" uid="uid://bohb2ghi1287m" path="res://assets/data/perks/pierce_bonus.tres" id="19_olvwu"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gksjr"]
 a = Vector2(0, 648)
@@ -24,6 +40,7 @@ b = Vector2(1154, 649)
 
 [node name="fight_scene" type="Node2D" unique_id=261381658]
 script = ExtResource("1_nff5x")
+battle_music = ExtResource("2_28its")
 
 [node name="Background" type="TextureRect" parent="." unique_id=946857701]
 offset_right = 1152.0
@@ -32,9 +49,6 @@ texture = ExtResource("1_p8b18")
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_keksv")]
 position = Vector2(596, 340)
-
-[node name="Enemy" parent="." unique_id=1434182547 instance=ExtResource("4_gksjr")]
-position = Vector2(752, 339)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=285344162]
 
@@ -52,4 +66,78 @@ shape = SubResource("SegmentShape2D_reipo")
 
 [node name="TransitionArea" parent="." unique_id=901084205 instance=ExtResource("5_3g10t")]
 position = Vector2(575, 226)
-target_scene_path = "uid://dpucpeempaxyb"
+scene_path = ExtResource("6_pxly3")
+
+[node name="Spawner" parent="." unique_id=2017816843 instance=ExtResource("7_885g1")]
+min_radius = 150.0
+max_radius = 300.0
+
+[node name="WaveManager" parent="." unique_id=705366377 instance=ExtResource("8_gnakn")]
+
+[node name="WaveItem" type="Node" parent="WaveManager" unique_id=2121022600]
+script = ExtResource("9_28its")
+
+[node name="WaveItem2" type="Node" parent="WaveManager" unique_id=1340259305]
+script = ExtResource("9_28its")
+
+[node name="WaveItem3" type="Node" parent="WaveManager" unique_id=613977450]
+script = ExtResource("9_28its")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1996911686]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI" unique_id=1022639855]
+offset_left = 46.0
+offset_top = 31.0
+offset_right = 394.0
+offset_bottom = 71.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_right = 4
+texture_under = ExtResource("9_a5mk7")
+texture_progress = ExtResource("10_fgyv5")
+script = ExtResource("11_fgyv5")
+metadata/_edit_use_anchors_ = true
+
+[node name="HSlider" type="HSlider" parent="UI" unique_id=1243814843]
+offset_left = 50.0
+offset_top = -10.0
+offset_right = 359.0
+offset_bottom = 81.0
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+script = ExtResource("12_261b0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI" unique_id=1676526455]
+offset_left = 62.0
+offset_top = 71.0
+offset_right = 264.0
+offset_bottom = 94.0
+script = ExtResource("13_plvsq")
+metadata/_edit_use_anchors_ = true
+
+[node name="RewardUI" type="ColorRect" parent="UI" unique_id=744901654 node_paths=PackedStringArray("cards_container")]
+offset_left = 154.0
+offset_top = 37.0
+offset_right = 1038.0
+offset_bottom = 390.0
+color = Color(0, 0, 0.21960784, 1)
+script = ExtResource("14_gugfg")
+perk_pool = Array[ExtResource("15_o1sxk")]([ExtResource("16_qqmyc"), ExtResource("17_qqmyc"), ExtResource("18_olvwu"), ExtResource("19_olvwu")])
+cards_container = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RewardUI" unique_id=545414841]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 758.0
+offset_bottom = 398.0
+
+[node name="reward" parent="UI/RewardUI/HBoxContainer" unique_id=132454399 instance=ExtResource("14_jyjil")]
+layout_mode = 2
+
+[node name="reward2" parent="UI/RewardUI/HBoxContainer" unique_id=1106077555 instance=ExtResource("14_jyjil")]
+layout_mode = 2
+
+[node name="reward3" parent="UI/RewardUI/HBoxContainer" unique_id=153919626 instance=ExtResource("14_jyjil")]
+layout_mode = 2

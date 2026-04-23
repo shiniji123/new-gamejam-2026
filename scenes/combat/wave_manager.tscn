@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ci2efubk23ul3"]
+
+[ext_resource type="Script" uid="uid://dkwunkpk3dw47" path="res://scripts/combat/wave.gd" id="1_y5bi5"]
+[ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="2_k13ow"]
+[ext_resource type="PackedScene" uid="uid://b1453mcwmykf7" path="res://scenes/enemy/elite.tscn" id="3_h77ms"]
+[ext_resource type="PackedScene" uid="uid://ch8c5nxexyaij" path="res://scenes/enemy/boss.tscn" id="4_5wq58"]
+
+[node name="WaveManager" type="Node2D" unique_id=705366377]
+script = ExtResource("1_y5bi5")
+normal_scene = ExtResource("2_k13ow")
+elite_scene = ExtResource("3_h77ms")
+boss_scene = ExtResource("4_5wq58")
+waves = Array[Dictionary]([{
+"boss": 1,
+"elite": 1,
+"normal": 1
+}, {}, {}])
