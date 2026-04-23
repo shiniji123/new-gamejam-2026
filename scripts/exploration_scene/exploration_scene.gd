@@ -10,19 +10,23 @@ extends Node2D
 ## ระยะเวลา Fade-in ของเพลง (วินาที)
 @export var music_fade_duration: float = 2.0
 
+@export_group("Player Settings")
+## ขนาดของ Player ในฉากนี้
+@export var player_scale: Vector2 = Vector2(3, 3)
+
 
 func _ready() -> void:
 	# เซ็ตสถานะเกมเป็นโหมดสำรวจ
 	Autoload.current_state = Autoload.State.EXPLORE
-	#if stage == 0:
-	Dialogic.start("scene_01")
-	#elif stage == 1 :
-	
 	# เปิดเพลงประกอบ
 	if explore_music:
 		AudioManager.play_bgm(explore_music, music_fade_duration)
 	else:
 		push_warning("[ExplorationScene] ยังไม่ได้ใส่ explore_music ใน Inspector!")
+
+	# ตั้งค่าขนาดตัวละคร
+	if has_node("Player"):
+		$Player.scale = player_scale
 
 	# ตั้งค่าขอบเขตกล้องและกำแพงแผนที่
 	_setup_map_bounds()

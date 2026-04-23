@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b2b4fp2nekwe0"]
+
+[ext_resource type="Script" uid="uid://b2ar85ljdmdc8" path="res://scripts/shop_ui.gd" id="1_f8dfu"]
+[ext_resource type="Script" uid="uid://g1gnhegmhcxa" path="res://scripts/shop/shop_button.gd" id="2_w6fnx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygcrn"]
+bg_color = Color(0.12156863, 0.06666667, 0.11764706, 0.5882353)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+
+[node name="Notepad" type="CanvasLayer" unique_id=1950074557 node_paths=PackedStringArray("main_panel", "close_btn")]
+script = ExtResource("1_f8dfu")
+main_panel = NodePath("Main")
+close_btn = NodePath("Main/close_shop")
+
+[node name="Main" type="Panel" parent="." unique_id=859813742]
+offset_left = 351.0
+offset_top = 19.0
+offset_right = 955.0
+offset_bottom = 504.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ygcrn")
+
+[node name="close_shop" type="Button" parent="Main" unique_id=1296437930]
+layout_mode = 0
+offset_left = 439.0
+offset_top = 20.0
+offset_right = 559.0
+offset_bottom = 57.0
+text = "Close Shop"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main" unique_id=1845425108]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 205.0
+offset_right = 568.0
+offset_bottom = 306.0
+
+[node name="buy_damage_buff" type="Button" parent="Main/VBoxContainer" unique_id=1321046971]
+layout_mode = 2
+text = "Buy ATK Buff (50G)"
+script = ExtResource("2_w6fnx")
+item_label = "ATK"
+
+[node name="buy_multishot_buff" type="Button" parent="Main/VBoxContainer" unique_id=597158301]
+layout_mode = 2
+text = "Buy Shotgun (50G)"
+script = ExtResource("2_w6fnx")
+item_label = "SHOTGUN"
+effect_type = 1
+effect_value = 1.0
+
+[node name="buy_hp_buff" type="Button" parent="Main/VBoxContainer" unique_id=2020021393]
+layout_mode = 2
+text = "Buy HP Buff (50G)"
+script = ExtResource("2_w6fnx")
+item_label = "HP BOOST"
+effect_type = 2
+effect_value = 50.0

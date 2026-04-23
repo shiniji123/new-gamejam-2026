@@ -86,18 +86,19 @@ explore_music = ExtResource("2_rc7ga")
 music_fade_duration = 1.0
 
 [node name="Background" type="TextureRect" parent="." unique_id=1692693402]
-offset_right = 1200.0
-offset_bottom = 1200.0
-scale = Vector2(0.8, 0.8)
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("3_rc7ga")
 expand_mode = 3
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
-position = Vector2(156, 351)
+position = Vector2(576, 324)
+speed = 1000.0
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
 position = Vector2(230, 74)
-scene_path = ExtResource("4_uvqa3")
+active_on_event = "go_to_combat"
+trigger_event_target = "green_circle"
 
 [node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
 position = Vector2(93, 72)

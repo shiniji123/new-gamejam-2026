@@ -831,7 +831,6 @@ animation = &"idle_left_up"
 shape = SubResource("CircleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=102837456]
-zoom = Vector2(2.5, 2.5)
 process_callback = 0
 position_smoothing_enabled = true
 

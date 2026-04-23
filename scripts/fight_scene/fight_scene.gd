@@ -10,6 +10,10 @@ extends Node2D
 ## ระยะเวลา Fade-in ของเพลง (วินาที)
 @export var music_fade_duration: float = 1.5
 
+@export_group("Player Settings")
+## ขนาดของ Player ในฉากนี้
+@export var player_scale: Vector2 = Vector2(1.5, 1.5)
+
 
 func _ready() -> void:
 	# เซ็ตสถานะเกมเป็นโหมดต่อสู้
@@ -20,6 +24,10 @@ func _ready() -> void:
 		AudioManager.play_bgm(battle_music, music_fade_duration)
 	else:
 		push_warning("[FightScene] ยังไม่ได้ใส่ battle_music ใน Inspector!")
+
+	# ตั้งค่าขนาดตัวละคร
+	if has_node("Player"):
+		$Player.scale = player_scale
 
 	# ผูก RewardUI เข้ากับ WaveManager
 	_connect_reward_ui()

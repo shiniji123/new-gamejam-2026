@@ -1,9 +1,33 @@
 ~ start
-do set_portrait("left", "npc", "default")
-do set_portrait("right", "player", "default")
-NPC: สวัสดี!
-Player: ว่าไงสัส
-do set_portrait("left", "npc", "angry")
-NPC: อย่ามายุ่งกับข้าน้า!
-do hide_portrait("all")
-=> END
+
+if EventManager.is_event_active("intro_talk")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: ช่วยด้วย! มีไวรัสคอมพิวเตอร์กำลังบุกระบบของเรา!
+	NPC: รีบไปเข้าวงกลมสีเขียวทางซ้ายเพื่อตามไปจัดการพวกมันที!
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_npc")
+	=> END
+
+elif EventManager.is_event_active("go_to_combat")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: รีบไปเข้าวงกลมสีเขียวสิ! ไวรัสมันจะเจาะระบบแล้ว!
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_win")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: โอ้โห! เก่งมากที่ล้างไวรัสได้ทั้งหมด!
+	NPC: ระบบของเราปลอดภัยแล้ว รับรางวัลนี่ไปสิ!
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_npc")
+	=> END
+
+else
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: วันนี้ระบบทำงานปกติดีจังเลยนะ
+	do hide_portrait("all")
+	=> END
