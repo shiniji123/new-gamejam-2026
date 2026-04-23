@@ -11,7 +11,7 @@ func _on_interact():
 	if not player:
 		print("Not Assign")
 	if player:
-		Autoload.coin += 1
+		RunManager.add_coin(1)
 		print("+1 coin")
 		queue_free()
 		

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgfjoa0qvyob4"]
 
 [ext_resource type="Script" uid="uid://b2ar85ljdmdc8" path="res://scripts/shop_ui.gd" id="1_ygcrn"]
+[ext_resource type="Script" uid="uid://g1gnhegmhcxa" path="res://scripts/shop/shop_button.gd" id="2_avfhx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygcrn"]
 bg_color = Color(0.12156863, 0.06666667, 0.11764706, 0.5882353)
@@ -10,12 +11,9 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 
-[node name="ShopUI" type="CanvasLayer" unique_id=1950074557 node_paths=PackedStringArray("main_panel", "damage_btn", "shotgun_btn", "hp_btn", "close_btn")]
+[node name="ShopUI" type="CanvasLayer" unique_id=1950074557 node_paths=PackedStringArray("main_panel", "close_btn")]
 script = ExtResource("1_ygcrn")
 main_panel = NodePath("Main")
-damage_btn = NodePath("Main/VBoxContainer/buy_damage_buff")
-shotgun_btn = NodePath("Main/VBoxContainer/buy_multishot_buff")
-hp_btn = NodePath("Main/VBoxContainer/buy_hp_buff")
 close_btn = NodePath("Main/close_shop")
 
 [node name="Main" type="Panel" parent="." unique_id=859813742]
@@ -42,16 +40,22 @@ offset_bottom = 306.0
 
 [node name="buy_damage_buff" type="Button" parent="Main/VBoxContainer" unique_id=1321046971]
 layout_mode = 2
-text = "Buy ATK Buff"
+text = "Buy ATK Buff (50G)"
+script = ExtResource("2_avfhx")
+item_label = "ATK"
 
 [node name="buy_multishot_buff" type="Button" parent="Main/VBoxContainer" unique_id=597158301]
 layout_mode = 2
-text = "Buy Shotgun"
+text = "Buy Shotgun (50G)"
+script = ExtResource("2_avfhx")
+item_label = "SHOTGUN"
+effect_type = 1
+effect_value = 1.0
 
 [node name="buy_hp_buff" type="Button" parent="Main/VBoxContainer" unique_id=2020021393]
 layout_mode = 2
-text = "Buy HP Buff"
-
-[connection signal="pressed" from="Main/VBoxContainer/buy_damage_buff" to="." method="_on_buy_damage_buff_pressed"]
-[connection signal="pressed" from="Main/VBoxContainer/buy_multishot_buff" to="." method="_on_buy_multishot_buff_pressed"]
-[connection signal="pressed" from="Main/VBoxContainer/buy_hp_buff" to="." method="_on_buy_hp_buff_pressed"]
+text = "Buy HP Buff (50G)"
+script = ExtResource("2_avfhx")
+item_label = "HP BOOST"
+effect_type = 2
+effect_value = 50.0

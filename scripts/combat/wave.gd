@@ -1,69 +1,116 @@
 extends Node
+## ===================================================
+## WaveManager — จัดการคลื่นศัตรู (ระบบโหนดลูก)
+## ===================================================
+## วิธีใช้งานที่ "ง่ายที่สุด":
+##   1. คลิกขวาที่โหนด WaveManager -> Add Child Node
+##   2. สร้างโหนด Node (หรือโหนดอะไรก็ได้) แล้วตั้งชื่อเช่น "Wave 1"
+##   3. เอาสคริปต์ "wave_item.gd" ไปแปะที่โหนดนั้น
+##   4. กรอกจำนวนศัตรูที่ต้องการใน Inspector ของโหนดลูกได้เลย!
+##
+##   * สามารถลากสลับลำดับโหนดลูกเพื่อเปลี่ยนลำดับ Wave ได้เลย
 
-@export_group("Enemy Scenes")
+signal wave_cleared(wave_index: int)
+
+@export_group("Enemy Scenes (ลากไฟล์ .tscn มาใส่)")
 @export var normal_scene: PackedScene
 @export var elite_scene: PackedScene
 @export var boss_scene: PackedScene
 
-# --- ข้อมูล Wave (ปรับแต่งใน Inspector ได้เลยครับ) ---
-@export var waves: Array[Dictionary] = [
-	{"normal": 5, "elite": 0, "boss": 0}, # Wave 1
-	{"normal": 4, "elite": 1, "boss": 0}, # Wave 2
-	{"normal": 4, "elite": 0, "boss": 1}  # Wave 3
-]
-
+# --- ตัวแปรภายใน ---
+var waves: Array[WaveItem] = []
 var current_wave_index: int = -1
 var enemies_left: int = 0
 
-@onready var spawner = get_node("../Spawner")
+@onready var spawner: Node2D = get_node("../Spawner")
 
-func _ready():
-	await get_tree().create_timer(3.0).timeout
+
+func _ready() -> void:
+	# ค้นหาโหนดลูกที่เป็น WaveItem ทั้งหมด
+	_refresh_waves_from_children()
+	
+	if waves.is_empty():
+		push_warning("[WaveManager] ยังไม่มี Wave! กรุณาเพิ่มโหนดลูกแล้วแปะสคริปต์ wave_item.gd")
+		return
+
+	# เริ่ม Wave แรกหลังจากหน่วงเวลาของ Wave นั้นๆ
+	print("🎮 WaveManager พร้อมแล้ว! พบทั้งหมด %d Wave" % waves.size())
+	await get_tree().create_timer(waves[0].start_delay).timeout
 	start_next_wave()
 
-func start_next_wave():
-	current_wave_index += 1
-	
-	if current_wave_index >= waves.size():
-		print("--- จบทุก Wave แล้ว! ชนะ! ---")
-		return
-		
-	var wave_data = waves[current_wave_index]
-	print("--- เริ่ม Wave: ", current_wave_index + 1, " ---")
-	
-	await spawn_set(
-		wave_data.get("normal", 0), 
-		wave_data.get("elite", 0), 
-		wave_data.get("boss", 0)
-	)
 
-func spawn_set(n, e, b):
-	enemies_left = n + e + b
-	if enemies_left == 0: 
+func _refresh_waves_from_children() -> void:
+	waves.clear()
+	for child in get_children():
+		if child is WaveItem:
+			waves.append(child)
+
+
+func start_next_wave() -> void:
+	current_wave_index += 1
+
+	if current_wave_index >= waves.size():
+		print("🎉 ชนะแล้ว! ผ่านทุก %d Wave!" % waves.size())
+		return
+
+	var wave_data: WaveItem = waves[current_wave_index]
+	RunManager.current_wave = current_wave_index + 1
+
+	print("⚔️  เริ่ม %s (%d/%d) — ศัตรูทั้งหมด: %d ตัว" % [
+		wave_data.name, 
+		current_wave_index + 1, 
+		waves.size(), 
+		wave_data.get_total_enemies()
+	])
+
+	await _spawn_wave(wave_data)
+
+
+func _spawn_wave(wave_data: WaveItem) -> void:
+	enemies_left = wave_data.get_total_enemies()
+
+	if enemies_left == 0:
+		push_warning("[WaveManager] Wave นี้ไม่มีศัตรู — ข้ามไป Wave ถัดไป")
+		wave_cleared.emit(current_wave_index)
+		await get_tree().create_timer(2.0).timeout
 		start_next_wave()
 		return
 
-	for i in range(n): await spawn_one(normal_scene)
-	for i in range(e): await spawn_one(elite_scene)
-	for i in range(b): await spawn_one(boss_scene)
+	for _i in range(wave_data.normal_count):
+		await _spawn_one(normal_scene, wave_data.spawn_interval)
 
-func spawn_one(scene):
-	if not scene: 
+	for _i in range(wave_data.elite_count):
+		await _spawn_one(elite_scene, wave_data.spawn_interval)
+
+	for _i in range(wave_data.boss_count):
+		await _spawn_one(boss_scene, wave_data.spawn_interval)
+
+
+func _spawn_one(scene: PackedScene, delay: float) -> void:
+	if not scene:
 		enemies_left -= 1
+		if enemies_left <= 0:
+			wave_cleared.emit(current_wave_index)
 		return
-		
-	var instance = await spawner.spawn_enemy(scene)
+
+	await get_tree().create_timer(delay).timeout
+
+	if not is_instance_valid(spawner):
+		push_error("[WaveManager] ไม่พบโหนด Spawner!")
+		return
+
+	var instance: Node2D = await spawner.spawn_enemy(scene)
 	if instance:
 		instance.tree_exited.connect(_on_enemy_cleared)
 
-signal wave_cleared(wave_index: int)
 
-func _on_enemy_cleared():
-	# ป้องกัน Error ตอนเปลี่ยนฉาก หรือปิดเกมที่โหนดถูกลบไปแล้ว
-	if not get_tree(): return
-	
+func _on_enemy_cleared() -> void:
+	if not is_inside_tree():
+		return
+
 	enemies_left -= 1
 	if enemies_left <= 0:
-		print("Wave เคลียร์!")
-		# ผู้จัดการ Wave จะไม่เล่นต่ออัตโนมัติ ให้ฉากต่อตู้หรือ RewardUI เป็นคนสั่งลุยเวฟต่อไป
+		print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
 		wave_cleared.emit(current_wave_index)
+		# หมายเหตุ: ระบบจะรอการเรียก start_next_wave() จากที่อื่น (เช่น RewardUI) 
+		# หรือคุณสามารถเปิด auto-start ได้ถ้าต้องการ

@@ -5,6 +5,8 @@ extends Control
 @export_category("ตั้งค่าการสุ่มรางวัล")
 # ลากไฟล์ PerkData (.tres) หลายๆ ไฟล์ในหน้า Inspector มาใส่เป็น Pool การสุ่มได้เลย
 @export var perk_pool: Array[PerkData] = []
+## จำนวนการ์ดที่แสดงให้เลือกหลังจบ Wave
+@export var choices_count: int = 3
 
 @export_category("การเชื่อมต่อ UI")
 # ลาก HBoxContainer หรือโหนดแม่ที่เก็บแพทเทิร์นการ์ดต่างๆ เอาไว้มาใส่ตรงนี้
@@ -35,7 +37,7 @@ func show_rewards() -> void:
 	
 	if cards_container:
 		# บอกให้ RunManager ช่วยสุ่ม Perks ออกมา 3 ชิ้น (สามารถแก้เลข 3 เป็นอย่างอื่นได้)
-		var choices = RunManager.get_reward_choices(3, perk_pool)
+		var choices = RunManager.get_reward_choices(choices_count, perk_pool)
 		
 		var i = 0
 		# ไล่ส่งข้อมูลให้ลูกๆ ที่อยู่ข้างใน Container (ซึ่งเป็นตัว RewardChoiceCard)

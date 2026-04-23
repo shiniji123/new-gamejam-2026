@@ -107,7 +107,8 @@ func _on_died() -> void:
 	velocity = Vector2.ZERO
 	knockback_velocity = Vector2.ZERO
 	
-	Autoload.coin += reward_money
+	# ใช้ StatCalculator เพื่อคำนวณเงินรางวัลรวม (รองรับ gold_multiplier จาก Perk/Relic)
+	RunManager.add_coin(StatCalculator.get_enemy_reward(reward_money))
 	
 	if animated_sprite:
 		var frames: SpriteFrames = animated_sprite.sprite_frames

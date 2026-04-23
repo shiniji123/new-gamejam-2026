@@ -1,15 +1,17 @@
 extends Node
+## ===================================================
+## Autoload — Global Game State (Singleton)
+## ===================================================
+## รับผิดชอบ: สถานะเกม (EXPLORE/COMBAT) และเลือดผู้เล่นที่ต้องคงไว้ข้ามฉาก
+##
+## ⚠️  ไม่ใช่ที่สำหรับเก็บค่า stat หรือ upgrade ของผู้เล่น
+##     ทุกอย่างที่เกี่ยวกับ run-economy ให้ไปที่ RunManager ครับ
 
-var current_state:State = State.EXPLORE
+## ===== GAME STATE MACHINE =====
 enum State { EXPLORE, COMBAT }
+var current_state: State = State.EXPLORE
 
-var coin:int = 0
-
-# --- ตัวแปรสำหรับร้านค้าค้า (Shop Upgrades) ---
-var damage_bonus: float = 0.0      # +25% ต่อการซื้อ 1 ครั้ง (0.25, 0.50...)
-var multishot_level: int = 0       # ยิงเพิ่มกี่นัด (0=นัดเดียว, 1=สองนัดพร้อมกัน...)
-var max_hp_bonus: float = 0.0      # HP โบนัสสำหรับตัวละครผู้เล่น
-
-# ตัวแปรจำเลือดปัจจุบัน ไม่ให้เลือดเด้งเต็มหลอดเวลาเปลี่ยนฉาก! (-1 คือตอนเริ่มเกม)
-var player_current_hp: float = -1.0 
-# ---------------------------------------------
+## ===== PLAYER PERSISTENCE (ข้ามฉาก) =====
+## เลือดปัจจุบันของผู้เล่น — บันทึกทุกครั้งที่โดนตีหรือซื้ออัปเกรด
+## ค่า -1.0 = ยังไม่ได้ตั้งค่า (จะเติมเต็มเมื่อโหลดตัวละครครั้งแรก)
+var player_current_hp: float = -1.0

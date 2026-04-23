@@ -12,6 +12,9 @@ class_name CombatSystem
 
 @export_group("Audio")
 @export var shoot_sound: AudioStream           # ลากไฟล์เสียงยิงมาใส่ได้เลย
+
+@export_group("Spread")
+@export var spread_angle: float = 15.0        # มุมกระจายเมื่อยิงหลายนัด (ออกแต่ละด้าน หน่วยเป็นองศา)
 # ------------------------------
 
 # ตัวจับเวลาการยิงออโต้
@@ -60,8 +63,8 @@ func fire_at_target(target: Node2D) -> void:
 	var total_shots: int = StatCalculator.get_projectile_count(1)
 	var final_pierce: int = StatCalculator.get_pierce_count(0) # เริ่มต้นทะลุไม่ได้ (0)
 	
-	var spread_angle_deg: float = 15.0 
 	var base_dir: Vector2 = target.global_position - global_position
+	var spread_rad: float = deg_to_rad(spread_angle)
 	
 	for i in range(total_shots):
 		var proj = projectile_scene.instantiate()
@@ -77,7 +80,7 @@ func fire_at_target(target: Node2D) -> void:
 		
 		var angle_offset: float = 0.0
 		if total_shots > 1:
-			angle_offset = deg_to_rad(spread_angle_deg) * (i - (total_shots - 1) / 2.0)
+			angle_offset = spread_rad * (i - (total_shots - 1) / 2.0)
 		var final_dir: Vector2 = base_dir.rotated(angle_offset)
 		
 		if proj.has_method("setup"):

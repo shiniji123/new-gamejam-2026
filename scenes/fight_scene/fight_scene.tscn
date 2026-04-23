@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://qbvxpklkysc8" path="res://scripts/fight_scene/fight_scene.gd" id="1_nff5x"]
 [ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
+[ext_resource type="AudioStream" uid="uid://crif56nfbs633" path="res://assets/sounds/fight_scene_bg.wav" id="2_28its"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_keksv"]
-[ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy.tscn" id="4_gksjr"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="5_3g10t"]
 [ext_resource type="Resource" uid="uid://v66yuyels70s" path="res://scenes/change_scene/exploration_zone.tres" id="6_pxly3"]
 [ext_resource type="PackedScene" uid="uid://bbrrbau5kqd0o" path="res://scenes/combat/spawner.tscn" id="7_885g1"]
 [ext_resource type="PackedScene" uid="uid://ci2efubk23ul3" path="res://scenes/combat/wave_manager.tscn" id="8_gnakn"]
+[ext_resource type="Script" uid="uid://dp8b0767lodiu" path="res://scripts/combat/wave_item.gd" id="9_28its"]
 [ext_resource type="Texture2D" uid="uid://y7b4xy4yd5cp" path="res://assets/health_bar/empthy.png" id="9_a5mk7"]
 [ext_resource type="Texture2D" uid="uid://bw1hfqngui4fc" path="res://assets/health_bar/max.png" id="10_fgyv5"]
 [ext_resource type="Script" uid="uid://dsx28pxv7wfsp" path="res://scripts/ui/health_bar.gd" id="11_fgyv5"]
@@ -39,6 +40,7 @@ b = Vector2(1154, 649)
 
 [node name="fight_scene" type="Node2D" unique_id=261381658]
 script = ExtResource("1_nff5x")
+battle_music = ExtResource("2_28its")
 
 [node name="Background" type="TextureRect" parent="." unique_id=946857701]
 offset_right = 1152.0
@@ -47,9 +49,6 @@ texture = ExtResource("1_p8b18")
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_keksv")]
 position = Vector2(596, 340)
-
-[node name="Enemy" parent="." unique_id=1434182547 instance=ExtResource("4_gksjr")]
-position = Vector2(752, 339)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=285344162]
 
@@ -74,19 +73,15 @@ min_radius = 150.0
 max_radius = 300.0
 
 [node name="WaveManager" parent="." unique_id=705366377 instance=ExtResource("8_gnakn")]
-waves = Array[Dictionary]([{
-"boss": 1,
-"elite": 0,
-"normal": 0
-}, {
-"boss": 0,
-"elite": 1,
-"normal": 4
-}, {
-"boss": 1,
-"elite": 0,
-"normal": 4
-}])
+
+[node name="WaveItem" type="Node" parent="WaveManager" unique_id=2121022600]
+script = ExtResource("9_28its")
+
+[node name="WaveItem2" type="Node" parent="WaveManager" unique_id=1340259305]
+script = ExtResource("9_28its")
+
+[node name="WaveItem3" type="Node" parent="WaveManager" unique_id=613977450]
+script = ExtResource("9_28its")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1996911686]
 

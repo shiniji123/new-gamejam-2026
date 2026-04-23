@@ -5,6 +5,9 @@ var bgm_player: AudioStreamPlayer
 var tween: Tween
 var current_bgm_track: AudioStream = null
 
+## ความดังเป้าหมายของเพลง BGM (ยิ่งลบยิ่งเบา เช่น -40 เบากว่า -10)
+@export var default_bgm_volume_db: float = -20.0
+
 func _ready():
 	# 1. แอบสร้างเครื่องเล่นแผ่นเสียง (AudioStreamPlayer) ฝังไว้ในตัวเองอัตโนมัติ 
 	# (วิธีนี้ทำให้คุณไม่ต้องสร้าง Scene หรือลากโหนดอะไรเลยครับ)
@@ -55,7 +58,7 @@ func _start_new_bgm(stream: AudioStream, fade_duration: float):
 	bgm_player.stream = stream
 	bgm_player.play()
 	
-	var target_volume = -20.0 # <--- กำหนดความดังที่ต้องการตรงนี้ (ยิ่งลบเยอะยิ่งเบา)
+	var target_volume := default_bgm_volume_db
 	
 	if fade_duration > 0:
 		bgm_player.volume_db = -80.0
