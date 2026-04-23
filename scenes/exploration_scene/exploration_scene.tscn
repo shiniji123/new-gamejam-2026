@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://fnvmjl3cvdmy" path="res://assets/effect/sprite-sheet.png" id="7_fnwyb"]
 [ext_resource type="Script" uid="uid://ch21kng8l8s1h" path="res://scripts/shop_npc.gd" id="7_m6i2j"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="8_fnwyb"]
+[ext_resource type="Texture2D" uid="uid://d33l30md7xwnh" path="res://assets/map/Folder/My Folder.png" id="9_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://bgfjoa0qvyob4" path="res://scenes/ui/shop_ui.tscn" id="9_hpjf3"]
 [ext_resource type="Script" uid="uid://cnkt08ro68241" path="res://interaction/interactive_area/interactive_area.gd" id="10_hpjf3"]
 [ext_resource type="Texture2D" uid="uid://y7b4xy4yd5cp" path="res://assets/health_bar/empthy.png" id="12_1wjfq"]
@@ -19,6 +20,7 @@
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
+[ext_resource type="Script" uid="uid://dsm0ujrys8x0q" path="res://scenes/exploration_scene/folder.gd" id="20_1tvuq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -78,7 +80,20 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_un5d4"]
-radius = 14.764823
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xeape"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_1tvuq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xeape"]
+radius = 408.21
 
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 script = ExtResource("1_shpba")
@@ -96,7 +111,7 @@ expand_mode = 3
 position = Vector2(156, 351)
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
-position = Vector2(230, 74)
+position = Vector2(299, 216)
 scene_path = ExtResource("4_uvqa3")
 
 [node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
@@ -159,3 +174,16 @@ script = ExtResource("16_1tvuq")
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
 position = Vector2(163, 206)
+
+[node name="Folder" type="AnimatedSprite2D" parent="." unique_id=1017776264]
+position = Vector2(276, 387)
+scale = Vector2(0.089506164, 0.08950616)
+sprite_frames = SubResource("SpriteFrames_xeape")
+script = ExtResource("20_1tvuq")
+
+[node name="InteractiveArea" parent="Folder" unique_id=9249571 instance=ExtResource("8_fnwyb")]
+position = Vector2(-11.172363, 45.689575)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Folder/InteractiveArea" unique_id=548511343]
+position = Vector2(22.34483, -45.689686)
+shape = SubResource("CircleShape2D_xeape")

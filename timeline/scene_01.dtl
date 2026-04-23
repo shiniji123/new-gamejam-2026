@@ -1,4 +1,5 @@
-join player left
+[wait time="3.0"]
+join player rightmost
 player: Yo!
 player: fuck that
 leave --All--
