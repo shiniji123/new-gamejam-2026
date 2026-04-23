@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
+[ext_resource type="Texture2D" uid="uid://d1inremirjx8m" path="res://assets/map/My Folder.png" id="20_1tvuq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -80,6 +81,20 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_un5d4"]
 radius = 14.764823
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_rc7ga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_1tvuq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tvuq"]
+radius = 316.66675
+
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 script = ExtResource("1_shpba")
 explore_music = ExtResource("2_rc7ga")
@@ -94,11 +109,6 @@ expand_mode = 3
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
 position = Vector2(576, 324)
 speed = 1000.0
-
-[node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
-position = Vector2(230, 74)
-active_on_event = "go_to_combat"
-trigger_event_target = "green_circle"
 
 [node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
 position = Vector2(93, 72)
@@ -160,3 +170,19 @@ script = ExtResource("16_1tvuq")
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
 position = Vector2(163, 206)
+scale = Vector2(2, 2)
+
+[node name="Folder" type="AnimatedSprite2D" parent="." unique_id=281366132]
+position = Vector2(229.99998, 368)
+scale = Vector2(0.18, 0.18)
+sprite_frames = SubResource("SpriteFrames_rc7ga")
+
+[node name="TransitionArea" parent="Folder" unique_id=618967297 instance=ExtResource("3_4dtv0")]
+position = Vector2(-5.5555267, 22.22218)
+scene_path = ExtResource("4_uvqa3")
+active_on_event = "go_to_combat"
+trigger_event_target = "green_circle"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Folder/TransitionArea" unique_id=729354149]
+position = Vector2(3.333374, -1.7778168)
+shape = SubResource("CircleShape2D_1tvuq")
