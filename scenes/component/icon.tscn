@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b80wrbbyhmueq"]
 
 [ext_resource type="Script" uid="uid://dj0dg00x3ljkq" path="res://scripts/components/icon.gd" id="1_corqh"]
-[ext_resource type="Texture2D" uid="uid://cc5im22dn2c7n" path="res://assets/fight/attack.png" id="2_x3bd1"]
+[ext_resource type="Texture2D" uid="uid://b865y3t0qw8au" path="res://assets/map/AVA_icon.png" id="2_corqh"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="3_ht8n1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qld6t"]
@@ -16,7 +16,7 @@ script = ExtResource("1_corqh")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=492881019]
 position = Vector2(1.4999995, -4)
 scale = Vector2(1.03125, 1.1875)
-texture = ExtResource("2_x3bd1")
+texture = ExtResource("2_corqh")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=506113399]
 position = Vector2(1.1920929e-07, 0)

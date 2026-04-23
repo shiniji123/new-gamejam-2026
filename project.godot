@@ -40,8 +40,8 @@ layout/style_directory={
 "dialog": "res://addons/dialogic/dialog.tres"
 }
 glossary/default_case_sensitive=true
-layout/style_list=["res://addons/dialogic/dialog.tres"]
-layout/default_style="res://addons/dialogic/dialog.tres"
+layout/style_list=["res://addons/balloon.tscn", "res://addons/dialogic/dialog.tres"]
+layout/default_style="res://addons/balloon.tscn"
 variables={
 "stage": 0
 }

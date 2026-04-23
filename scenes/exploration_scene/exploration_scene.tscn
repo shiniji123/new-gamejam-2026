@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
 [ext_resource type="Texture2D" uid="uid://d1inremirjx8m" path="res://assets/map/My Folder.png" id="20_1tvuq"]
+[ext_resource type="Texture2D" uid="uid://b865y3t0qw8au" path="res://assets/map/AVA_icon.png" id="21_xeape"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -95,6 +96,89 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_1tvuq"]
 radius = 316.66675
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_wwam5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_xeape")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_3vck4"]
+script/source = "extends Area2D
+
+@export var scene_path: SceneConfig
+
+@export_group(\"Transition Settings\")
+## ความเร็วการเฟดภาพเข้า-ออก (เวลาที่ใช้วงกลมบีบ/ขยาย)
+@export var fade_speed: float = 0.6
+## เวลาดีเลย์ หลังจากบีบวงกลมมืดสนิท ก่อนที่จะสว่างขึ้นให้เห็นฉากใหม่
+@export var fade_in_delay: float = 0.1
+
+@export_group(\"Event System\")
+## ถ้าใส่ค่านี้ วงกลมจะโผล่มาก็ต่อเมื่อ Event นี้กำลังทำงานอยู่เท่านั้น (เว้นว่างไว้ถ้าให้ทำงานตลอด)
+@export var active_on_event: String = \"\"
+## ถ้าใส่ค่านี้ เมื่อเดินเข้าวงกลม จะแจ้ง EventManager แทนการเปลี่ยนฉากเอง (เช่น \"green_circle\")
+@export var trigger_event_target: String = \"\"
+
+func _process(_delta: float) -> void:
+	if active_on_event != \"\":
+		var is_active = false
+		if get_tree().root.has_node(\"EventManager\"):
+			is_active = get_tree().root.get_node(\"EventManager\").is_event_active(active_on_event)
+		
+		visible = is_active
+		if has_node(\"CollisionShape2D\"):
+			$CollisionShape2D.disabled = not is_active
+
+func _on_body_entered(body):
+	# ป้องกันการ Trigger ซ้ำซ้อนถ้ากำลังเปลี่ยนฉากอยู่ (เช่น เพิ่งเกิดมาทับจุดเดิม)
+	if get_tree().root.has_node(\"SceneManager\"):
+		if get_tree().root.get_node(\"SceneManager\").is_transitioning:
+			return
+			
+	# ตรวจสอบว่าเป็น Player หรือไม่ (ใช้ Group หรือ Class ก็ได้)
+	if body.is_in_group(\"player\"):
+		
+		# [ใหม่] ระบบ Event: ส่งสัญญาณให้ EventManager เปลี่ยนฉากแทน
+		if trigger_event_target != \"\":
+			set_deferred(\"monitoring\", false)
+			if get_tree().root.has_node(\"EventManager\"):
+				get_tree().root.get_node(\"EventManager\").notify_interaction(trigger_event_target)
+			return
+			
+		# ระบบปกติ: เปลี่ยนฉากตาม SceneConfig
+		if not scene_path or scene_path.scene_path == \"\":
+			print(\"NO Destination!\")
+			return
+			
+		# [ไฮไลท์!] ปิด Trigger ชั่วคราวเพื่อป้องกันบั๊กดับเบิลชนแน่นอน 100%
+		set_deferred(\"monitoring\", false)
+		
+		call_deferred(\"_change_scene\")
+		call_deferred(\"_change_state\")
+
+func _change_scene():
+	# เรียกใช้ระบบใหม่ที่หล่อเท่ พร้อมใส่ตัวแปรความเร็ว/ดีเลย์
+	if get_tree().root.has_node(\"SceneManager\"):
+		var sm = get_tree().root.get_node(\"SceneManager\")
+		sm.change_scene(scene_path.scene_path, fade_speed, fade_in_delay)
+	else:
+		# ถ้ายังไม่ได้ลงทะเบียน ก็ใช้ของเก่าไปก่อนกัน Error
+		get_tree().change_scene_to_file(scene_path.scene_path)
+	
+func _change_state():
+	var scene_state = scene_path.scene_state
+	Autoload.current_state = scene_state
+	print(scene_state)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pcnm"]
+radius = 316.66675
+
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 script = ExtResource("1_shpba")
 explore_music = ExtResource("2_rc7ga")
@@ -107,11 +191,9 @@ texture = ExtResource("3_rc7ga")
 expand_mode = 3
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
-position = Vector2(576, 324)
+top_level = true
+position = Vector2(85, 229)
 speed = 1000.0
-
-[node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
-position = Vector2(93, 72)
 
 [node name="Shop" type="AnimatedSprite2D" parent="." unique_id=909600885 node_paths=PackedStringArray("interaction_area", "shop_ui", "animated_sprite")]
 position = Vector2(377, 70)
@@ -169,8 +251,12 @@ script = ExtResource("16_1tvuq")
 [node name="ExampleBalloon" parent="." unique_id=1434168376 instance=ExtResource("17_wef41")]
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
-position = Vector2(163, 206)
+position = Vector2(272, 119)
 scale = Vector2(2, 2)
+
+[node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
+position = Vector2(85, 229.00002)
+scale = Vector2(0.15, 0.15)
 
 [node name="Folder" type="AnimatedSprite2D" parent="." unique_id=281366132]
 position = Vector2(229.99998, 368)
@@ -186,3 +272,16 @@ trigger_event_target = "green_circle"
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Folder/TransitionArea" unique_id=729354149]
 position = Vector2(3.333374, -1.7778168)
 shape = SubResource("CircleShape2D_1tvuq")
+
+[node name="App" type="AnimatedSprite2D" parent="." unique_id=383735475]
+position = Vector2(84, 231)
+scale = Vector2(0.165, 0.165)
+sprite_frames = SubResource("SpriteFrames_wwam5")
+
+[node name="TransitionArea" parent="App" unique_id=901084205 instance=ExtResource("3_4dtv0")]
+position = Vector2(-5.5555267, 22.22218)
+script = SubResource("GDScript_3vck4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="App/TransitionArea" unique_id=932074084]
+position = Vector2(3.333374, -1.7778168)
+shape = SubResource("CircleShape2D_2pcnm")

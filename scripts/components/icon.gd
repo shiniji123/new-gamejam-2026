@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var sprite:= $Sprite2D
 @onready var interaction_area: InteractionArea = $InteractiveArea
 @onready var player = get_tree().get_first_node_in_group("player")
 #===============================================
