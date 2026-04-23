@@ -1,0 +1,5 @@
+join player left
+player: Yo!
+player: fuck that
+leave --All--
+set {stage} += 1.0

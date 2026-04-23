@@ -14,7 +14,10 @@ extends Node2D
 func _ready() -> void:
 	# เซ็ตสถานะเกมเป็นโหมดสำรวจ
 	Autoload.current_state = Autoload.State.EXPLORE
-
+	#if stage == 0:
+	Dialogic.start("scene_01")
+	#elif stage == 1 :
+	
 	# เปิดเพลงประกอบ
 	if explore_music:
 		AudioManager.play_bgm(explore_music, music_fade_duration)

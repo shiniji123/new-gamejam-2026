@@ -24,6 +24,27 @@ SceneManager="*res://scripts/autoloads/scene_manager.gd"
 RunManager="*res://scripts/autoloads/run_manager.gd"
 StatCalculator="*res://scripts/system/stat_calculator.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
+Dialogic="*uid://ds2q0uclmolvu"
+
+[dialogic]
+
+directories/dch_directory={
+"player": "res://timeline/Portrait/player.dch"
+}
+directories/dtl_directory={
+"Scene_01": "res://timeline/Scene_01.dtl",
+"scene_01": "res://timeline/scene_01.dtl"
+}
+layout/style_directory={
+"": "res://addons/dialogic/dialog.tres",
+"dialog": "res://addons/dialogic/dialog.tres"
+}
+glossary/default_case_sensitive=true
+layout/style_list=["res://addons/dialogic/dialog.tres"]
+layout/default_style="res://addons/dialogic/dialog.tres"
+variables={
+"stage": 0
+}
 
 [dialogue_manager]
 
@@ -35,13 +56,13 @@ window/size/mode=3
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://addons/": "teal",
-"res://assets/": "gray",
+"res://assets/": "purple",
 "res://interaction/": "orange",
 "res://scenes/": "red",
 "res://scripts/": "yellow"
@@ -87,6 +108,19 @@ close_shop={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+dialogic_default_action={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://scripts/dialogue/npc_example.dialogue")
 
 [physics]
 
