@@ -26,6 +26,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.511721, 0.873639, 0.985449, 1)
 
+[node name="AVA" type="TextureRect" parent="." unique_id=1214278319]
+offset_left = 54.0
+offset_top = 135.0
+offset_right = 514.9231
+offset_bottom = 349.0
+mouse_filter = 2
+texture = ExtResource("4_mhnvy")
+
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=2087610678]
 clip_contents = true
 offset_left = 58.0
@@ -53,10 +61,3 @@ text = "Start Game"
 visible = false
 layout_mode = 2
 text = "Quit"
-
-[node name="AVA" type="TextureRect" parent="." unique_id=1214278319]
-offset_left = 54.0
-offset_top = 135.0
-offset_right = 514.9231
-offset_bottom = 349.0
-texture = ExtResource("4_mhnvy")
