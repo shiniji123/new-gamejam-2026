@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="New Gamejam 2026"
-run/main_scene="uid://dpucpeempaxyb"
+run/main_scene="uid://3gqvxj4rc1mp"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -26,26 +26,6 @@ SaveManager="*res://scripts/autoloads/save_manager.gd"
 StatCalculator="*res://scripts/system/stat_calculator.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
 EventManager="*res://scripts/autoloads/event_manager.gd"
-
-[dialogic]
-
-directories/dch_directory={
-"player": "res://timeline/Portrait/player.dch"
-}
-directories/dtl_directory={
-"Scene_01": "res://timeline/Scene_01.dtl",
-"scene_01": "res://timeline/scene_01.dtl"
-}
-layout/style_directory={
-"": "res://addons/dialogic/dialog.tres",
-"dialog": "res://addons/dialogic/dialog.tres"
-}
-glossary/default_case_sensitive=true
-layout/style_list=["res://addons/dialogic/dialog.tres"]
-layout/default_style="res://addons/dialogic/dialog.tres"
-variables={
-"stage": 0
-}
 
 [dialogue_manager]
 
