@@ -258,11 +258,18 @@ func _update_portrait_dim() -> void:
 		right_portrait.modulate = Color.WHITE
 		return
 
+	# ระบบจับคู่ชื่อ (Alias) เผื่อชื่อที่พิมพ์ใน Dialogue ไม่ตรงกับชื่อโฟลเดอร์ภาพ
+	var ref_speaker: String = speaker
+	if speaker in ["ava", "ผู้เล่น", "player"]:
+		ref_speaker = "player"
+	elif speaker in ["eve", "???", "npc", "villager"]:
+		ref_speaker = "npc"
+
 	var DIM := Color(0.45, 0.45, 0.5, 0.85)
 
 	# Match ด้วย contains เผื่อชื่อใน dialogue และชื่อ folder ตรงกันบางส่วน
-	var left_speaking: bool  = _left_char.is_empty()  or speaker.contains(_left_char)  or _left_char.contains(speaker)
-	var right_speaking: bool = _right_char.is_empty() or speaker.contains(_right_char) or _right_char.contains(speaker)
+	var left_speaking: bool  = _left_char.is_empty()  or ref_speaker.contains(_left_char)  or _left_char.contains(ref_speaker)
+	var right_speaking: bool = _right_char.is_empty() or ref_speaker.contains(_right_char) or _right_char.contains(ref_speaker)
 
 	left_portrait.modulate  = Color.WHITE if left_speaking  else DIM
 	right_portrait.modulate = Color.WHITE if right_speaking else DIM

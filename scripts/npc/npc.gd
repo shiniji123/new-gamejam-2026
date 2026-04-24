@@ -42,7 +42,7 @@ func _ready() -> void:
 	_exclamation_mark.add_theme_font_size_override("font_size", 48)
 	_exclamation_mark.add_theme_color_override("font_color", Color.RED)
 	_exclamation_mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_exclamation_mark.position = Vector2(-20, -60) # ปรับพิกัดใหม่เพราะเราคูณ scale NPC แล้ว
+	_exclamation_mark.position = Vector2(-40, -60) # ปรับพิกัดใหม่เพราะเราคูณ scale NPC แล้ว
 	_exclamation_mark.hide()
 	add_child(_exclamation_mark)
 	

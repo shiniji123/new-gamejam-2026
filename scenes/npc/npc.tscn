@@ -72,15 +72,16 @@ position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_p5bpe")
 
 [node name="GreetingArea" type="Area2D" parent="." unique_id=1562593859]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GreetingArea" unique_id=7152317]
 shape = SubResource("CircleShape2D_rv78h")
 
 [node name="Label" type="Label" parent="GreetingArea" unique_id=225642788]
-offset_left = -20.0
-offset_top = -26.0
-offset_right = 18.0
-offset_bottom = -10.0
+offset_left = -17.0
+offset_top = -53.0
+offset_right = 21.0
+offset_bottom = -37.0
 theme_override_font_sizes/font_size = 10
 text = ". . ."
 horizontal_alignment = 1
