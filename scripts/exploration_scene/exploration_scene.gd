@@ -1,4 +1,6 @@
 extends Node2D
+
+const MEMORY_CUTSCENE_SCENE := preload("res://scenes/cutscene/memory_cutscene_controller.tscn")
 ## ===================================================
 ## exploration_scene.gd — ฉากสำรวจ
 ## ===================================================
@@ -33,6 +35,7 @@ func _ready() -> void:
 
 	# ตั้งค่าขอบเขตกล้องและกำแพงแผนที่
 	_setup_map_bounds()
+	call_deferred("_ensure_event_cutscene")
 
 
 func _setup_map_bounds() -> void:
@@ -52,3 +55,15 @@ func _setup_map_bounds() -> void:
 
 	# สร้างกำแพงล่องหน 4 ด้าน
 	MapBoundaryHelper.create_map_boundaries(self, map_rect)
+
+
+func _ensure_event_cutscene() -> void:
+	if not get_tree().root.has_node("EventManager"):
+		return
+	if not EventManager.is_event_active("memory_cutscene_after_fight_3"):
+		return
+	if has_node("MemoryCutsceneController"):
+		return
+
+	var cutscene := MEMORY_CUTSCENE_SCENE.instantiate()
+	add_child(cutscene)

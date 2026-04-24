@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dpucpeempaxyb"]
 
 [ext_resource type="Script" uid="uid://bqa5r53v8d61i" path="res://scripts/exploration_scene/exploration_scene.gd" id="1_shpba"]
+[ext_resource type="AudioStream" uid="uid://b8gscg2pwk5cr" path="res://assets/sounds/exploration_scene.wav" id="2_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
-[ext_resource type="AudioStream" uid="uid://cyi53bt88nqeq" path="res://assets/sounds/exploration_bg.wav" id="2_rc7ga"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
-[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/window_bg.png" id="3_rc7ga"]
+[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/WINDOW_BG.png" id="3_rc7ga"]
 [ext_resource type="Texture2D" uid="uid://cp3lkdkqa8qog" path="res://assets/map/bin.png" id="6_1tvuq"]
 [ext_resource type="Script" uid="uid://ch21kng8l8s1h" path="res://scripts/shop_npc.gd" id="7_m6i2j"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="8_fnwyb"]
@@ -72,7 +72,7 @@ animations = [{
 
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 script = ExtResource("1_shpba")
-explore_music = ExtResource("2_rc7ga")
+explore_music = ExtResource("2_1tvuq")
 music_fade_duration = 1.0
 player_scale = Vector2(1.3, 1.3)
 

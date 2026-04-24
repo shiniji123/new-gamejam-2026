@@ -2,8 +2,8 @@ extends BaseEnemy
 
 @export_group("Boss 2 Config")
 @export var base_hp: float = 1500.0
-@export var damage_multiplier: float = 2.5
-@export var speed_multiplier: float = 3.2
+@export var damage_multiplier: float = 1.0
+@export var speed_multiplier: float = 1.0
 @export var boss_reward_money: int = 300
 
 @export_group("Twin Sync")

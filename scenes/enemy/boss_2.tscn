@@ -93,13 +93,12 @@ material = SubResource("ShaderMaterial_mibu8")
 script = ExtResource("2_6jhnf")
 base_hp = 1200.0
 damage_multiplier = 3.0
-speed_multiplier = 3.2
-boss_reward_money = 300
 hit_sound = ExtResource("3_hdnub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=456891552]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_q7kfu")
-animation = &"boss_2_2"
+animation = &"boss_2_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=197928724]
 shape = SubResource("CircleShape2D_mibu8")

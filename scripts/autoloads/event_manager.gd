@@ -234,7 +234,7 @@ func notify_interaction(target_name: String) -> void:
 	var event = get_current_event()
 	if not event: return
 	
-	if event.complete_condition == "interact" and event.complete_target == target_name:
+	if event.complete_condition == "interact" and _target_matches(event.complete_target, target_name):
 		complete_current_event()
 
 func notify_fight_cleared() -> void:
@@ -248,7 +248,7 @@ func notify_cutscene_finished(target_name: String) -> void:
 	var event = get_current_event()
 	if not event: return
 	
-	if event.complete_condition == "cutscene" and event.get("complete_target", "") == target_name:
+	if event.complete_condition == "cutscene" and _target_matches(event.get("complete_target", ""), target_name):
 		complete_current_event()
 
 func set_selected_ending(ending_id: String) -> void:
@@ -278,6 +278,17 @@ func is_event_reached(event_id: String) -> bool:
 		if event_timeline[i].get("id", "") == event_id:
 			return current_event_index >= i
 	return false
+
+
+func _target_matches(expected: String, actual: String) -> bool:
+	if expected == actual:
+		return true
+
+	var aliases: Dictionary = {
+		"village_npc": ["village_EVE"],
+		"village_EVE": ["village_npc"],
+	}
+	return aliases.has(expected) and actual in aliases[expected]
 
 
 func get_save_data() -> Dictionary:

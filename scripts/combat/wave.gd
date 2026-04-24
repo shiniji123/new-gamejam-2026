@@ -197,8 +197,7 @@ func _should_finish_without_reward() -> bool:
 	if current_wave_index < 0 or current_wave_index >= waves.size():
 		return false
 
-	var wave_data: WaveItem = waves[current_wave_index]
-	return current_wave_index == waves.size() - 1 and wave_data.boss_type == WaveItem.BossType.FINAL_BOSS
+	return current_wave_index == waves.size() - 1
 
 
 func _apply_enemy_scale(instance: Node2D, enemy_scale: Vector2) -> void:
