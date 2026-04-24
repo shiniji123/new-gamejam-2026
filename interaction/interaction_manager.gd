@@ -32,6 +32,7 @@ func _process(delta):
 			action_label = active_area[0].action_name
 
 		label.text = base_text + str(action_label)
+		label.reset_size()
 		label.global_position = active_area[0].global_position
 		label.global_position.y -= 90
 		label.global_position.x -= label.size.x /2

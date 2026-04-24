@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ch8c5nxexyaij"]
+[gd_scene format=3 uid="uid://wno20opcfsag"]
 
 [ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_qi522"]
 [ext_resource type="Script" path="res://scripts/enemy/final_boss.gd" id="2_6eiim"]
