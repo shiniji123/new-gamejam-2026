@@ -97,6 +97,74 @@ var event_timeline: Array[Dictionary] = [
 		"complete_condition": "interact",
 		"complete_target": "village_npc",
 		"description": "กลับมารายงานผลหลังชนะบอส",
+	},
+	{
+		"id": "go_to_combat_3",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "green_circle_3",
+		"description": "เข้าสู่ fight_scene 3",
+	},
+	{
+		"id": "fight_wave_3",
+		"type": "fight",
+		"scene": "res://scenes/fight_scene/fight_scene.tscn",
+		"complete_condition": "all_waves_cleared",
+		"description": "fight_scene 3: boss 2",
+	},
+	{
+		"id": "talk_after_boss_2_win",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "village_npc",
+		"description": "กลับมารายงานผลหลังชนะ boss 2",
+	},
+	{
+		"id": "go_to_combat_4",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "green_circle_4",
+		"description": "เข้าสู่ fight_scene 4",
+	},
+	{
+		"id": "fight_wave_4",
+		"type": "fight",
+		"scene": "res://scenes/fight_scene/fight_scene.tscn",
+		"complete_condition": "all_waves_cleared",
+		"description": "fight_scene 4: boss 3",
+	},
+	{
+		"id": "talk_after_boss_3_win",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "village_npc",
+		"description": "กลับมารายงานผลหลังชนะ boss 3",
+	},
+	{
+		"id": "go_to_combat_5",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "green_circle_5",
+		"description": "เข้าสู่ fight_scene 5",
+	},
+	{
+		"id": "fight_wave_5",
+		"type": "fight",
+		"scene": "res://scenes/fight_scene/fight_scene.tscn",
+		"complete_condition": "all_waves_cleared",
+		"description": "fight_scene 5: final boss",
+	},
+	{
+		"id": "ending",
+		"type": "ending",
+		"scene": "res://scenes/ending_scene/ending_scene.tscn",
+		"complete_condition": "manual",
+		"description": "Thanks for playing",
 	}
 ]
 
@@ -119,6 +187,8 @@ func start_current_event() -> void:
 
 	var event = event_timeline[current_event_index]
 	print("🎬 เริ่ม Event: %s (%s)" % [event.id, event.description])
+	if event.get("type", "") == "ending":
+		is_game_completed = true
 	event_started.emit(event.id)
 	
 	var current_scene_path = ""

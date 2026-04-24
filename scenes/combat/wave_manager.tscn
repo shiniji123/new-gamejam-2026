@@ -4,10 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://cmtdj7wjxikvf" path="res://scenes/enemy/enemy_1.tscn" id="2_k13ow"]
 [ext_resource type="PackedScene" uid="uid://b1453mcwmykf7" path="res://scenes/enemy/elite.tscn" id="3_h77ms"]
 [ext_resource type="PackedScene" uid="uid://1b57xd1fqdpx" path="res://scenes/enemy/enemy_2.tscn" id="3_srj33"]
-[ext_resource type="PackedScene" uid="uid://ch8c5nxexyaij" path="res://scenes/enemy/boss_1.tscn" id="4_5wq58"]
+[ext_resource type="PackedScene" uid="uid://baacna3br1d7f" path="res://scenes/enemy/boss_1.tscn" id="4_5wq58"]
 [ext_resource type="PackedScene" uid="uid://bccdwfi1wtcor" path="res://scenes/enemy/enemy_3.tscn" id="4_htgpv"]
 [ext_resource type="PackedScene" uid="uid://dw45yexgwendc" path="res://scenes/enemy/boss_2.tscn" id="7_ch6b6"]
 [ext_resource type="PackedScene" uid="uid://ds1jnp6kfdsb3" path="res://scenes/enemy/boss_3.tscn" id="8_p6mik"]
+[ext_resource type="PackedScene" uid="uid://ch8c5nxexyaij" path="res://scenes/enemy/final_boss.tscn" id="9_final"]
 
 [node name="WaveManager" type="Node2D" unique_id=705366377]
 script = ExtResource("1_y5bi5")
@@ -16,3 +17,4 @@ elite_scene = ExtResource("3_h77ms")
 boss_scene = ExtResource("4_5wq58")
 boss_2_scene = ExtResource("7_ch6b6")
 boss_3_scene = ExtResource("8_p6mik")
+final_boss_scene = ExtResource("9_final")

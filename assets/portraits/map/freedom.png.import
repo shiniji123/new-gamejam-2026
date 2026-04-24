@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df1gwl8soj5ah"
-path="res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"
+uid="uid://dhorhbpkw3dvt"
+path="res://.godot/imported/freedom.png-03ff6de38175d37ee9eaeb83ae3fc018.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/Main/WINDOW_BG.png"
-dest_files=["res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"]
+source_file="res://assets/portraits/map/freedom.png"
+dest_files=["res://.godot/imported/freedom.png-03ff6de38175d37ee9eaeb83ae3fc018.ctex"]
 
 [params]
 

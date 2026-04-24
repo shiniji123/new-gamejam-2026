@@ -22,10 +22,11 @@ AudioManager="*res://scripts/autoloads/audio_manager.gd"
 Autoload="*res://scripts/autoloads/autoload.gd"
 SceneManager="*res://scripts/autoloads/scene_manager.gd"
 RunManager="*res://scripts/autoloads/run_manager.gd"
-SaveManager="*res://scripts/autoloads/save_manager.gd"
 StatCalculator="*res://scripts/system/stat_calculator.gd"
 DialogueManager="*uid://c3rodes2l3gxb"
 EventManager="*res://scripts/autoloads/event_manager.gd"
+Dialogic="*uid://ds2q0uclmolvu"
+SaveManager="*res://scripts/autoloads/save_manager.gd"
 
 [dialogic]
 

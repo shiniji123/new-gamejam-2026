@@ -188,6 +188,30 @@ area_color = Color(1, 0.55, 0.12, 0.35)
 active_on_event = "go_to_combat_2"
 trigger_event_target = "green_circle_2"
 
+[node name="TransitionAreaFight3" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(85, 72)
+require_interact = true
+action_name = "Boss 2"
+area_color = Color(0.95, 0.34, 0.75, 0.35)
+active_on_event = "go_to_combat_3"
+trigger_event_target = "green_circle_3"
+
+[node name="TransitionAreaFight4" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(85, 72)
+require_interact = true
+action_name = "Boss 3"
+area_color = Color(0.34, 0.58, 1, 0.35)
+active_on_event = "go_to_combat_4"
+trigger_event_target = "green_circle_4"
+
+[node name="TransitionAreaFight5" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(85, 72)
+require_interact = true
+action_name = "Final Boss"
+area_color = Color(0.9, 0.08, 0.18, 0.38)
+active_on_event = "go_to_combat_5"
+trigger_event_target = "green_circle_5"
+
 [node name="NotepadArea2" parent="." unique_id=1109612314 instance=ExtResource("3_4dtv0")]
 position = Vector2(1018, 362)
 require_interact = true

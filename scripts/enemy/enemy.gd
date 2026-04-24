@@ -31,7 +31,7 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	add_to_group("enemy")
 	
-	if animated_sprite:
+	if animated_sprite and animated_sprite.sprite_frames.has_animation("idle"):
 		animated_sprite.play("idle")
 	
 	get_tree().create_timer(spawn_delay).timeout.connect(func(): is_spawning = false)

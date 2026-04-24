@@ -93,8 +93,8 @@ material = SubResource("ShaderMaterial_mibu8")
 script = ExtResource("2_6jhnf")
 base_hp = 1200.0
 damage_multiplier = 3.0
-speed_multiplier = 0.7
-boss_reward_money = 200
+speed_multiplier = 3.2
+boss_reward_money = 300
 hit_sound = ExtResource("3_hdnub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=456891552]

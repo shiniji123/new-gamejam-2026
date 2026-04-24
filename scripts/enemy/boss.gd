@@ -14,7 +14,9 @@ extends BaseEnemy
 ## เงินรางวัลเมื่อตาย (สูงมาก เพราะยากมาก)
 @export var boss_reward_money: int = 200
 ## ความต้านทานแรงดีด (0.8 = ตัวหนักแทบไม่ขยับ)
-@export var boss_knockback_resistance: float = 0.8
+@export var boss_knockback_resistance: float = 1.0
+@export var spawn_shake_intensity: float = 20.0
+@export var spawn_shake_duration: float = 1.0
 
 
 func _ready() -> void:
@@ -31,3 +33,16 @@ func _ready() -> void:
 		var hurtbox := get_node("HurtboxComponent") as HurtboxComponent
 		hurtbox.max_hp = base_hp
 		hurtbox.current_hp = base_hp
+
+	await get_tree().create_timer(spawn_delay).timeout
+	_shake_camera(spawn_shake_intensity, spawn_shake_duration)
+
+
+func _shake_camera(intensity: float, duration: float) -> void:
+	if not is_instance_valid(player):
+		var players := get_tree().get_nodes_in_group("player")
+		if players.size() > 0:
+			player = players[0]
+
+	if is_instance_valid(player) and player.has_method("shake_camera"):
+		player.shake_camera(intensity, duration)

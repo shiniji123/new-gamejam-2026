@@ -60,6 +60,10 @@ func _setup_active_wave_manager() -> void:
 	# ถ้าหาไม่เจอ ให้ใช้โหนดที่ชื่อ "WaveManager" ธรรมดาแทน
 	if not active_wave_manager:
 		active_wave_manager = get_node_or_null("WaveManager")
+
+	# สำหรับการเปิดฉาก fight_scene ตรง ๆ จาก editor ให้เริ่มด่านแรกเป็นค่า fallback
+	if not active_wave_manager:
+		active_wave_manager = get_node_or_null("WaveManager_fight_wave_1")
 		
 	if not active_wave_manager:
 		push_warning("[FightScene] ไม่พบโหนด WaveManager ใดๆ ในฉากนี้เลย!")
