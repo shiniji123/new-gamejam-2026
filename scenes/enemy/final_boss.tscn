@@ -1,92 +1,81 @@
-[gd_scene format=3 uid="uid://wno20opcfsag"]
+[gd_scene format=3 uid="uid://tcrwcygvmr3b"]
 
-[ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_qi522"]
-[ext_resource type="Script" path="res://scripts/enemy/final_boss.gd" id="2_6eiim"]
-[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="3_mgiqo"]
-[ext_resource type="Texture2D" uid="uid://d3ye3ihg45ud2" path="res://assets/character/enemy/boss/final_boss_phase1.PNG" id="4_mgiqo"]
-[ext_resource type="Texture2D" uid="uid://bsjp0foxw4bqo" path="res://assets/character/enemy/boss/final_boss_phase2.PNG" id="5_ewa7j"]
-[ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="5_mf5k3"]
-[ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="6_2yvd0"]
-[ext_resource type="Texture2D" uid="uid://dgwhmpghp5ce6" path="res://assets/character/enemy/boss/final_boss_phase3.PNG" id="6_mf5k3"]
+[ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_flash"]
+[ext_resource type="Script" path="res://scripts/enemy/final_boss.gd" id="2_script"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="3_hurt"]
+[ext_resource type="Texture2D" uid="uid://c333x32cpfgxm" path="res://assets/character/enemy/boss/boss_1.PNG" id="4_phase1"]
+[ext_resource type="Texture2D" uid="uid://dwpdj5hfjo6wm" path="res://assets/character/enemy/boss/boss_2_2.PNG" id="5_phase2"]
+[ext_resource type="Texture2D" uid="uid://x36nhh6xug2d" path="res://assets/character/enemy/boss/boss_3.PNG" id="6_phase3"]
+[ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="7_hurtbox"]
+[ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="8_flashfx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mibu8"]
-shader = ExtResource("1_qi522")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flash"]
+shader = ExtResource("1_flash")
 shader_parameter/flash_intensity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2yvd0"]
-atlas = ExtResource("4_mgiqo")
-region = Rect2(0, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P1_0"]
+atlas = ExtResource("4_phase1")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f23cb"]
-atlas = ExtResource("4_mgiqo")
-region = Rect2(96, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P1_1"]
+atlas = ExtResource("4_phase1")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujnx0"]
-atlas = ExtResource("4_mgiqo")
-region = Rect2(192, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P1_2"]
+atlas = ExtResource("4_phase1")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n667g"]
-atlas = ExtResource("4_mgiqo")
-region = Rect2(288, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P1_3"]
+atlas = ExtResource("4_phase1")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8idoc"]
-atlas = ExtResource("4_mgiqo")
-region = Rect2(384, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P2_0"]
+atlas = ExtResource("5_phase2")
+region = Rect2(0, 0, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vb4eu"]
-atlas = ExtResource("5_ewa7j")
-region = Rect2(0, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P2_1"]
+atlas = ExtResource("5_phase2")
+region = Rect2(64, 0, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q6ir5"]
-atlas = ExtResource("5_ewa7j")
-region = Rect2(96, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P2_2"]
+atlas = ExtResource("5_phase2")
+region = Rect2(128, 0, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wv20l"]
-atlas = ExtResource("5_ewa7j")
-region = Rect2(192, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P2_3"]
+atlas = ExtResource("5_phase2")
+region = Rect2(192, 0, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nu476"]
-atlas = ExtResource("5_ewa7j")
-region = Rect2(288, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P3_0"]
+atlas = ExtResource("6_phase3")
+region = Rect2(0, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iq1sx"]
-atlas = ExtResource("5_ewa7j")
-region = Rect2(384, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P3_1"]
+atlas = ExtResource("6_phase3")
+region = Rect2(64, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jrqa0"]
-atlas = ExtResource("6_mf5k3")
-region = Rect2(0, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P3_2"]
+atlas = ExtResource("6_phase3")
+region = Rect2(128, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lk35b"]
-atlas = ExtResource("6_mf5k3")
-region = Rect2(96, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="P3_3"]
+atlas = ExtResource("6_phase3")
+region = Rect2(192, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mfgt"]
-atlas = ExtResource("6_mf5k3")
-region = Rect2(192, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qu2b5"]
-atlas = ExtResource("6_mf5k3")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xhx1g"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_final"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2yvd0")
+"texture": SubResource("P1_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f23cb")
+"texture": SubResource("P1_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ujnx0")
+"texture": SubResource("P1_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n667g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8idoc")
+"texture": SubResource("P1_3")
 }],
 "loop": true,
 "name": &"phase_1",
@@ -94,19 +83,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vb4eu")
+"texture": SubResource("P2_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q6ir5")
+"texture": SubResource("P2_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wv20l")
+"texture": SubResource("P2_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nu476")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iq1sx")
+"texture": SubResource("P2_3")
 }],
 "loop": true,
 "name": &"phase_2",
@@ -114,49 +100,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jrqa0")
+"texture": SubResource("P3_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lk35b")
+"texture": SubResource("P3_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7mfgt")
+"texture": SubResource("P3_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qu2b5")
+"texture": SubResource("P3_3")
 }],
 "loop": true,
 "name": &"phase_3",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mibu8"]
-radius = 61.846584
+[sub_resource type="CircleShape2D" id="CollisionShape_final"]
+radius = 56.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ynkbp"]
-radius = 36.013885
+[sub_resource type="CircleShape2D" id="HurtboxShape_final"]
+radius = 42.0
 
-[node name="final_boss" type="CharacterBody2D" unique_id=276659941]
-material = SubResource("ShaderMaterial_mibu8")
-script = ExtResource("2_6eiim")
-damage_multiplier = 3.0
-speed_multiplier = 0.85
-hit_sound = ExtResource("3_mgiqo")
+[node name="final_boss" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_flash")
+script = ExtResource("2_script")
+hit_sound = ExtResource("3_hurt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=740735222]
-sprite_frames = SubResource("SpriteFrames_xhx1g")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_final")
 animation = &"phase_1"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=197928724]
-shape = SubResource("CircleShape2D_mibu8")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CollisionShape_final")
 
-[node name="HurtboxArea" type="Area2D" parent="." unique_id=282730129]
+[node name="HurtboxArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea" unique_id=1676256201]
-shape = SubResource("CircleShape2D_ynkbp")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea"]
+shape = SubResource("HurtboxShape_final")
 
-[node name="HurtboxComponent" type="Node" parent="." unique_id=101097912]
-script = ExtResource("5_mf5k3")
+[node name="HurtboxComponent" type="Node" parent="."]
+script = ExtResource("7_hurtbox")
 
-[node name="FlashEffects" type="Node" parent="." unique_id=1575769673]
-script = ExtResource("6_2yvd0")
+[node name="FlashEffects" type="Node" parent="."]
+script = ExtResource("8_flashfx")

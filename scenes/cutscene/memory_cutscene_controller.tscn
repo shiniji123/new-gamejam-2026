@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ber54hdnff7q0"]
+
+[ext_resource type="Script" uid="uid://drxouqnn5ev0p" path="res://scripts/cutscene/memory_cutscene_controller.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://buece530gtt2q" path="res://assets/portraits/map/freedom.png" id="2_yght7"]
+[ext_resource type="Texture2D" uid="uid://c12ip10igfsvf" path="res://assets/portraits/map/everest.png" id="3_07io5"]
+[ext_resource type="Texture2D" uid="uid://d0cmmjn0xav44" path="res://assets/portraits/map/tokyo_tower.png" id="4_eixe1"]
+[ext_resource type="Texture2D" uid="uid://d0x2qqhd8e0gj" path="res://assets/portraits/map/shibuya.png" id="5_npxk6"]
+
+[node name="MemoryCutsceneController" type="CanvasLayer" unique_id=1047293076]
+process_mode = 3
+layer = 90
+script = ExtResource("1_script")
+slide_images = Array[Texture2D]([ExtResource("2_yght7"), ExtResource("3_07io5"), ExtResource("4_eixe1"), ExtResource("5_npxk6")])
+slide_texts = Array[String](["The memory archive opens without permission.", "A.V.A sees a record that should not exist.", "The past rewrites itself, frame by frame.", "Fin"])

@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/cutscene/final_mother_choice.gd" id="1_script"]
+
+[node name="FinalMotherChoice" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_script")

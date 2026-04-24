@@ -23,8 +23,6 @@ signal wave_cleared(wave_index: int)
 @export_group("System Settings")
 ## หากตั้งเป็นปิด ฉากหลัก (FightScene) จะเป็นคนสั่งเริ่มทำงานเองตาม Event
 @export var auto_start: bool = false
-## ถ้าปิดไว้ Wave สุดท้ายจะจบด่านทันทีโดยไม่เปิดหน้ารางวัล
-@export var reward_after_final_wave: bool = false
 
 # --- ตัวแปรภายใน ---
 var waves: Array[WaveItem] = []
@@ -111,7 +109,7 @@ func start_next_wave() -> void:
 func _spawn_wave(wave_data: WaveItem) -> void:
 	# คำนวณจำนวนศัตรูใหม่ (ถ้าเป็น Boss 2 ให้คูณ 2 เพราะเกิดทีละคู่)
 	var actual_boss_count = wave_data.boss_count
-	if wave_data.boss_type == WaveItem.BossType.BOSS_2:
+	if wave_data.boss_type == 1: # Boss 2 (Index 1)
 		actual_boss_count *= 2
 		
 	enemies_left = wave_data.normal_count + wave_data.elite_count + actual_boss_count
@@ -131,20 +129,19 @@ func _spawn_wave(wave_data: WaveItem) -> void:
 
 	# เลือก Boss ให้ตรงตามประเภท
 	var selected_boss_scene = boss_scene
-	match wave_data.boss_type:
-		WaveItem.BossType.BOSS_2:
-			selected_boss_scene = boss_2_scene
-		WaveItem.BossType.BOSS_3:
-			selected_boss_scene = boss_3_scene
-		WaveItem.BossType.FINAL_BOSS:
-			selected_boss_scene = final_boss_scene
+	if wave_data.boss_type == 1:
+		selected_boss_scene = boss_2_scene
+	elif wave_data.boss_type == 2:
+		selected_boss_scene = boss_3_scene
+	elif wave_data.boss_type == 3:
+		selected_boss_scene = final_boss_scene
 
-	if wave_data.boss_type == WaveItem.BossType.BOSS_2:
-		for _i in range(wave_data.boss_count):
-			await _spawn_boss_pair(selected_boss_scene, wave_data.spawn_interval, wave_data.boss_scale)
-	else:
-		for _i in range(wave_data.boss_count):
-			await _spawn_one(selected_boss_scene, wave_data.spawn_interval, wave_data.boss_scale)
+	# ถ้าเป็น Boss 2 จำนวน actual_boss_count จะถูกคูณ 2 มาแล้ว
+	var spawn_boss_count = wave_data.boss_count
+	if wave_data.boss_type == 1: spawn_boss_count *= 2
+	
+	for _i in range(spawn_boss_count):
+		await _spawn_one(selected_boss_scene, wave_data.spawn_interval, wave_data.boss_scale)
 
 
 func _spawn_one(scene: PackedScene, delay: float, enemy_scale: Vector2 = Vector2.ONE) -> void:
@@ -168,39 +165,14 @@ func _spawn_one(scene: PackedScene, delay: float, enemy_scale: Vector2 = Vector2
 		_consume_enemy_slot()
 
 
-func _spawn_boss_pair(scene: PackedScene, delay: float, enemy_scale: Vector2 = Vector2.ONE) -> void:
-	if not scene:
-		_consume_enemy_slot()
-		_consume_enemy_slot()
-		return
-
-	await get_tree().create_timer(delay).timeout
-
-	if not is_instance_valid(spawner):
-		push_error("[WaveManager] ไม่พบโหนด Spawner!")
-		_consume_enemy_slot()
-		_consume_enemy_slot()
-		return
-
-	var spawned_count := 0
-	for _i in range(2):
-		var instance: Node2D = await spawner.spawn_enemy(scene, false)
-		if instance:
-			spawned_count += 1
-			_apply_enemy_scale(instance, enemy_scale)
-			instance.tree_exited.connect(_on_enemy_cleared)
-
-	for _i in range(2 - spawned_count):
-		_consume_enemy_slot()
-
-
 func _on_enemy_cleared() -> void:
 	if not is_inside_tree():
 		return
 
 	enemies_left -= 1
 	if enemies_left <= 0:
-		_finish_current_wave()
+		print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
+		wave_cleared.emit(current_wave_index)
 		# หมายเหตุ: ระบบจะรอการเรียก start_next_wave() จากที่อื่น (เช่น RewardUI) 
 		# หรือคุณสามารถเปิด auto-start ได้ถ้าต้องการ
 
@@ -211,18 +183,8 @@ func _consume_enemy_slot() -> void:
 
 	enemies_left -= 1
 	if enemies_left <= 0:
-		_finish_current_wave()
-
-
-func _finish_current_wave() -> void:
-	var is_final_wave := current_wave_index >= waves.size() - 1
-	if is_final_wave and not reward_after_final_wave:
-		print("✅ Wave %d เคลียร์! (จบด่าน)" % (current_wave_index + 1))
-		call_deferred("start_next_wave")
-		return
-
-	print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
-	wave_cleared.emit(current_wave_index)
+		print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
+		wave_cleared.emit(current_wave_index)
 
 
 func _apply_enemy_scale(instance: Node2D, enemy_scale: Vector2) -> void:

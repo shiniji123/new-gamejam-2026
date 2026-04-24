@@ -88,7 +88,7 @@ var event_timeline: Array[Dictionary] = [
 		"type": "fight",
 		"scene": "res://scenes/fight_scene/fight_scene.tscn",
 		"complete_condition": "all_waves_cleared",
-		"description": "การต่อสู้ครั้งที่ 2: สัญญาณผิดปกติระดับบอส",
+		"description": "Fight 2: Boss 2 test",
 	},
 	{
 		"id": "talk_after_boss_win",
@@ -96,7 +96,23 @@ var event_timeline: Array[Dictionary] = [
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
 		"complete_target": "village_npc",
-		"description": "กลับมารายงานผลหลังชนะบอส",
+		"description": "Report back after Boss 2",
+	},
+	{
+		"id": "read_notepad_2",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "third_notepad",
+		"description": "Read the third note before Boss 3",
+	},
+	{
+		"id": "talk_after_read_3",
+		"type": "exploration",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "interact",
+		"complete_target": "village_npc",
+		"description": "Talk to NPC after the third note",
 	},
 	{
 		"id": "go_to_combat_3",
@@ -104,72 +120,74 @@ var event_timeline: Array[Dictionary] = [
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
 		"complete_target": "green_circle_3",
-		"description": "เข้าสู่ fight_scene 3",
+		"description": "Enter the arena for Boss 3",
 	},
 	{
 		"id": "fight_wave_3",
 		"type": "fight",
 		"scene": "res://scenes/fight_scene/fight_scene.tscn",
 		"complete_condition": "all_waves_cleared",
-		"description": "fight_scene 3: boss 2",
+		"description": "Fight 3: Boss 3 test",
 	},
 	{
-		"id": "talk_after_boss_2_win",
+		"id": "memory_cutscene_after_fight_3",
+		"type": "cutscene",
+		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+		"complete_condition": "cutscene",
+		"complete_target": "memory_cutscene_after_fight_3",
+		"description": "A.V.A memory deletion cutscene",
+	},
+	{
+		"id": "talk_after_memory_cutscene",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
 		"complete_target": "village_npc",
-		"description": "กลับมารายงานผลหลังชนะ boss 2",
+		"description": "Return to normal story flow after the memory cutscene",
 	},
 	{
-		"id": "go_to_combat_4",
+		"id": "read_final_notepad",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
-		"complete_target": "green_circle_4",
-		"description": "เข้าสู่ fight_scene 4",
+		"complete_target": "final_notepad",
+		"description": "Read the final note before Mother",
 	},
 	{
-		"id": "fight_wave_4",
-		"type": "fight",
-		"scene": "res://scenes/fight_scene/fight_scene.tscn",
-		"complete_condition": "all_waves_cleared",
-		"description": "fight_scene 4: boss 3",
-	},
-	{
-		"id": "talk_after_boss_3_win",
+		"id": "talk_after_final_note",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
 		"complete_target": "village_npc",
-		"description": "กลับมารายงานผลหลังชนะ boss 3",
+		"description": "Talk to NPC before Final Boss",
 	},
 	{
-		"id": "go_to_combat_5",
+		"id": "go_to_final_boss",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
-		"complete_target": "green_circle_5",
-		"description": "เข้าสู่ fight_scene 5",
+		"complete_target": "final_boss_circle",
+		"description": "Enter Mother's arena",
 	},
 	{
-		"id": "fight_wave_5",
+		"id": "fight_final_boss",
 		"type": "fight",
 		"scene": "res://scenes/fight_scene/fight_scene.tscn",
 		"complete_condition": "all_waves_cleared",
-		"description": "fight_scene 5: final boss",
+		"description": "Final Boss: Mother",
 	},
 	{
-		"id": "ending",
-		"type": "ending",
-		"scene": "res://scenes/ending_scene/ending_scene.tscn",
-		"complete_condition": "manual",
-		"description": "Thanks for playing",
+		"id": "mother_final_choice",
+		"type": "ending_choice",
+		"scene": "res://scenes/cutscene/final_mother_choice.tscn",
+		"complete_condition": "choice",
+		"description": "Talk with Mother and choose an ending",
 	}
 ]
 
 var current_event_index: int = 0
 var is_game_completed: bool = false
+var selected_ending_id: String = ""
 
 func _ready() -> void:
 	if get_tree().root.has_node("RunManager"):
@@ -187,8 +205,6 @@ func start_current_event() -> void:
 
 	var event = event_timeline[current_event_index]
 	print("🎬 เริ่ม Event: %s (%s)" % [event.id, event.description])
-	if event.get("type", "") == "ending":
-		is_game_completed = true
 	event_started.emit(event.id)
 	
 	var current_scene_path = ""
@@ -204,6 +220,9 @@ func start_current_event() -> void:
 		print("⚡ เปลี่ยน Event ในฉากเดิม (ข้ามการโหลดฉากซ้ำ)")
 
 func complete_current_event() -> void:
+	if current_event_index >= event_timeline.size():
+		return
+
 	var event = event_timeline[current_event_index]
 	print("✅ Event สำเร็จ: %s" % event.id)
 	event_completed.emit(event.id)
@@ -224,6 +243,17 @@ func notify_fight_cleared() -> void:
 	
 	if event.complete_condition == "all_waves_cleared":
 		complete_current_event()
+
+func notify_cutscene_finished(target_name: String) -> void:
+	var event = get_current_event()
+	if not event: return
+	
+	if event.complete_condition == "cutscene" and event.get("complete_target", "") == target_name:
+		complete_current_event()
+
+func set_selected_ending(ending_id: String) -> void:
+	selected_ending_id = ending_id
+	complete_current_event()
 
 func notify_dialogue_ended() -> void:
 	var event = get_current_event()
@@ -254,9 +284,11 @@ func get_save_data() -> Dictionary:
 	return {
 		"current_event_index": current_event_index,
 		"is_game_completed": is_game_completed,
+		"selected_ending_id": selected_ending_id,
 	}
 
 
 func restore_from_save(data: Dictionary) -> void:
 	current_event_index = clampi(int(data.get("current_event_index", 0)), 0, event_timeline.size())
 	is_game_completed = bool(data.get("is_game_completed", current_event_index >= event_timeline.size()))
+	selected_ending_id = String(data.get("selected_ending_id", ""))
