@@ -107,8 +107,8 @@ func _ready() -> void:
 	if get_tree().root.has_node("RunManager"):
 		RunManager.start_new_run()
 
-	# เริ่ม Event แรกสุดทันทีที่เปิดเกม
-	call_deferred("start_current_event")
+	# ไม่ให้เริ่ม Event อัตโนมัติเมื่อเปิดเกม เพื่อให้แสดงหน้า Menu ก่อน
+	# call_deferred("start_current_event")
 
 func start_current_event() -> void:
 	if current_event_index >= event_timeline.size():
