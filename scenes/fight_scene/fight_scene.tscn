@@ -46,19 +46,13 @@ script = ExtResource("1_nff5x")
 battle_music = ExtResource("2_aglko")
 
 [node name="Player_Transform" parent="." unique_id=45369660 instance=ExtResource("3_28its")]
+z_index = 5
+position = Vector2(576, 324)
+
+[node name="MemoryCutsceneController" type="CanvasLayer" parent="." unique_id=409807980]
 process_mode = 3
 layer = 90
 script = ExtResource("1_3g10t")
-trigger_event_id = "memory_cutscene_after_fight_3"
-event_target_name = "memory_cutscene_after_fight_3"
-walk_target_position = Vector2(576, 168)
-walk_speed = 170.0
-restore_player_position_after_cutscene = true
-fade_duration = 0.65
-slide_fade_duration = 0.35
-deletion_hold_duration = 1.4
-shake_duration = 1.25
-shake_strength = 18.0
 slide_images = Array[Texture2D]([ExtResource("2_pxly3"), ExtResource("3_885g1"), ExtResource("4_gnakn"), ExtResource("5_vp5g2")])
 slide_texts = Array[String](["The memory archive opens without permission.", "A.V.A sees a record that should not exist.", "The past rewrites itself, frame by frame.", "Fin"])
 
@@ -195,15 +189,8 @@ boss_scale = Vector2(2, 2)
 
 [node name="WaveItem" type="Node" parent="WaveManager_fight_final_boss" unique_id=1216313229]
 script = ExtResource("9_28its")
-normal_count = 2
-elite_count = 1
-normal_scale = Vector2(1.2, 1.2)
-elite_scale = Vector2(1.4, 1.4)
-
-[node name="WaveItem2" type="Node" parent="WaveManager_fight_final_boss" unique_id=1862987421]
-script = ExtResource("9_28its")
 normal_count = 0
 boss_count = 1
 boss_type = 3
-start_delay = 1.0
+start_delay = 0.5
 boss_scale = Vector2(2.3, 2.3)

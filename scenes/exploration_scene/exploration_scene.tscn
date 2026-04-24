@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dpucpeempaxyb"]
 
 [ext_resource type="Script" uid="uid://bqa5r53v8d61i" path="res://scripts/exploration_scene/exploration_scene.gd" id="1_shpba"]
-[ext_resource type="AudioStream" uid="uid://b8gscg2pwk5cr" path="res://assets/sounds/exploration_scene.wav" id="2_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
+[ext_resource type="AudioStream" uid="uid://cyi53bt88nqeq" path="res://assets/sounds/exploration_bg.wav" id="2_rc7ga"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
-[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/WINDOW_BG.png" id="3_rc7ga"]
-[ext_resource type="Texture2D" uid="uid://fnvmjl3cvdmy" path="res://assets/effect/sprite-sheet.png" id="7_fnwyb"]
+[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/window_bg.png" id="3_rc7ga"]
+[ext_resource type="Texture2D" uid="uid://cp3lkdkqa8qog" path="res://assets/map/bin.png" id="6_1tvuq"]
 [ext_resource type="Script" uid="uid://ch21kng8l8s1h" path="res://scripts/shop_npc.gd" id="7_m6i2j"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="8_fnwyb"]
 [ext_resource type="PackedScene" uid="uid://bgfjoa0qvyob4" path="res://scenes/ui/shop_ui.tscn" id="9_hpjf3"]
@@ -17,61 +17,17 @@
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
-[ext_resource type="PackedScene" path="res://scenes/ui/notepad_ui.tscn" id="19_notepad"]
+[ext_resource type="PackedScene" uid="uid://i84b22kntm54" path="res://scenes/ui/notepad_ui.tscn" id="19_notepad"]
+[ext_resource type="Texture2D" uid="uid://djvmorb3jl1ro" path="res://assets/map/Note.png" id="20_1tvuq"]
 [ext_resource type="PackedScene" path="res://scenes/ui/exploration_settings_ui.tscn" id="20_settings"]
-[ext_resource type="PackedScene" uid="uid://ber54hdnff7q0" path="res://scenes/cutscene/memory_cutscene_controller.tscn" id="21_memory"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_un5d4"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2766l"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m0w0c"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g471u"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1wjfq"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(64, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wef41"]
-atlas = ExtResource("7_fnwyb")
-region = Rect2(128, 64, 64, 64)
+[ext_resource type="Texture2D" uid="uid://bt1bw18m8rjv0" path="res://assets/map/mail.png" id="21_xeape"]
+[ext_resource type="Texture2D" uid="uid://duw2rlg6dxc5n" path="res://assets/map/My Computer.png" id="22_wwam5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8casv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hpjf3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_un5d4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2766l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m0w0c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g471u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1wjfq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wef41")
+"texture": ExtResource("6_1tvuq")
 }],
 "loop": true,
 "name": &"default",
@@ -81,9 +37,42 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_un5d4"]
 radius = 14.764823
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_xeape"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_1tvuq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wwam5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_xeape")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3vck4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_wwam5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="ExplorationScene" type="Node2D" unique_id=641967867]
 script = ExtResource("1_shpba")
-explore_music = ExtResource("2_1tvuq")
+explore_music = ExtResource("2_rc7ga")
 music_fade_duration = 1.0
 player_scale = Vector2(1.3, 1.3)
 
@@ -94,19 +83,22 @@ texture = ExtResource("3_rc7ga")
 expand_mode = 3
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
+top_level = true
 position = Vector2(576, 324)
 speed = 300.0
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
-position = Vector2(85, 72)
+visible = false
+position = Vector2(86, 107)
 require_interact = true
-action_name = "ต่อสู้"
-area_color = Color(1, 0.11, 0.11, 0.3)
+action_name = "Battle"
+area_color = Color(1, 0.10980392, 0.10980392, 0)
 active_on_event = "go_to_combat"
 trigger_event_target = "green_circle"
 
 [node name="Shop" type="AnimatedSprite2D" parent="." unique_id=909600885 node_paths=PackedStringArray("interaction_area", "shop_ui", "animated_sprite")]
-position = Vector2(91, 527)
+position = Vector2(90.5, 520.96875)
+scale = Vector2(0.20746523, 0.20669365)
 sprite_frames = SubResource("SpriteFrames_8casv")
 script = ExtResource("7_m6i2j")
 interaction_area = NodePath("Area2D")
@@ -114,14 +106,17 @@ shop_ui = NodePath("../ShopUI")
 animated_sprite = NodePath(".")
 
 [node name="InteractiveArea" parent="Shop" unique_id=1537300196 instance=ExtResource("8_fnwyb")]
+visible = false
 position = Vector2(0, 6)
 
 [node name="Area2D" type="Area2D" parent="Shop" unique_id=937741140]
-position = Vector2(2, 5)
+visible = false
+position = Vector2(2.4100342, 4.9892273)
+scale = Vector2(-24.168333, -24.168333)
 script = ExtResource("10_hpjf3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/Area2D" unique_id=2039638490]
-position = Vector2(3, -3)
+position = Vector2(-2.3841858e-07, -0.20018148)
 shape = SubResource("CircleShape2D_un5d4")
 
 [node name="ShopUI" parent="." unique_id=1950074557 instance=ExtResource("9_hpjf3")]
@@ -161,61 +156,44 @@ offset_bottom = 94.0
 script = ExtResource("16_1tvuq")
 
 [node name="ExampleBalloon" parent="." unique_id=1434168376 instance=ExtResource("17_wef41")]
+visible = false
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
 position = Vector2(502, 322)
 
-[node name="NotepadArea" parent="." unique_id=729126769 instance=ExtResource("3_4dtv0")]
-position = Vector2(80, 370)
-require_interact = true
-action_name = "Read"
-active_on_event = "start_game_notepad"
-is_notepad = true
-notepad_title = "📋 บันทึกของระบบ"
-notepad_content = "[b]บันทึกฉุกเฉิน[/b]
-
-ระบบตรวจพบไวรัสที่แฝงตัวเข้ามาในเครือข่ายหลัก...
-ไฟล์ข้อมูลสำคัญหลายรายการถูกเข้ารหัส
-ต้องกำจัดภัยคุกคามทั้งหมดก่อนที่จะสายเกินไป
-
-— ผู้ดูแลระบบ"
-notepad_event_target = "first_notepad"
-
 [node name="TransitionAreaFight2" parent="." unique_id=1088142201 instance=ExtResource("3_4dtv0")]
-position = Vector2(85, 72)
+position = Vector2(91, 71)
 require_interact = true
 action_name = "Boss Test"
-area_color = Color(1, 0.55, 0.12, 0.35)
+area_color = Color(1, 0.54901963, 0.12156863, 0)
 active_on_event = "go_to_combat_2"
 trigger_event_target = "green_circle_2"
 
-[node name="NotepadArea2" parent="." unique_id=1109612314 instance=ExtResource("3_4dtv0")]
-position = Vector2(1018, 362)
+[node name="TransitionAreaFight3" parent="." unique_id=441970557 instance=ExtResource("3_4dtv0")]
+position = Vector2(91, 71)
 require_interact = true
-action_name = "Read"
-area_color = Color(1, 0.74, 0.18, 0.3)
-active_on_event = "read_notepad_1"
-is_notepad = true
-notepad_title = "📓 บันทึกการกักกันฉบับที่สอง"
-notepad_content = "[b]บันทึกการกักกัน / ระดับเตือนภัยสีส้ม[/b]
+action_name = "Boss 2"
+area_color = Color(1, 0.54901963, 0.12156863, 0)
+active_on_event = "go_to_combat_3"
+trigger_event_target = "green_circle_3"
 
-หลังการปะทะระลอกแรก สัญญาณผิดปกติไม่ได้ลดลง
-มันกำลังรวมตัวกันที่จุดเดิม และเริ่มสร้างแกนพลังงานรูปแบบใหม่
+[node name="TransitionAreaFight4" parent="." unique_id=1800125293 instance=ExtResource("3_4dtv0")]
+position = Vector2(91, 71)
+require_interact = true
+action_name = "Boss 3"
+area_color = Color(1, 0.54901963, 0.12156863, 0)
+active_on_event = "go_to_combat_4"
+trigger_event_target = "green_circle_4"
 
-ข้อสันนิษฐาน:
-1. การกำจัดหน่วยย่อยทำให้ \"ตัวควบคุม\" ตื่นตัว
-2. ถ้าพลังงานสะสมครบ มันจะปล่อยร่างประมวลผลระดับบอสออกมา
-3. ผู้ทดสอบภาคสนามต้องเตรียมรับการโจมตีที่หนักกว่าเดิมหลายเท่า
+[node name="TransitionAreaFight5" parent="." unique_id=627220873 instance=ExtResource("3_4dtv0")]
+position = Vector2(91, 71)
+require_interact = true
+action_name = "Final Boss"
+area_color = Color(1, 0.54901963, 0.12156863, 0)
+active_on_event = "go_to_combat_5"
+trigger_event_target = "green_circle_5"
 
-คำแนะนำ:
-- เสริมพลังให้พร้อมก่อนเข้ารอบถัดไป
-- รักษาระยะขณะบอสเริ่มเปิดเฟส
-- อย่าปล่อยให้สนามนิ่งเกินไป เพราะศัตรูจะล้อมเร็วมาก
-
-— ฝ่ายเฝ้าระวังระบบ"
-notepad_event_target = "second_notepad"
-
-[node name="TransitionAreaFight3" parent="." unique_id=2068561378 instance=ExtResource("3_4dtv0")]
+[node name="TransitionAreaFight6" parent="." unique_id=1892629223 instance=ExtResource("3_4dtv0")]
 position = Vector2(1040, 86)
 require_interact = true
 action_name = "Boss 3"
@@ -223,7 +201,7 @@ area_color = Color(0.25, 0.42, 1, 0.35)
 active_on_event = "go_to_combat_3"
 trigger_event_target = "green_circle_3"
 
-[node name="TransitionAreaFinalBoss" parent="." unique_id=1998887390 instance=ExtResource("3_4dtv0")]
+[node name="TransitionAreaFinalBoss" parent="." unique_id=1296533710 instance=ExtResource("3_4dtv0")]
 position = Vector2(576, 92)
 require_interact = true
 action_name = "Mother"
@@ -231,7 +209,7 @@ area_color = Color(0.03, 0.03, 0.03, 0.55)
 active_on_event = "go_to_final_boss"
 trigger_event_target = "final_boss_circle"
 
-[node name="NotepadArea3" parent="." unique_id=483767957 instance=ExtResource("3_4dtv0")]
+[node name="NotepadArea3" parent="." unique_id=980647967 instance=ExtResource("3_4dtv0")]
 position = Vector2(1040, 520)
 require_interact = true
 action_name = "Read"
@@ -251,7 +229,7 @@ Test order:
 4. Confirm the memory deletion message appears before control returns."
 notepad_event_target = "third_notepad"
 
-[node name="NotepadAreaFinal" parent="." unique_id=930958544 instance=ExtResource("3_4dtv0")]
+[node name="NotepadAreaFinal" parent="." unique_id=1877903776 instance=ExtResource("3_4dtv0")]
 position = Vector2(575, 545)
 require_interact = true
 action_name = "Read"
@@ -271,5 +249,70 @@ notepad_event_target = "final_notepad"
 
 [node name="ExplorationSettingsUI" parent="." unique_id=1616906604 instance=ExtResource("20_settings")]
 
-[node name="MemoryCutsceneController" parent="." unique_id=1193594170 instance=ExtResource("21_memory")]
-walk_target_position = Vector2(576, 180)
+[node name="Notepad" type="AnimatedSprite2D" parent="." unique_id=481008870]
+position = Vector2(84.22224, 375.375)
+scale = Vector2(0.2172068, 0.21720678)
+sprite_frames = SubResource("SpriteFrames_xeape")
+
+[node name="NotepadArea" parent="Notepad" unique_id=729126769 instance=ExtResource("3_4dtv0")]
+visible = false
+position = Vector2(26.600372, 2.8774414)
+scale = Vector2(4.603907, 4.6039076)
+require_interact = true
+action_name = "Read"
+area_color = Color(0.10980392, 1, 0.10980392, 0)
+active_on_event = "start_game_notepad"
+is_notepad = true
+notepad_title = "📋 System Log"
+notepad_content = "[b]Emergency Log[/b]
+
+The system has detected a virus infiltrating the core network...
+Several critical data files have been encrypted.
+The threat must be eliminated before it's too late.
+
+— Administrator"
+notepad_event_target = "first_notepad"
+
+[node name="Mail" type="AnimatedSprite2D" parent="." unique_id=17695146]
+position = Vector2(1058, 382)
+scale = Vector2(0.16859564, 0.16859566)
+sprite_frames = SubResource("SpriteFrames_wwam5")
+
+[node name="MailArea" parent="Mail" unique_id=1109612314 instance=ExtResource("3_4dtv0")]
+visible = false
+position = Vector2(-5.931198, -53.382088)
+scale = Vector2(5.9313517, 5.931351)
+require_interact = true
+action_name = "Read"
+area_color = Color(1, 0.7411765, 0.18039216, 0)
+active_on_event = "read_notepad_1"
+is_notepad = true
+notepad_title = "📓 Quarantine Log #2"
+notepad_content = "[b]Quarantine Log / Orange Alert Level[/b]
+
+After the first wave, the interference signals haven't decreased.
+They are converging at the same point and forming a new energy core.
+
+Hypotheses:
+1. Eliminating subunits triggered the \"Controller\".
+2. Once energy is fully gathered, it will manifest a boss-level entity.
+3. Field testers must prepare for an attack many times heavier than before.
+
+Advice:
+- Upgrade your gear before the next round.
+- Maintain distance when the boss begins its phase.
+- Keep moving; enemies will surround you quickly.
+
+— System Surveillance Division"
+notepad_event_target = "second_notepad"
+
+[node name="My Computer" type="AnimatedSprite2D" parent="." unique_id=1082985933]
+position = Vector2(91.33333, 73.87501)
+scale = Vector2(0.1886574, 0.18865742)
+sprite_frames = SubResource("SpriteFrames_3vck4")
+
+[node name="ComputerArea" parent="My Computer" unique_id=1082985934 instance=ExtResource("3_4dtv0")]
+visible = false
+scale = Vector2(2.4344952, 2.4344952)
+area_color = Color(0.10980392, 1, 0.10980392, 0)
+always_zoom = true

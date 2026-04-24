@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 @export_group("Audio")
 @export var hit_sound: AudioStream            
+@export var death_sound: AudioStream = preload("res://assets/new_sound/player_died.wav")
 # ------------------------------
 
 # --- ตัวแปรภายใน ---
@@ -139,6 +140,9 @@ func _on_took_damage(current_hp, attacker_pos):
 func _on_died():
 	if is_dead: return
 	is_dead = true
+
+	if death_sound:
+		AudioManager.play_sfx(death_sound)
 	
 	print("Player is Dead!")
 	# หยุดการเคลื่อนที่ทั้งหมด

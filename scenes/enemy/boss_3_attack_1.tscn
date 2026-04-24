@@ -281,7 +281,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7yd0n"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yd0n"]
+size = Vector2(64, 145)
 
 [node name="boss_3_attack_1" type="Area2D" unique_id=1083125271]
 script = ExtResource("1_t7d3b")
@@ -292,7 +293,7 @@ animation = &"boss_3_attack_1"
 frame_progress = 0.7214574
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526242376]
-shape = SubResource("CircleShape2D_7yd0n")
+shape = SubResource("RectangleShape2D_7yd0n")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

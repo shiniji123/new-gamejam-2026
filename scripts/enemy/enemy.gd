@@ -17,6 +17,7 @@ class_name BaseEnemy
 # ------------------------------
 
 @export_group("Audio")
+@export var death_sound: AudioStream = preload("res://assets/new_sound/enemy_died.wav")
 @export var hit_sound: AudioStream            # ลากไฟล์เสียงตอนถูกตีมาใส่
 # ------------------------------
 
@@ -108,6 +109,9 @@ func _on_took_damage(_hp, _attacker_pos):
 func _on_died() -> void:
 	if is_dead: return
 	is_dead = true
+
+	if death_sound:
+		AudioManager.play_sfx(death_sound, true)
 	
 	velocity = Vector2.ZERO
 	knockback_velocity = Vector2.ZERO

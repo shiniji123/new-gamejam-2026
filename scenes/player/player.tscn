@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6h1qunxstw30"]
 
-[ext_resource type="AudioStream" uid="uid://siqc0wh6p634" path="res://assets/sounds/player_hurt.wav" id="2_3j4b4"]
+[ext_resource type="AudioStream" uid="uid://b1fo4vc6ae5ur" path="res://assets/new_sound/attacked.wav" id="2_3j4b4"]
 [ext_resource type="Texture2D" uid="uid://08xewdcdub24" path="res://assets/character/player/Idle/Idle.png" id="3_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://cnf68aue66e6t" path="res://assets/character/player/Walk/walk.png" id="4_h17s1"]
 [ext_resource type="Script" uid="uid://cxqn8ajmw6kn5" path="res://scripts/player/player.gd" id="13_8k2jx"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="17_lgqa7"]
 [ext_resource type="Script" uid="uid://cgai7s2gbxlnv" path="res://scripts/combat/combat_system.gd" id="18_lgqa7"]
 [ext_resource type="PackedScene" uid="uid://c2d51w3m01gbq" path="res://scenes/combat/projectile.tscn" id="19_8ydkj"]
-[ext_resource type="AudioStream" uid="uid://dnfp74twaiyt2" path="res://assets/sounds/player_attack.wav" id="21_yj68g"]
+[ext_resource type="AudioStream" uid="uid://cftgi6hovdvqv" path="res://assets/new_sound/attack.wav" id="21_yj68g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_je7p5"]
 atlas = ExtResource("3_5gtgg")

@@ -148,7 +148,7 @@ func _rebuild_note_list() -> void:
 	
 	if _notes.size() == 0:
 		var empty_label = Label.new()
-		empty_label.text = "ยังไม่มี Note"
+		empty_label.text = "No notes yet"
 		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		empty_label.add_theme_color_override("font_color", Color(0.5, 0.45, 0.65, 0.7))
 		_note_list_container.add_child(empty_label)
@@ -277,7 +277,7 @@ func _build_ui() -> void:
 	title_hbox.add_child(icon_label)
 	
 	var list_title = Label.new()
-	list_title.text = "NOTEPAD — รายการบันทึก"
+	list_title.text = "NOTEPAD — Log List"
 	list_title.add_theme_color_override("font_color", Color(0.9, 0.85, 1.0))
 	list_title.add_theme_font_size_override("font_size", 18)
 	list_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -321,13 +321,13 @@ func _build_ui() -> void:
 	list_bottom.add_child(list_bottom_hbox)
 	
 	var hint_label = Label.new()
-	hint_label.text = "เลือก Note เพื่ออ่าน"
+	hint_label.text = "Select a Note to read"
 	hint_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hint_label.add_theme_color_override("font_color", Color(0.5, 0.45, 0.65, 0.7))
 	hint_label.add_theme_font_size_override("font_size", 11)
 	list_bottom_hbox.add_child(hint_label)
 	
-	_close_list_btn = _create_styled_button("✖  ปิด")
+	_close_list_btn = _create_styled_button("✖  Close")
 	_close_list_btn.pressed.connect(_close_notepad)
 	list_bottom_hbox.add_child(_close_list_btn)
 	
@@ -401,13 +401,13 @@ func _build_ui() -> void:
 	read_bottom.add_child(read_bottom_hbox)
 	
 	var read_hint = Label.new()
-	read_hint.text = "กด ESC เพื่อกลับรายการ"
+	read_hint.text = "Press ESC to go back"
 	read_hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	read_hint.add_theme_color_override("font_color", Color(0.5, 0.45, 0.65, 0.7))
 	read_hint.add_theme_font_size_override("font_size", 11)
 	read_bottom_hbox.add_child(read_hint)
 	
-	_back_btn = _create_styled_button("◀  กลับ")
+	_back_btn = _create_styled_button("◀  Back")
 	_back_btn.pressed.connect(_show_list)
 	read_bottom_hbox.add_child(_back_btn)
 	
@@ -415,7 +415,7 @@ func _build_ui() -> void:
 	spacer.custom_minimum_size = Vector2(8, 0)
 	read_bottom_hbox.add_child(spacer)
 	
-	_close_btn = _create_styled_button("✖  ปิด")
+	_close_btn = _create_styled_button("✖  Close")
 	_close_btn.pressed.connect(_close_notepad)
 	read_bottom_hbox.add_child(_close_btn)
 

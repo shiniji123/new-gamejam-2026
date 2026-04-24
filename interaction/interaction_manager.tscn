@@ -1,6 +1,20 @@
-[gd_scene format=3 uid="uid://dy65k31msecat"]
+[gd_scene load_steps=3 format=3 uid="uid://dy65k31msecat"]
 
 [ext_resource type="Script" uid="uid://cojwktdqc6s0v" path="res://interaction/interaction_manager.gd" id="1_bisbg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0, 0, 0, 0.470588)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 12.0
+expand_margin_top = 4.0
+expand_margin_right = 12.0
+expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.25098)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [node name="Interaction_Manager" type="Node2D" unique_id=340026935]
 script = ExtResource("1_bisbg")
@@ -10,11 +24,12 @@ z_index = 50
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -156.0
-offset_right = 156.0
-offset_bottom = 74.0
+offset_left = -30.0
+offset_right = 30.0
+offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_background")
 text = "[E] to"
 horizontal_alignment = 1
 vertical_alignment = 1

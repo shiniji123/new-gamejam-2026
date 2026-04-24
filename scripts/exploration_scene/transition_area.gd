@@ -9,9 +9,12 @@ extends Area2D
 ## ต้องกดปุ่ม E เพื่อทำงานหรือไม่? (ถ้าไม่ติ๊ก จะทำงานทันทีที่เดินชน)
 @export var require_interact: bool = false
 ## ข้อความที่จะขึ้นตอนให้กด E (เช่น "อ่าน", "ต่อสู้", "เข้าประตู")
-@export var action_name: String = "สำรวจ"
+@export var action_name: String = "Explore"
 ## สีของวงกลม (สามารถปรับให้แต่ละจุดสีไม่เหมือนกันได้ เช่น เขียว=อ่าน, แดง=สู้)
 @export var area_color: Color = Color(0.11, 1.0, 0.11, 0.3)
+## เปิดใช้งานการซูมเข้า-ออกตลอดเวลา (เช่น สำหรับไอคอน My Computer)
+@export var always_zoom: bool = false
+
 
 @export_group("Transition Settings")
 @export var fade_speed: float = 0.6
@@ -28,6 +31,9 @@ extends Area2D
 @export var notepad_event_target: String = ""
 
 var _notepad_ui: Node = null
+var _zoom_tween: Tween
+var _base_scale: Vector2 = Vector2.ZERO
+
 
 # ตัวแปร Callable สำหรับเชื่อมกับ InteractionManager
 var interact: Callable
@@ -62,6 +68,12 @@ func _ready() -> void:
 		body_entered.connect(_on_body_entered)
 	if not body_exited.is_connected(_on_body_exited):
 		body_exited.connect(_on_body_exited)
+		
+	# เริ่มเล่นแอนิเมชันซูมถ้าเป็นโหมด Notepad หรือตั้งค่าให้ซูมตลอดเวลา
+	if is_notepad or always_zoom:
+		_start_zoom_animation()
+
+
 
 func _process(_delta: float) -> void:
 	if active_on_event != "":
@@ -117,6 +129,10 @@ func _execute_action() -> void:
 		_open_notepad()
 		return
 	
+	# หยุดซูมชั่วคราวตอนเปลี่ยนฉากหรือเกิด Event
+	_stop_zoom_animation()
+
+	
 	# --- โหมด Event: ส่งสัญญาณให้ EventManager เปลี่ยนฉากแทน ---
 	if trigger_event_target != "":
 		set_deferred("monitoring", false)
@@ -140,7 +156,11 @@ func _execute_action() -> void:
 	call_deferred("_change_state")
 
 func _open_notepad() -> void:
+	# หยุดแอนิเมชันซูมตอนกำลังอ่าน
+	_stop_zoom_animation()
+	
 	if require_interact and get_tree().root.has_node("InteractionManager"):
+
 		InteractionManager.unregister_area(self)
 	
 	_notepad_ui = get_tree().current_scene.get_node_or_null("NotepadUI")
@@ -168,6 +188,12 @@ func _on_notepad_closed() -> void:
 	
 	# เปิด monitoring กลับเสมอ เพื่อให้อ่านซ้ำได้
 	set_deferred("monitoring", true)
+	
+	# เริ่มเล่นแอนิเมชันซูมใหม่หลังจากอ่านจบ
+	if is_notepad or always_zoom:
+		_start_zoom_animation()
+
+
 
 func _change_scene() -> void:
 	if get_tree().root.has_node("SceneManager"):
@@ -179,3 +205,28 @@ func _change_scene() -> void:
 func _change_state() -> void:
 	var scene_state = scene_path.scene_state
 	Autoload.current_state = scene_state
+
+# --- Helper functions สำหรับแอนิเมชัน ---
+func _start_zoom_animation() -> void:
+	var parent = get_parent()
+	# ตรวจสอบว่าเป็น Sprite หรือไม่ (รองรับทั้ง Sprite2D และ AnimatedSprite2D)
+	if parent is Sprite2D or parent is AnimatedSprite2D:
+		if _base_scale == Vector2.ZERO:
+			_base_scale = parent.scale
+			
+		if _zoom_tween and _zoom_tween.is_valid():
+			_zoom_tween.kill()
+			
+		_zoom_tween = create_tween().set_loops()
+		# ซูมเข้าเล็กน้อย (10%) แล้วกลับมาที่เดิม
+		_zoom_tween.tween_property(parent, "scale", _base_scale * 1.08, 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		_zoom_tween.tween_property(parent, "scale", _base_scale, 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+func _stop_zoom_animation() -> void:
+	if _zoom_tween and _zoom_tween.is_valid():
+		_zoom_tween.kill()
+		
+	var parent = get_parent()
+	if (parent is Sprite2D or parent is AnimatedSprite2D) and _base_scale != Vector2.ZERO:
+		# คืนค่า scale กลับไปเป็นค่าดั้งเดิมทันที
+		parent.scale = _base_scale

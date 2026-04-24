@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 			
 			if animated_sprite:
 				animated_sprite.flip_h = move_direction.x > 0
-				animated_sprite.play("walk")
+				animated_sprite.play("boss_1")
 			
 			attack_timer += delta
 			if attack_timer >= attack_cooldown:
@@ -115,5 +115,10 @@ func _check_player_collision() -> void:
 				collider.get_node("HurtboxComponent").take_damage(damage, global_position)
 
 func _shake_camera(intensity: float, duration: float) -> void:
+	if not is_instance_valid(player):
+		var players = get_tree().get_nodes_in_group("player")
+		if players.size() > 0:
+			player = players[0]
+
 	if is_instance_valid(player) and player.has_method("shake_camera"):
 		player.shake_camera(intensity, duration)

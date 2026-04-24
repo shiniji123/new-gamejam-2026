@@ -172,6 +172,9 @@ func _on_enemy_cleared() -> void:
 	enemies_left -= 1
 	if enemies_left <= 0:
 		print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
+		if _should_finish_without_reward():
+			start_next_wave()
+			return
 		wave_cleared.emit(current_wave_index)
 		# หมายเหตุ: ระบบจะรอการเรียก start_next_wave() จากที่อื่น (เช่น RewardUI) 
 		# หรือคุณสามารถเปิด auto-start ได้ถ้าต้องการ
@@ -184,7 +187,18 @@ func _consume_enemy_slot() -> void:
 	enemies_left -= 1
 	if enemies_left <= 0:
 		print("✅ Wave %d เคลียร์! (รอตัวเลือกรางวัล...)" % (current_wave_index + 1))
+		if _should_finish_without_reward():
+			start_next_wave()
+			return
 		wave_cleared.emit(current_wave_index)
+
+
+func _should_finish_without_reward() -> bool:
+	if current_wave_index < 0 or current_wave_index >= waves.size():
+		return false
+
+	var wave_data: WaveItem = waves[current_wave_index]
+	return current_wave_index == waves.size() - 1 and wave_data.boss_type == WaveItem.BossType.FINAL_BOSS
 
 
 func _apply_enemy_scale(instance: Node2D, enemy_scale: Vector2) -> void:

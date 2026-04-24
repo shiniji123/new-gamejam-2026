@@ -1,4 +1,6 @@
 extends Node2D
+
+const FullscreenStripPlayerScene := preload("res://scripts/ui/fullscreen_strip_player.gd")
 ## ===================================================
 ## fight_scene.gd — ฉากต่อสู้หลัก
 ## ===================================================
@@ -13,6 +15,14 @@ extends Node2D
 @export_group("Player Settings")
 ## ขนาดของ Player ในฉากนี้
 @export var player_scale: Vector2 = Vector2(1.5, 1.5)
+
+@export_group("Transform Intro")
+@export var play_transform_intro: bool = true
+@export var transform_intro_texture: Texture2D = preload("res://assets/portraits/player/transfrom_scene.PNG")
+@export var transform_intro_frame_count: int = 13
+@export var transform_intro_fps: float = 9.0
+@export var transform_intro_hold_time: float = 0.2
+@export var transform_intro_fade_out: float = 0.15
 
 @export_group("Game Over")
 @export var game_over_scene: PackedScene = preload("res://scenes/ui/game_over_ui.tscn")
@@ -41,14 +51,39 @@ func _ready() -> void:
 	if p:
 		p.scale = player_scale
 		# ปลดล็อคการเคลื่อนที่ผู้เล่น (ถ้าถูก lock ไว้จาก NPC dialogue)
-		p.set_physics_process(true)
+		p.set_physics_process(false)
 		_setup_game_over_listener(p)
 
 	# เลือก WaveManager ให้ตรงกับ Event ปัจจุบัน และผูก UI
-	_setup_active_wave_manager()
 
 	# ตั้งค่าขอบเขตกล้องและกำแพงแผนที่
 	_setup_map_bounds()
+
+	await _play_transform_intro()
+
+	if p:
+		p.set_physics_process(true)
+
+	_setup_active_wave_manager()
+
+
+func _play_transform_intro() -> void:
+	if not play_transform_intro or not transform_intro_texture or transform_intro_frame_count <= 0:
+		return
+
+	var player := FullscreenStripPlayerScene.new()
+	player.autoplay = false
+	player.setup(
+		transform_intro_texture,
+		transform_intro_frame_count,
+		transform_intro_fps,
+		transform_intro_hold_time,
+		0.0,
+		transform_intro_fade_out
+	)
+	add_child(player)
+	player.play()
+	await player.finished
 
 
 func _setup_active_wave_manager() -> void:

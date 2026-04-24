@@ -3,6 +3,8 @@ extends CanvasLayer
 ## ShopUI — จัดการร้านค้ารูปแบบ AAA (Split Screen)
 ## ===================================================
 
+signal shop_closed
+
 @export_group("UI Layout")
 @export var main_panel: Control
 @export var close_btn: Button
@@ -63,6 +65,7 @@ func close_shop() -> void:
 
 	hide()
 	get_tree().paused = false
+	shop_closed.emit()
 
 func _on_item_selected(item: ShopButton) -> void:
 	selected_item = item

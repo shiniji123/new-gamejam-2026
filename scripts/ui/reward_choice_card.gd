@@ -8,6 +8,8 @@ signal card_selected(perk: PerkData)
 @export var description_label: Label
 @export var icon_rect: TextureRect
 @export var trigger_button: Button
+@export var hover_sound: AudioStream = preload("res://assets/new_sound/before_select.wav")
+@export var select_sound: AudioStream = preload("res://assets/new_sound/select.wav")
 
 var _current_perk: PerkData
 var tween_hover: Tween
@@ -37,6 +39,9 @@ func setup_card(perk: PerkData) -> void:
 		icon_rect.texture = perk.icon
 
 func _on_mouse_entered() -> void:
+	if hover_sound:
+		AudioManager.play_sfx(hover_sound)
+
 	if tween_hover: tween_hover.kill()
 	tween_hover = create_tween()
 	tween_hover.bind_node(self)
@@ -66,6 +71,9 @@ func _on_mouse_exited() -> void:
 
 func _on_pressed() -> void:
 	if not _current_perk: return
+
+	if select_sound:
+		AudioManager.play_sfx(select_sound)
 	
 	# แอนิเมชันตอนกด (หดตัวอย่างรวดเร็ว)
 	if tween_hover: tween_hover.kill()
