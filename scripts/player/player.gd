@@ -21,6 +21,12 @@ var last_dir: String = "down"
 var is_dead: bool = false                      
 var knockback_velocity: Vector2 = Vector2.ZERO 
 
+# Camera Shake Variables
+var shake_intensity: float = 0.0
+var shake_duration: float = 0.0
+var shake_timer: float = 0.0
+var original_cam_pos: Vector2 = Vector2.ZERO
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
@@ -65,35 +71,40 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 	update_animation(direction)
+	_process_camera_shake(_delta)
+
+func _process_camera_shake(delta: float) -> void:
+	if not has_node("Camera2D"): return
+	var cam = $Camera2D
+	
+	if shake_timer > 0:
+		shake_timer -= delta
+		# สุ่มตำแหน่งขยับกล้อง
+		var offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized() * shake_intensity
+		cam.offset = offset
+		# ลดความแรงลงเรื่อยๆ
+		shake_intensity = lerp(shake_intensity, 0.0, 5.0 * delta)
+	else:
+		cam.offset = Vector2.ZERO
+
+func shake_camera(intensity: float = 15.0, duration: float = 0.5) -> void:
+	shake_intensity = intensity
+	shake_duration = duration
+	shake_timer = duration
 
 func update_animation(direction: Vector2):
-	# ถ้าไม่มีการกดปุ่ม (เดินหยุดพัก) ให้ใช้ชื่อ prefix ว่า idle_
+	# ท่าทางหลักมีแค่ walk และ idle
 	var anim_type = "walk" if direction != Vector2.ZERO else "idle"
 	
-	if direction != Vector2.ZERO:
-		# 1. คำนวณหาทิศทางแนวตั้ง (Vertical)
-		var v_str = ""
-		if direction.y > 0.1: v_str = "down"
-		elif direction.y < -0.1: v_str = "up"
-		
-		# 2. คำนวณหาทิศทางแนวนอน (Horizontal)
-		var h_str = ""
-		if direction.x < -0.1: h_str = "left"
-		elif direction.x > 0.1: h_str = "right"
-		
-		# 3. ประกอบร่างชื่อท่าทางให้ตรงกับที่เรามีใน AnimatedSprite2D
-		# (เนื่องจากคุณไม่มี walk_left เฉยๆ ผมเลยต้องแมพให้มันไปใช้ _down หรือ _up แทนครับ)
-		if h_str != "" and v_str != "":
-			last_dir = h_str + "_" + v_str
-		elif h_str != "":
-			last_dir = h_str + "_down" # สุ่มเลือกเป็น down เมื่อเดินแนวนอนตรงๆ
-		elif v_str != "":
-			last_dir = v_str
+	# กลับด้านภาพ (Flip) ตามทิศทางแนวนอน
+	if direction.x < -0.1:
+		animated_sprite.flip_h = false
+	elif direction.x > 0.1:
+		animated_sprite.flip_h = true
 			
-	# สั่งเล่นท่าทาง เช่น walk_left_down หรือ idle_up
-	var final_anim_name = anim_type + "_" + last_dir
-	if animated_sprite.sprite_frames.has_animation(final_anim_name):
-		animated_sprite.play(final_anim_name)
+	# สั่งเล่นท่าทาง (เช่น walk หรือ idle)
+	if animated_sprite.sprite_frames.has_animation(anim_type):
+		animated_sprite.play(anim_type)
 
 # --- ส่วนรับสัญญาณจากโหนดย่อย (Signals) ---
 

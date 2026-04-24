@@ -5,10 +5,12 @@
 
 [resource]
 script = ExtResource("1_imvqs")
+id = &"attack_speed_up"
 title = "ATK Speed up"
-description = "Boost ATK Speed up 25%"
+description = "Boost ATK Speed by 25%"
 icon = ExtResource("1_wwkte")
 modifiers = {
 "fire_rate_multiplier": 0.25
 }
+max_stack = 4
 metadata/_custom_type_script = "uid://be4seik8otyv2"

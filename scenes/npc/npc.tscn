@@ -1,66 +1,47 @@
 [gd_scene format=3 uid="uid://djp7cxgt0t06p"]
 
 [ext_resource type="Script" uid="uid://b8hf80pcumo4g" path="res://scripts/npc/npc.gd" id="1_rv78h"]
-[ext_resource type="Texture2D" uid="uid://ba21k2toi0jhi" path="res://assets/character/enemy/normal/Idle/idle.png" id="2_7n8xq"]
 [ext_resource type="Resource" uid="uid://b34vfbhhrblsa" path="res://scripts/dialogue/npc_example.dialogue" id="2_r4bp4"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="3_4wlns"]
+[ext_resource type="Texture2D" uid="uid://dbk6cxunbftp3" path="res://assets/character/npc/npc.PNG" id="4_woxlu"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ul7y6"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(0, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame0"]
+atlas = ExtResource("4_woxlu")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bc6q4"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(48, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame1"]
+atlas = ExtResource("4_woxlu")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mcvl2"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(96, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame2"]
+atlas = ExtResource("4_woxlu")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d61ma"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(144, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame3"]
+atlas = ExtResource("4_woxlu")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_slxoh"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l64hl"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kh24r"]
-atlas = ExtResource("2_7n8xq")
-region = Rect2(0, 0, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame4"]
+atlas = ExtResource("4_woxlu")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_215dd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ul7y6")
+"texture": SubResource("AtlasTexture_frame0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bc6q4")
+"texture": SubResource("AtlasTexture_frame1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mcvl2")
+"texture": SubResource("AtlasTexture_frame2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d61ma")
+"texture": SubResource("AtlasTexture_frame3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_slxoh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l64hl")
-}],
-"loop": true,
-"name": &"active",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kh24r")
+"texture": SubResource("AtlasTexture_frame4")
 }],
 "loop": true,
 "name": &"idle",
@@ -74,14 +55,10 @@ radius = 32.0156
 radius = 122.102
 
 [node name="NPC" type="Node2D" unique_id=1135528418]
-light_mask = 2
-visibility_layer = 2
 script = ExtResource("1_rv78h")
 dialogue_resource = ExtResource("2_r4bp4")
 
 [node name="Animatedsprite2D" type="AnimatedSprite2D" parent="." unique_id=899485838]
-light_mask = 2
-visibility_layer = 2
 z_index = 50
 sprite_frames = SubResource("SpriteFrames_215dd")
 animation = &"idle"

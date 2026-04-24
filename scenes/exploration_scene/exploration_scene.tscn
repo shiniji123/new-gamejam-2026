@@ -4,9 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://6h1qunxstw30" path="res://scenes/player/player.tscn" id="2_4dtv0"]
 [ext_resource type="AudioStream" uid="uid://cyi53bt88nqeq" path="res://assets/sounds/exploration_bg.wav" id="2_rc7ga"]
 [ext_resource type="PackedScene" uid="uid://c78l0u7y5qw2o" path="res://scenes/exploration_scene/transition_area.tscn" id="3_4dtv0"]
-[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/window_bg.png" id="3_rc7ga"]
-[ext_resource type="Resource" uid="uid://b0hceqnndnnv8" path="res://scenes/change_scene/combat_zone.tres" id="4_uvqa3"]
-[ext_resource type="PackedScene" uid="uid://b80wrbbyhmueq" path="res://scenes/component/icon.tscn" id="5_iwiyl"]
+[ext_resource type="Texture2D" uid="uid://df1gwl8soj5ah" path="res://assets/map/Main/WINDOW_BG.png" id="3_rc7ga"]
 [ext_resource type="Texture2D" uid="uid://fnvmjl3cvdmy" path="res://assets/effect/sprite-sheet.png" id="7_fnwyb"]
 [ext_resource type="Script" uid="uid://ch21kng8l8s1h" path="res://scripts/shop_npc.gd" id="7_m6i2j"]
 [ext_resource type="PackedScene" uid="uid://dyeksunnultlj" path="res://interaction/interactive_area/Interactive_area.tscn" id="8_fnwyb"]
@@ -19,6 +17,8 @@
 [ext_resource type="Script" uid="uid://c3lymi30fpssx" path="res://scripts/ui/coin_display.gd" id="16_1tvuq"]
 [ext_resource type="PackedScene" uid="uid://b4rmkd0e5kdjc" path="res://scenes/dialogue/custom_balloon.tscn" id="17_wef41"]
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
+[ext_resource type="PackedScene" path="res://scenes/ui/notepad_ui.tscn" id="19_notepad"]
+[ext_resource type="PackedScene" path="res://scenes/ui/exploration_settings_ui.tscn" id="20_settings"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -93,18 +93,18 @@ expand_mode = 3
 
 [node name="Player" parent="." unique_id=45369660 instance=ExtResource("2_4dtv0")]
 position = Vector2(576, 324)
-speed = 1000.0
+speed = 300.0
 
 [node name="TransitionArea" parent="." unique_id=618967297 instance=ExtResource("3_4dtv0")]
-position = Vector2(230, 74)
+position = Vector2(85, 72)
+require_interact = true
+action_name = "ต่อสู้"
+area_color = Color(1, 0.11, 0.11, 0.3)
 active_on_event = "go_to_combat"
 trigger_event_target = "green_circle"
 
-[node name="Icon" parent="." unique_id=393516205 instance=ExtResource("5_iwiyl")]
-position = Vector2(93, 72)
-
 [node name="Shop" type="AnimatedSprite2D" parent="." unique_id=909600885 node_paths=PackedStringArray("interaction_area", "shop_ui", "animated_sprite")]
-position = Vector2(377, 70)
+position = Vector2(91, 527)
 sprite_frames = SubResource("SpriteFrames_8casv")
 script = ExtResource("7_m6i2j")
 interaction_area = NodePath("Area2D")
@@ -123,8 +123,10 @@ position = Vector2(3, -3)
 shape = SubResource("CircleShape2D_un5d4")
 
 [node name="ShopUI" parent="." unique_id=1950074557 instance=ExtResource("9_hpjf3")]
+visible = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=13284102]
+visible = false
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI" unique_id=584667549]
 offset_left = 46.0
@@ -159,4 +161,57 @@ script = ExtResource("16_1tvuq")
 [node name="ExampleBalloon" parent="." unique_id=1434168376 instance=ExtResource("17_wef41")]
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
-position = Vector2(163, 206)
+position = Vector2(503, 322)
+
+[node name="NotepadArea" parent="." unique_id=729126769 instance=ExtResource("3_4dtv0")]
+position = Vector2(80, 370)
+require_interact = true
+action_name = "Read"
+active_on_event = "start_game_notepad"
+is_notepad = true
+notepad_title = "📋 บันทึกของระบบ"
+notepad_content = "[b]บันทึกฉุกเฉิน[/b]
+
+ระบบตรวจพบไวรัสที่แฝงตัวเข้ามาในเครือข่ายหลัก...
+ไฟล์ข้อมูลสำคัญหลายรายการถูกเข้ารหัส
+ต้องกำจัดภัยคุกคามทั้งหมดก่อนที่จะสายเกินไป
+
+— ผู้ดูแลระบบ"
+notepad_event_target = "first_notepad"
+
+[node name="TransitionAreaFight2" parent="." unique_id=1088142201 instance=ExtResource("3_4dtv0")]
+position = Vector2(85, 72)
+require_interact = true
+action_name = "Boss Test"
+area_color = Color(1, 0.55, 0.12, 0.35)
+active_on_event = "go_to_combat_2"
+trigger_event_target = "green_circle_2"
+
+[node name="NotepadArea2" parent="." unique_id=1109612314 instance=ExtResource("3_4dtv0")]
+position = Vector2(1018, 362)
+require_interact = true
+action_name = "Read"
+area_color = Color(1, 0.74, 0.18, 0.3)
+active_on_event = "read_notepad_1"
+is_notepad = true
+notepad_title = "📓 บันทึกการกักกันฉบับที่สอง"
+notepad_content = "[b]บันทึกการกักกัน / ระดับเตือนภัยสีส้ม[/b]
+
+หลังการปะทะระลอกแรก สัญญาณผิดปกติไม่ได้ลดลง
+มันกำลังรวมตัวกันที่จุดเดิม และเริ่มสร้างแกนพลังงานรูปแบบใหม่
+
+ข้อสันนิษฐาน:
+1. การกำจัดหน่วยย่อยทำให้ \"ตัวควบคุม\" ตื่นตัว
+2. ถ้าพลังงานสะสมครบ มันจะปล่อยร่างประมวลผลระดับบอสออกมา
+3. ผู้ทดสอบภาคสนามต้องเตรียมรับการโจมตีที่หนักกว่าเดิมหลายเท่า
+
+คำแนะนำ:
+- เสริมพลังให้พร้อมก่อนเข้ารอบถัดไป
+- รักษาระยะขณะบอสเริ่มเปิดเฟส
+- อย่าปล่อยให้สนามนิ่งเกินไป เพราะศัตรูจะล้อมเร็วมาก
+
+— ฝ่ายเฝ้าระวังระบบ"
+notepad_event_target = "second_notepad"
+
+[node name="NotepadUI" parent="." unique_id=1887046530 instance=ExtResource("19_notepad")]
+[node name="ExplorationSettingsUI" parent="." instance=ExtResource("20_settings")]

@@ -7,9 +7,10 @@
 script = ExtResource("1_ksmh4")
 id = &"multishot"
 title = "Projectile Plus"
-description = "Double Ammo"
+description = "+1 projectile per stack"
 icon = ExtResource("1_5fv36")
 modifiers = {
 "projectile_count": 1.0
 }
+max_stack = 6
 metadata/_custom_type_script = "uid://be4seik8otyv2"

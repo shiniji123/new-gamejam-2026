@@ -34,6 +34,12 @@ var active_relics: Array[RelicData] = []
 # --- Modifier สะสมจากร้านค้า (แยกออกจาก Perk เพื่อความชัดเจน) ---
 # รูปแบบ: { "damage_multiplier": 0.5, "flat_max_hp": 100.0, ... }
 var shop_modifiers: Dictionary = {}
+const PERK_LIBRARY := {
+	"attack_speed_up": preload("res://assets/data/perks/attack_speed_up.tres"),
+	"damage_up": preload("res://assets/data/perks/damage_up.tres"),
+	"pierce": preload("res://assets/data/perks/pierce_bonus.tres"),
+	"multishot": preload("res://assets/data/perks/projectile_plus.tres"),
+}
 
 
 # ====================================================
@@ -48,6 +54,43 @@ func start_new_run() -> void:
 	active_relics.clear()
 	shop_modifiers.clear()
 	Autoload.player_current_hp = -1.0
+	StatCalculator.stats_recalculated.emit()
+
+
+func get_save_data() -> Dictionary:
+	var perk_ids: Array[String] = []
+	for perk in active_perks:
+		if perk:
+			perk_ids.append(String(perk.id))
+
+	return {
+		"run_coin": run_coin,
+		"current_wave": current_wave,
+		"active_perk_ids": perk_ids,
+		"shop_modifiers": shop_modifiers.duplicate(true),
+	}
+
+
+func restore_from_save(data: Dictionary) -> void:
+	run_coin = int(data.get("run_coin", 0))
+	current_wave = int(data.get("current_wave", 0))
+	active_perks.clear()
+	active_relics.clear()
+	var loaded_shop_modifiers = data.get("shop_modifiers", {})
+	if typeof(loaded_shop_modifiers) == TYPE_DICTIONARY:
+		shop_modifiers = loaded_shop_modifiers.duplicate(true)
+	else:
+		shop_modifiers = {}
+
+	var perk_ids: Array = data.get("active_perk_ids", [])
+	for perk_id_variant in perk_ids:
+		var perk_id := String(perk_id_variant)
+		var perk_resource = PERK_LIBRARY.get(perk_id)
+		if perk_resource is PerkData:
+			active_perks.append(perk_resource)
+		else:
+			push_warning("[RunManager] Unknown perk id in save: %s" % perk_id)
+
 	StatCalculator.stats_recalculated.emit()
 
 
@@ -172,7 +215,23 @@ func get_total_modifier(stat_name: String) -> float:
 
 func get_reward_choices(count: int, all_available_perks: Array[PerkData]) -> Array[PerkData]:
 	## สุ่มเลือก Perk จาก pool ตามจำนวน count ที่กำหนด
-	var pool_copy := all_available_perks.duplicate()
+	var pool_copy: Array[PerkData] = []
+	for perk in all_available_perks:
+		if not perk:
+			continue
+
+		if get_perk_count(perk.id) >= perk.max_stack:
+			continue
+
+		var is_blocked := false
+		for exclusive_id in perk.exclusive_with:
+			if has_perk(exclusive_id):
+				is_blocked = true
+				break
+
+		if not is_blocked:
+			pool_copy.append(perk)
+
 	pool_copy.shuffle()
 
 	var choices: Array[PerkData] = []

@@ -1,10 +1,21 @@
 ~ start
 
-if EventManager.is_event_active("intro_talk")
+if EventManager.is_event_active("intro_talk_auto")
 	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: ช่วยด้วย! มีไวรัสคอมพิวเตอร์กำลังบุกระบบของเรา!
-	NPC: รีบไปเข้าวงกลมสีเขียวทางซ้ายเพื่อตามไปจัดการพวกมันที!
+	NPC: ยินดีต้อนรับสู่อาณาจักรของเรา ผู้กล้า! ดูเหมือนคุณเพิ่งจะฟื้นขึ้นมานะ
+	NPC: เพื่อเริ่มต้นการเดินทาง ฉันอยากให้คุณไปอ่าน "บันทึก" เล่มนั้นที่วางอยู่ทางขวามือก่อน
+	NPC: มันมีข้อมูลสำคัญที่คุณต้องรู้ก่อนออกไปสู้... ลองไปอ่านดูสิ!
+	do hide_portrait("all")
+	do EventManager.notify_dialogue_ended()
+	=> END
+
+elif EventManager.is_event_active("talk_after_read")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: ยอดเยี่ยมมาก! อ่านบันทึกจบแล้วใช่ไหม?
+	NPC: งั้นมาเข้าเรื่องกันเลย... เห็นวงกลมเวทย์สีแดงตรงนั้นไหม? นั่นคือลานประลอง
+	NPC: ถ้าพร้อมแล้ว ให้เดินเข้าไปเหยียบวงกลมสีแดงเพื่อเริ่มการต่อสู้ครั้งแรกได้เลย!
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_npc")
 	=> END
@@ -12,15 +23,52 @@ if EventManager.is_event_active("intro_talk")
 elif EventManager.is_event_active("go_to_combat")
 	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: รีบไปเข้าวงกลมสีเขียวสิ! ไวรัสมันจะเจาะระบบแล้ว!
+	NPC: มัวรออะไรอยู่ล่ะ? เดินเข้าวงกลมสีเขียวตรงนั้นเพื่อเริ่มการต่อสู้เลยสิ!
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("read_notepad_1")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: ฉันเพิ่งถอดรหัส log เพิ่มได้อีกชุดหนึ่ง
+	NPC: มันอยู่ในบันทึกฉบับที่สองทางฝั่งขวาของลานหมู่บ้าน ลองไปอ่านดู
+	NPC: ถ้าข้อความในนั้นตรงกับที่ฉันคิดไว้ รอบต่อไปคุณจะได้เจอบอสตัวจริงแล้ว
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_read_2")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: เห็นเหมือนกันใช่ไหม... สัญญาณพวกนั้นไม่ได้สุ่มเกิดขึ้น แต่มัน “เรียกหา” อะไรบางอย่างอยู่
+	NPC: ฉันจะเปิดลานประลองอีกรอบ คราวนี้สนามจะปล่อยตัวต้นเหตุออกมา
+	NPC: เตรียมตัวให้พร้อม แล้วเดินเข้าไปในวงกลมสีส้มเดิมได้เลย
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_npc")
+	=> END
+
+elif EventManager.is_event_active("go_to_combat_2")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: สนามพร้อมแล้ว ถ้าก้าวเข้าไปตอนนี้ มันจะดึงคุณเข้าสู่โหมดทดสอบบอสทันที
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_win")
 	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: โอ้โห! เก่งมากที่ล้างไวรัสได้ทั้งหมด!
-	NPC: ระบบของเราปลอดภัยแล้ว รับรางวัลนี่ไปสิ!
+	NPC: สุดยอดไปเลย! คุณเคลียร์สนามแรกได้เร็วเกินคาดมาก
+	NPC: แต่แปลกตรงที่หลังการต่อสู้นั้น สัญญาณรบกวนกลับยิ่งแรงขึ้น... เหมือนมีใครกำลังสังเกตเราอยู่
+	NPC: ไปอ่านบันทึกฉบับที่สองก่อนเถอะ ฉันซ่อนไว้ใกล้ๆ ร้านค้า เผื่อมันจะบอกได้ว่าบอสครั้งต่อไปคืออะไร
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_npc")
+	=> END
+
+elif EventManager.is_event_active("talk_after_boss_win")
+	do set_portrait("left", "npc", "default")
+	do set_portrait("right", "player", "default")
+	NPC: คุณทำได้จริงๆ... ตัวต้นสัญญาณถูกทำลายแล้ว
+	NPC: อย่างน้อยตอนนี้หมู่บ้านก็ปลอดภัยพอให้เราหายใจได้อีกครั้ง
+	NPC: ถือว่านี่คือจุดจบของเดโมเทสนี้ก่อนนะ เดี๋ยวเราจะต่อยอดมันให้กลายเป็นศึกที่ใหญ่กว่านี้กัน
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_npc")
 	=> END
@@ -28,6 +76,6 @@ elif EventManager.is_event_active("talk_after_win")
 else
 	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: วันนี้ระบบทำงานปกติดีจังเลยนะ
+	NPC: ตอนนี้ยังไม่มีอะไรให้ทำเพิ่มนะ เตรียมตัวให้พร้อมสำหรับการต่อสู้ครั้งต่อไปเถอะ!
 	do hide_portrait("all")
 	=> END

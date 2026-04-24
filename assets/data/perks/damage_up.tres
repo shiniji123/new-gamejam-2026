@@ -5,10 +5,12 @@
 
 [resource]
 script = ExtResource("1_dpq4j")
+id = &"damage_up"
 title = "Damage Up"
-description = "boost damage 25%"
+description = "Boost damage by 25%"
 icon = ExtResource("1_377n8")
 modifiers = {
 "damage_multiplier": 0.25
 }
+max_stack = 4
 metadata/_custom_type_script = "uid://be4seik8otyv2"

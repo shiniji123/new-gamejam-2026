@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://1b57xd1fqdpx"]
+
+[ext_resource type="Script" uid="uid://n8bhnuxeqffd" path="res://scripts/enemy/enemy.gd" id="1_uppne"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="2_61t4r"]
+[ext_resource type="Texture2D" uid="uid://bq2qs7sva486f" path="res://assets/character/enemy/normal/enemy_2.PNG" id="3_uppne"]
+[ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="4_q7ulb"]
+[ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="5_oyp3y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61t4r"]
+atlas = ExtResource("3_uppne")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0auu1"]
+atlas = ExtResource("3_uppne")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q7ulb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61t4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0auu1")
+}],
+"loop": true,
+"name": &"enemy_2",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rogs8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13gj6"]
+
+[node name="Enemy_2" type="CharacterBody2D" unique_id=1434182547]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_uppne")
+hit_sound = ExtResource("2_61t4r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=168469026]
+sprite_frames = SubResource("SpriteFrames_q7ulb")
+animation = &"enemy_2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1418076019]
+shape = SubResource("CircleShape2D_rogs8")
+
+[node name="HurtboxArea" type="Area2D" parent="." unique_id=544272097]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea" unique_id=1628008786]
+shape = SubResource("CircleShape2D_13gj6")
+
+[node name="HurtboxComponent" type="Node" parent="." unique_id=295371571]
+script = ExtResource("4_q7ulb")
+
+[node name="FlashEffects" type="Node" parent="." unique_id=348602537]
+script = ExtResource("5_oyp3y")

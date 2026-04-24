@@ -31,7 +31,15 @@ func get_player_max_hp(base_hp: float) -> float:
 func get_projectile_count(base_count: int) -> int:
 	## คำนวณจำนวนกระสุนรวม
 	var bonus := int(RunManager.get_total_modifier("projectile_count"))
-	return base_count + bonus
+	return max(1, base_count + bonus)
+
+
+func get_player_fire_rate(base_fire_rate: float) -> float:
+	## คำนวณอัตราการยิงรวมจาก perk + shop
+	var multiplier_bonus := RunManager.get_total_modifier("fire_rate_multiplier")
+	var flat_bonus := RunManager.get_total_modifier("flat_fire_rate")
+	var final_fire_rate := (base_fire_rate + flat_bonus) * (1.0 + multiplier_bonus)
+	return max(0.1, final_fire_rate)
 
 
 func get_enemy_reward(base_reward: int) -> int:

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://i84b22kntm54"]
+
+[ext_resource type="Script" uid="uid://notepadui_script" path="res://scripts/ui/notepad_ui.gd" id="1_notepad"]
+
+[node name="NotepadUI" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_notepad")

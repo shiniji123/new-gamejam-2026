@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://ds1jnp6kfdsb3"]
+
+[ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_mdbx3"]
+[ext_resource type="Script" uid="uid://4i5mdia57b1p" path="res://scripts/enemy/boss_3.gd" id="2_mdbx3"]
+[ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="3_fltcb"]
+[ext_resource type="Texture2D" uid="uid://x36nhh6xug2d" path="res://assets/character/enemy/boss/boss_3.PNG" id="4_dw1h6"]
+[ext_resource type="Script" uid="uid://s8dj836omova" path="res://scripts/components/hurtbox_component.gd" id="5_2onmx"]
+[ext_resource type="Script" uid="uid://b3eh3gl2q6cnw" path="res://scripts/components/flash_effects.gd" id="6_qup6i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mibu8"]
+shader = ExtResource("1_mdbx3")
+shader_parameter/flash_intensity = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qhy"]
+atlas = ExtResource("4_dw1h6")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60uq4"]
+atlas = ExtResource("4_dw1h6")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htngo"]
+atlas = ExtResource("4_dw1h6")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb8s5"]
+atlas = ExtResource("4_dw1h6")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mni4b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qhy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60uq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htngo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb8s5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mibu8"]
+radius = 61.846584
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ynkbp"]
+radius = 36.013885
+
+[node name="boss_3" type="CharacterBody2D" unique_id=276659941]
+material = SubResource("ShaderMaterial_mibu8")
+script = ExtResource("2_mdbx3")
+base_hp = 1200.0
+speed_multiplier = 0.7
+boss_reward_money = 200
+hit_sound = ExtResource("3_fltcb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1723745526]
+sprite_frames = SubResource("SpriteFrames_mni4b")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=197928724]
+shape = SubResource("CircleShape2D_mibu8")
+
+[node name="HurtboxArea" type="Area2D" parent="." unique_id=282730129]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea" unique_id=1676256201]
+shape = SubResource("CircleShape2D_ynkbp")
+
+[node name="HurtboxComponent" type="Node" parent="." unique_id=101097912]
+script = ExtResource("5_2onmx")
+
+[node name="FlashEffects" type="Node" parent="." unique_id=1575769673]
+script = ExtResource("6_qup6i")

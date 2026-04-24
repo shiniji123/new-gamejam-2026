@@ -2,60 +2,229 @@
 
 [ext_resource type="Script" uid="uid://b2ar85ljdmdc8" path="res://scripts/shop_ui.gd" id="1_ygcrn"]
 [ext_resource type="Script" uid="uid://g1gnhegmhcxa" path="res://scripts/shop/shop_button.gd" id="2_avfhx"]
+[ext_resource type="Texture2D" uid="uid://bxyncy80kat5c" path="res://assets/icons_perk/fireball.png" id="3_placeholder"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygcrn"]
-bg_color = Color(0.12156863, 0.06666667, 0.11764706, 0.5882353)
+bg_color = Color(0.12, 0.07, 0.12, 0.95)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-shadow_size = 15
+shadow_size = 25
 
-[node name="ShopUI" type="CanvasLayer" unique_id=1950074557 node_paths=PackedStringArray("main_panel", "close_btn")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_left"]
+bg_color = Color(0.2, 0.2, 0.2, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_right"]
+bg_color = Color(0.0, 0.0, 0.0, 0.6)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.4, 0.8, 0.8)
+
+[node name="ShopUI" type="CanvasLayer" node_paths=PackedStringArray("main_panel", "close_btn", "detail_icon", "detail_title", "detail_desc", "detail_price", "buy_btn", "item_container")]
 script = ExtResource("1_ygcrn")
 main_panel = NodePath("Main")
 close_btn = NodePath("Main/close_shop")
+detail_icon = NodePath("Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer/TextureRect")
+detail_title = NodePath("Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer/Title")
+detail_desc = NodePath("Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer/Desc")
+detail_price = NodePath("Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer/Price")
+buy_btn = NodePath("Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer/BuyBtn")
+item_container = NodePath("Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer")
 
-[node name="Main" type="Panel" parent="." unique_id=859813742]
-offset_left = 351.0
-offset_top = 19.0
-offset_right = 927.0
-offset_bottom = 334.0
+[node name="Main" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -280.0
+offset_right = 450.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ygcrn")
 
-[node name="close_shop" type="Button" parent="Main" unique_id=1296437930]
-layout_mode = 0
-offset_left = 439.0
+[node name="TitleShop" type="Label" parent="Main"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
 offset_top = 20.0
-offset_right = 559.0
-offset_bottom = 57.0
-text = "Close Shop"
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "MYSTIC SHOP"
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main" unique_id=1845425108]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 205.0
-offset_right = 568.0
-offset_bottom = 306.0
+[node name="close_shop" type="Button" parent="Main"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Close [Esc]"
 
-[node name="buy_damage_buff" type="Button" parent="Main/VBoxContainer" unique_id=1321046971]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 80.0
+offset_right = -30.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="LeftPanel" type="PanelContainer" parent="Main/HBoxContainer"]
 layout_mode = 2
-text = "Buy ATK Buff (50G)"
-script = ExtResource("2_avfhx")
-item_label = "ATK"
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_left")
 
-[node name="buy_multishot_buff" type="Button" parent="Main/VBoxContainer" unique_id=597158301]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/HBoxContainer/LeftPanel"]
 layout_mode = 2
-text = "Buy Shotgun (50G)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/LeftPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="item_1" type="Button" parent="Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ดาบเหล็กกล้า (ATK)"
 script = ExtResource("2_avfhx")
-item_label = "SHOTGUN"
+item_label = "ดาบเหล็กกล้า"
+item_description = "เพิ่มพลังโจมตีให้ตัวละคร 25% ฟันแรงสะใจแน่นอน!"
+item_icon = ExtResource("3_placeholder")
+cost = 50
+
+[node name="item_2" type="Button" parent="Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ปืนแฝด (Multishot)"
+script = ExtResource("2_avfhx")
+item_label = "ปืนแฝด"
+item_description = "ยิงกระสุนเพิ่มอีก 1 นัดทุกครั้งที่ยิง ยิ่งซื้อยิ่งสาดกระจาย"
+item_icon = ExtResource("3_placeholder")
+cost = 100
 effect_type = 1
 effect_value = 1.0
 
-[node name="buy_hp_buff" type="Button" parent="Main/VBoxContainer" unique_id=2020021393]
+[node name="item_3" type="Button" parent="Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-text = "Buy HP Buff (50G)"
+theme_override_font_sizes/font_size = 20
+text = "ยาขวดใหญ่ (HP)"
 script = ExtResource("2_avfhx")
-item_label = "HP BOOST"
+item_label = "ยาขวดใหญ่"
+item_description = "เพิ่มพลังชีวิตสูงสุด 50 หน่วย พร้อมรักษาแผลให้ทันที"
+item_icon = ExtResource("3_placeholder")
+cost = 50
 effect_type = 2
 effect_value = 50.0
+
+[node name="item_4" type="Button" parent="Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ถุงเงินนำโชค (Gold)"
+script = ExtResource("2_avfhx")
+item_label = "ถุงเงินนำโชค"
+item_description = "เพิ่มอัตราดรอปเงินจากศัตรู 50% ยิ่งซื้อยิ่งรวย!"
+item_icon = ExtResource("3_placeholder")
+cost = 75
+effect_type = 3
+effect_value = 0.5
+
+[node name="item_5" type="Button" parent="Main/HBoxContainer/LeftPanel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "กระสุนเจาะเกราะ (Pierce)"
+script = ExtResource("2_avfhx")
+item_label = "กระสุนเจาะเกราะ"
+item_description = "กระสุนทะลุศัตรูเพิ่ม 1 ตัว ยิงทีเดียวตายเป็นแถบ!"
+item_icon = ExtResource("3_placeholder")
+cost = 120
+effect_type = 4
+effect_value = 1.0
+
+[node name="RightPanel" type="PanelContainer" parent="Main/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_right")
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/HBoxContainer/RightPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/HBoxContainer/RightPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TextureRect" type="TextureRect" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("3_placeholder")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Select an Item"
+horizontal_alignment = 1
+
+[node name="Desc" type="RichTextLabel" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center]กรุณาเลือกไอเทมจากรายชื่อทางด้านซ้าย เพื่อดูรายละเอียดเพิ่มเติมก่อนตัดสินใจซื้อ[/center]"
+
+[node name="Spacer" type="Control" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Price" type="Label" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.0, 1)
+theme_override_font_sizes/font_size = 26
+text = "Price: 0 Gold"
+horizontal_alignment = 1
+
+[node name="BuyBtn" type="Button" parent="Main/HBoxContainer/RightPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "BUY NOW"

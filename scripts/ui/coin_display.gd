@@ -20,7 +20,8 @@ func _update_display(new_amount: int) -> void:
 	text = "💰 %d G" % new_amount
 
 	# Animation เด้งดึ๋งเมื่อเงินเปลี่ยน
-	var tween := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	var tween := create_tween()
+	tween.bind_node(self)
 	scale = Vector2(1.4, 1.4)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.4)\
 		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)

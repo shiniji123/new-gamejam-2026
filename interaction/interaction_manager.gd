@@ -8,10 +8,10 @@ const base_text = "[E] to "
 var active_area = []
 @export var can_interact = true
 
-func register_area(area:InteractionArea):
+func register_area(area):
 	active_area.push_back(area)
 	
-func unregister_area(area:InteractionArea):
+func unregister_area(area):
 	var index = active_area.find(area)
 	if index != -1:
 		active_area.remove_at(index)
@@ -33,7 +33,7 @@ func _process(delta):
 
 		label.text = base_text + str(action_label)
 		label.global_position = active_area[0].global_position
-		label.global_position.y -= 75
+		label.global_position.y -= 90
 		label.global_position.x -= label.size.x /2
 		label.show()
 	else:

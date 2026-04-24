@@ -25,10 +25,13 @@ func _ready() -> void:
 		push_warning("คำเตือน: ยังไม่ได้ลากไฟล์กระสุนมาใส่ใน CombatSystem นะครับ!")
 		return
 		
-	fire_timer.wait_time = 1.0 / fire_rate
+	_update_fire_rate_timer()
 	fire_timer.autostart = true
 	fire_timer.timeout.connect(_on_fire_timer_timeout)
 	add_child(fire_timer)
+
+	if not StatCalculator.stats_recalculated.is_connected(_on_stats_recalculated):
+		StatCalculator.stats_recalculated.connect(_on_stats_recalculated)
 
 func _on_fire_timer_timeout() -> void:
 	if Autoload.current_state != Autoload.State.COMBAT:
@@ -85,3 +88,12 @@ func fire_at_target(target: Node2D) -> void:
 		
 		if proj.has_method("setup"):
 			proj.setup(final_dir, projectile_speed, final_damage, final_pierce)
+
+
+func _on_stats_recalculated() -> void:
+	_update_fire_rate_timer()
+
+
+func _update_fire_rate_timer() -> void:
+	var final_fire_rate := StatCalculator.get_player_fire_rate(fire_rate)
+	fire_timer.wait_time = 1.0 / final_fire_rate

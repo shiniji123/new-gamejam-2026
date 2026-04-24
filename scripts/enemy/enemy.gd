@@ -69,7 +69,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if animated_sprite:
 		animated_sprite.flip_h = move_direction.x > 0
-		animated_sprite.play("walk")
+		animated_sprite.play("enemy_1")
 		
 	move_and_slide()
 		
