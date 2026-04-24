@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df1gwl8soj5ah"
-path="res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"
+uid="uid://og5jlojm6323"
+path="res://.godot/imported/everest.png-1f116e9436f626f6618d75af9f764db0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/Main/WINDOW_BG.png"
-dest_files=["res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"]
+source_file="res://assets/portraits/map/everest.png"
+dest_files=["res://.godot/imported/everest.png-1f116e9436f626f6618d75af9f764db0.ctex"]
 
 [params]
 

@@ -13,7 +13,7 @@ extends Node
 @export var elite_count: int = 0
 @export var boss_count: int = 0
 
-enum BossType { BOSS_1, BOSS_2, BOSS_3 }
+enum BossType { BOSS_1, BOSS_2, BOSS_3, FINAL_BOSS }
 @export var boss_type: BossType = BossType.BOSS_1
 
 @export_category("ตั้งค่าเวลา")
@@ -31,5 +31,6 @@ enum BossType { BOSS_1, BOSS_2, BOSS_3 }
 ## ฟังก์ชันช่วย: คืนจำนวนศัตรูทั้งหมด
 func get_total_enemies() -> int:
 	var actual_boss_count = boss_count
-	if boss_type == 1: actual_boss_count *= 2 # Boss 2 มาทีละคู่
+	if boss_type == BossType.BOSS_2:
+		actual_boss_count *= 2 # Boss 2 มาทีละคู่
 	return normal_count + elite_count + actual_boss_count

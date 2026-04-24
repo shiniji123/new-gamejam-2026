@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s1o4xfd4khob"
-path="res://.godot/imported/tokyo_tower.jpeg-1c0073eacee426288f58cf494eecd9c4.ctex"
+uid="uid://c6lk5xeac3psr"
+path="res://.godot/imported/shibuya.png-f79ad73dd080aafc6b55cd291f075798.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/map/tokyo_tower.jpeg"
-dest_files=["res://.godot/imported/tokyo_tower.jpeg-1c0073eacee426288f58cf494eecd9c4.ctex"]
+source_file="res://assets/portraits/map/shibuya.png"
+dest_files=["res://.godot/imported/shibuya.png-f79ad73dd080aafc6b55cd291f075798.ctex"]
 
 [params]
 

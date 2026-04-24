@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cewf5008hfnol"]
 
-[ext_resource type="Script" path="res://scripts/player/player_transform.gd" id="1_dash"]
+[ext_resource type="Script" uid="uid://cgmgeq42glql0" path="res://scripts/player/player_transform.gd" id="1_dash"]
 [ext_resource type="AudioStream" uid="uid://siqc0wh6p634" path="res://assets/sounds/player_hurt.wav" id="2_k8nur"]
 [ext_resource type="Texture2D" uid="uid://8lpk2eklhayi" path="res://assets/character/player_transform/dash.PNG" id="3_m3s1k"]
 [ext_resource type="Texture2D" uid="uid://btexyg710qur" path="res://assets/character/player_transform/idle.PNG" id="5_fyo4l"]
@@ -146,5 +146,5 @@ script = ExtResource("18_4rwq4")
 [node name="CombatSystem" type="Node2D" parent="." unique_id=767596063]
 script = ExtResource("19_muk61")
 projectile_scene = ExtResource("20_p0tx0")
-damage = 500.0
+damage = 100.0
 shoot_sound = ExtResource("21_56idu")

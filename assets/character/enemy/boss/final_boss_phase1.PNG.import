@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df1gwl8soj5ah"
-path="res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"
+uid="uid://d3ye3ihg45ud2"
+path="res://.godot/imported/final_boss_phase1.PNG-2322430826df26fab96c191bc2cdc663.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/Main/WINDOW_BG.png"
-dest_files=["res://.godot/imported/WINDOW_BG.png-f2b070497a704c1a13df5bdf3f959c54.ctex"]
+source_file="res://assets/character/enemy/boss/final_boss_phase1.PNG"
+dest_files=["res://.godot/imported/final_boss_phase1.PNG-2322430826df26fab96c191bc2cdc663.ctex"]
 
 [params]
 
