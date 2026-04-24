@@ -60,11 +60,59 @@ elif EventManager.is_event_active("talk_after_win")
 
 elif EventManager.is_event_active("talk_after_boss_win")
 	do set_portrait("right", "player", "default")
-	EVE: You actually did it... the signal source has been destroyed.
-	EVE: At least for now, the village is safe enough for us to breathe again.
-	EVE: This marks the end of this demo test. We'll expand this into a much larger battle later.
+	EVE: Boss 2 is down, but the signal did not stop. It folded inward.
+	EVE: I found a third field note near the far side of the map. Read it before we open the next arena.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
+	=> END
+
+elif EventManager.is_event_active("read_notepad_2")
+	do set_portrait("right", "player", "default")
+	EVE: The third note is ready. It explains why the next boss may touch A.V.A's memory directly.
+	EVE: Read it first. I do not want you walking into that arena blind.
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_read_3")
+	do set_portrait("right", "player", "default")
+	EVE: So the boss is guarding a memory anchor. That explains the strange feedback after every fight.
+	EVE: I opened the blue arena route. Defeat Boss 3, then stay calm if the world snaps into a cutscene.
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_EVE")
+	=> END
+
+elif EventManager.is_event_active("go_to_combat_3")
+	do set_portrait("right", "player", "default")
+	EVE: The Boss 3 arena is active. Step into the blue circle when you're ready.
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_memory_cutscene")
+	do set_portrait("right", "player", "default")
+	EVE: A.V.A? You froze for a moment. Your position reset, but the memory spike was real.
+	EVE: We continue from here. There is one final note left, and it names the source: Mother.
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_EVE")
+	=> END
+
+elif EventManager.is_event_active("read_final_notepad")
+	do set_portrait("right", "player", "default")
+	EVE: Read the final note in the center path. After that, there is no more testing distance between you and Mother.
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_final_note")
+	do set_portrait("right", "player", "default")
+	EVE: Mother is waiting past the black circle.
+	EVE: Win the fight, but listen before you choose. The ending depends on what you decide after the battle.
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_EVE")
+	=> END
+
+elif EventManager.is_event_active("go_to_final_boss")
+	do set_portrait("right", "player", "default")
+	EVE: The final arena is open. Step into Mother's circle when you are ready.
+	do hide_portrait("all")
 	=> END
 
 else

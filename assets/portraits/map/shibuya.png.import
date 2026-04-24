@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l5qcaypkc5hy"
-path="res://.godot/imported/shibuya.webp-c526c13d253fe32d525ecf85e3c4da9b.ctex"
+uid="uid://d0x2qqhd8e0gj"
+path="res://.godot/imported/shibuya.png-f79ad73dd080aafc6b55cd291f075798.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/map/shibuya.webp"
-dest_files=["res://.godot/imported/shibuya.webp-c526c13d253fe32d525ecf85e3c4da9b.ctex"]
+source_file="res://assets/portraits/map/shibuya.png"
+dest_files=["res://.godot/imported/shibuya.png-f79ad73dd080aafc6b55cd291f075798.ctex"]
 
 [params]
 

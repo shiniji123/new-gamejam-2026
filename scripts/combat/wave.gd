@@ -18,6 +18,7 @@ signal wave_cleared(wave_index: int)
 @export var boss_scene: PackedScene # Boss 1
 @export var boss_2_scene: PackedScene # Boss 2
 @export var boss_3_scene: PackedScene # Boss 3
+@export var final_boss_scene: PackedScene # Final Boss
 
 @export_group("System Settings")
 ## หากตั้งเป็นปิด ฉากหลัก (FightScene) จะเป็นคนสั่งเริ่มทำงานเองตาม Event
@@ -51,6 +52,8 @@ func _ready() -> void:
 		boss_2_scene = load("res://scenes/enemy/boss_2.tscn")
 	if not boss_3_scene:
 		boss_3_scene = load("res://scenes/enemy/boss_3.tscn")
+	if not final_boss_scene:
+		final_boss_scene = load("res://scenes/enemy/final_boss.tscn")
 	
 	if waves.is_empty():
 		push_warning("[WaveManager] ยังไม่มี Wave! กรุณาเพิ่มโหนดลูกแล้วแปะสคริปต์ wave_item.gd")
@@ -130,6 +133,8 @@ func _spawn_wave(wave_data: WaveItem) -> void:
 		selected_boss_scene = boss_2_scene
 	elif wave_data.boss_type == 2:
 		selected_boss_scene = boss_3_scene
+	elif wave_data.boss_type == 3:
+		selected_boss_scene = final_boss_scene
 
 	# ถ้าเป็น Boss 2 จำนวน actual_boss_count จะถูกคูณ 2 มาแล้ว
 	var spawn_boss_count = wave_data.boss_count

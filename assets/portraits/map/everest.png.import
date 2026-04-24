@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s1o4xfd4khob"
-path="res://.godot/imported/tokyo_tower.jpeg-1c0073eacee426288f58cf494eecd9c4.ctex"
+uid="uid://c12ip10igfsvf"
+path="res://.godot/imported/everest.png-1f116e9436f626f6618d75af9f764db0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portraits/map/tokyo_tower.jpeg"
-dest_files=["res://.godot/imported/tokyo_tower.jpeg-1c0073eacee426288f58cf494eecd9c4.ctex"]
+source_file="res://assets/portraits/map/everest.png"
+dest_files=["res://.godot/imported/everest.png-1f116e9436f626f6618d75af9f764db0.ctex"]
 
 [params]
 

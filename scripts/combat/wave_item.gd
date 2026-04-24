@@ -13,7 +13,7 @@ extends Node
 @export var elite_count: int = 0
 @export var boss_count: int = 0
 
-enum BossType { BOSS_1, BOSS_2, BOSS_3 }
+enum BossType { BOSS_1, BOSS_2, BOSS_3, FINAL_BOSS }
 @export var boss_type: BossType = BossType.BOSS_1
 
 @export_category("ตั้งค่าเวลา")

@@ -14,6 +14,11 @@ extends Node2D
 ## ขนาดของ Player ในฉากนี้
 @export var player_scale: Vector2 = Vector2(1.5, 1.5)
 
+@export_group("Game Over")
+@export var game_over_scene: PackedScene = preload("res://scenes/ui/game_over_ui.tscn")
+
+var _game_over_ui: CanvasLayer = null
+
 
 func _ready() -> void:
 	# ===== SAFETY RESET: ล้างสถานะค้างจากฉากก่อนหน้า =====
@@ -37,6 +42,7 @@ func _ready() -> void:
 		p.scale = player_scale
 		# ปลดล็อคการเคลื่อนที่ผู้เล่น (ถ้าถูก lock ไว้จาก NPC dialogue)
 		p.set_physics_process(true)
+		_setup_game_over_listener(p)
 
 	# เลือก WaveManager ให้ตรงกับ Event ปัจจุบัน และผูก UI
 	_setup_active_wave_manager()
@@ -60,6 +66,9 @@ func _setup_active_wave_manager() -> void:
 	# ถ้าหาไม่เจอ ให้ใช้โหนดที่ชื่อ "WaveManager" ธรรมดาแทน
 	if not active_wave_manager:
 		active_wave_manager = get_node_or_null("WaveManager")
+
+	if not active_wave_manager:
+		active_wave_manager = get_node_or_null("WaveManager_fight_wave_1")
 		
 	if not active_wave_manager:
 		push_warning("[FightScene] ไม่พบโหนด WaveManager ใดๆ ในฉากนี้เลย!")
@@ -95,3 +104,23 @@ func _setup_map_bounds() -> void:
 
 	# สร้างกำแพงล่องหน 4 ด้าน
 	MapBoundaryHelper.create_map_boundaries(self , background_rect)
+
+
+func _setup_game_over_listener(player_node: Node) -> void:
+	var hurtbox := player_node.get_node_or_null("HurtboxComponent")
+	if hurtbox and hurtbox.has_signal("died") and not hurtbox.died.is_connected(_on_player_died):
+		hurtbox.died.connect(_on_player_died)
+
+
+func _on_player_died() -> void:
+	if _game_over_ui:
+		return
+
+	await get_tree().create_timer(0.7).timeout
+	if not is_inside_tree() or _game_over_ui:
+		return
+
+	if game_over_scene:
+		_game_over_ui = game_over_scene.instantiate() as CanvasLayer
+		add_child(_game_over_ui)
+		get_tree().paused = true

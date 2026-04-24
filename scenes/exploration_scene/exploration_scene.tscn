@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://djp7cxgt0t06p" path="res://scenes/npc/npc.tscn" id="18_8casv"]
 [ext_resource type="PackedScene" uid="uid://i84b22kntm54" path="res://scenes/ui/notepad_ui.tscn" id="19_notepad"]
 [ext_resource type="PackedScene" path="res://scenes/ui/exploration_settings_ui.tscn" id="20_settings"]
+[ext_resource type="PackedScene" path="res://scenes/cutscene/memory_cutscene_controller.tscn" id="21_memory"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpjf3"]
 atlas = ExtResource("7_fnwyb")
@@ -214,6 +215,61 @@ notepad_content = "[b]บันทึกการกักกัน / ระด�
 — ฝ่ายเฝ้าระวังระบบ"
 notepad_event_target = "second_notepad"
 
+[node name="TransitionAreaFight3" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(1040, 86)
+require_interact = true
+action_name = "Boss 3"
+area_color = Color(0.25, 0.42, 1, 0.35)
+active_on_event = "go_to_combat_3"
+trigger_event_target = "green_circle_3"
+
+[node name="TransitionAreaFinalBoss" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(576, 92)
+require_interact = true
+action_name = "Mother"
+area_color = Color(0.03, 0.03, 0.03, 0.55)
+active_on_event = "go_to_final_boss"
+trigger_event_target = "final_boss_circle"
+
+[node name="NotepadArea3" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(1040, 520)
+require_interact = true
+action_name = "Read"
+area_color = Color(0.25, 0.42, 1, 0.3)
+active_on_event = "read_notepad_2"
+is_notepad = true
+notepad_title = "Boss 3 Field Note"
+notepad_content = "[b]Boss 3 / Memory Anchor[/b]
+
+The third entity does not guard the arena. It guards a memory.
+When it falls, A.V.A may be pulled into an archived scene that rewrites the route for a moment.
+
+Test order:
+1. Defeat Boss 3.
+2. Let A.V.A walk to the cutscene point.
+3. Click through each image and text fragment.
+4. Confirm the memory deletion message appears before control returns."
+notepad_event_target = "third_notepad"
+
+[node name="NotepadAreaFinal" parent="." instance=ExtResource("3_4dtv0")]
+position = Vector2(575, 545)
+require_interact = true
+action_name = "Read"
+area_color = Color(0.02, 0.02, 0.02, 0.45)
+active_on_event = "read_final_notepad"
+is_notepad = true
+notepad_title = "Final Note: Mother"
+notepad_content = "[b]Final Note / Mother[/b]
+
+The final signal identifies itself as Mother.
+This is not only a battle target. It is a choice about what A.V.A becomes after the truth is restored.
+
+After Mother falls, listen before choosing."
+notepad_event_target = "final_notepad"
+
 [node name="NotepadUI" parent="." unique_id=1887046530 instance=ExtResource("19_notepad")]
 
 [node name="ExplorationSettingsUI" parent="." unique_id=1616906604 instance=ExtResource("20_settings")]
+
+[node name="MemoryCutsceneController" parent="." instance=ExtResource("21_memory")]
+walk_target_position = Vector2(576, 180)

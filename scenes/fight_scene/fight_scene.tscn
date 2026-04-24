@@ -154,4 +154,39 @@ elite_scale = Vector2(1.35, 1.35)
 [node name="WaveItem3" type="Node" parent="WaveManager_fight_wave_2" unique_id=1535231030]
 script = ExtResource("9_28its")
 boss_count = 1
+boss_type = 1
 boss_scale = Vector2(1.8, 1.8)
+
+[node name="WaveManager_fight_wave_3" parent="." instance=ExtResource("8_gnakn")]
+
+[node name="WaveItem" type="Node" parent="WaveManager_fight_wave_3"]
+script = ExtResource("9_28its")
+normal_count = 4
+elite_count = 1
+normal_scale = Vector2(1.15, 1.15)
+elite_scale = Vector2(1.35, 1.35)
+
+[node name="WaveItem2" type="Node" parent="WaveManager_fight_wave_3"]
+script = ExtResource("9_28its")
+normal_count = 0
+boss_count = 1
+boss_type = 2
+start_delay = 1.0
+boss_scale = Vector2(2, 2)
+
+[node name="WaveManager_fight_final_boss" parent="." instance=ExtResource("8_gnakn")]
+
+[node name="WaveItem" type="Node" parent="WaveManager_fight_final_boss"]
+script = ExtResource("9_28its")
+normal_count = 2
+elite_count = 1
+normal_scale = Vector2(1.2, 1.2)
+elite_scale = Vector2(1.4, 1.4)
+
+[node name="WaveItem2" type="Node" parent="WaveManager_fight_final_boss"]
+script = ExtResource("9_28its")
+normal_count = 0
+boss_count = 1
+boss_type = 3
+start_delay = 1.0
+boss_scale = Vector2(2.3, 2.3)
