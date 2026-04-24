@@ -162,7 +162,7 @@ script = ExtResource("16_1tvuq")
 [node name="ExampleBalloon" parent="." unique_id=1434168376 instance=ExtResource("17_wef41")]
 
 [node name="NPC" parent="." unique_id=712672310 instance=ExtResource("18_8casv")]
-position = Vector2(503, 322)
+position = Vector2(502, 322)
 
 [node name="NotepadArea" parent="." unique_id=729126769 instance=ExtResource("3_4dtv0")]
 position = Vector2(80, 370)

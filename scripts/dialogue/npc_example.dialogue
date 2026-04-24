@@ -2,81 +2,73 @@
 
 if EventManager.is_event_active("intro_talk_auto")
 	do set_portrait("right", "player", "default")
-	???: ยินดีต้อนรับสู่อาณาจักรของเรา ผู้กล้า! ดูเหมือนคุณเพิ่งจะฟื้นขึ้นมานะ
-	AVA: คุณเป็นใคร?
-	EVE: ฉันชื่อ EVE(ชื่อเต็มบลาๆ)
-	EVE: เพื่อเริ่มต้นการเดินทาง ฉันอยากให้คุณไปอ่าน "บันทึก" เล่มนั้นที่วางอยู่ทางขวามือก่อน
-	EVE: มันมีข้อมูลสำคัญที่คุณต้องรู้ก่อนออกไปสู้... ลองไปอ่านดูสิ!
+	???: Welcome hero! It seems you've just woken up.
+	AVA: Who are you?
+	EVE: My name is EVE (full name... well, it's a long story).
+	EVE: To begin your journey, I'd like you to read that "Note" over there on the Left first.
+	EVE: It contains important information you need to know before heading out to fight... Go give it a look!
 	do hide_portrait("all")
 	do EventManager.notify_dialogue_ended()
 	=> END
 
 elif EventManager.is_event_active("talk_after_read")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: ยอดเยี่ยมมาก! อ่านบันทึกจบแล้วใช่ไหม?
-	NPC: งั้นมาเข้าเรื่องกันเลย... เห็นวงกลมเวทย์สีแดงตรงนั้นไหม? นั่นคือลานประลอง
-	NPC: ถ้าพร้อมแล้ว ให้เดินเข้าไปเหยียบวงกลมสีแดงเพื่อเริ่มการต่อสู้ครั้งแรกได้เลย!
+	EVE: Excellent! You've finished reading the note, right?
+	EVE: Let's get down to business then... See that red magic circle over there? That's the combat arena.
+	EVE: If you're ready, step into the red circle to begin your first battle!
 	do hide_portrait("all")
-	do EventManager.notify_interaction("village_npc")
+	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("go_to_combat")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: มัวรออะไรอยู่ล่ะ? เดินเข้าวงกลมสีเขียวตรงนั้นเพื่อเริ่มการต่อสู้เลยสิ!
+	EVE: What are you waiting for? Step into the green circle over there to start the fight!
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("read_notepad_1")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: ฉันเพิ่งถอดรหัส log เพิ่มได้อีกชุดหนึ่ง
-	NPC: มันอยู่ในบันทึกฉบับที่สองทางฝั่งขวาของลานหมู่บ้าน ลองไปอ่านดู
-	NPC: ถ้าข้อความในนั้นตรงกับที่ฉันคิดไว้ รอบต่อไปคุณจะได้เจอบอสตัวจริงแล้ว
+	EVE: I've just decoded another set of logs.
+	EVE: It's in the second note on the right side of the village square. Go check it out.
+	EVE: If the messages in there match what I suspect, you'll be facing the real boss in the next round.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_read_2")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: เห็นเหมือนกันใช่ไหม... สัญญาณพวกนั้นไม่ได้สุ่มเกิดขึ้น แต่มัน “เรียกหา” อะไรบางอย่างอยู่
-	NPC: ฉันจะเปิดลานประลองอีกรอบ คราวนี้สนามจะปล่อยตัวต้นเหตุออกมา
-	NPC: เตรียมตัวให้พร้อม แล้วเดินเข้าไปในวงกลมสีส้มเดิมได้เลย
+	EVE: You see it too, don't you? Those signals aren't random... they're "calling out" for something.
+	EVE: I'm going to open the arena again. This time, it will draw out the source of the interference.
+	EVE: Get ready, then step into that same orange circle again.
 	do hide_portrait("all")
-	do EventManager.notify_interaction("village_npc")
+	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("go_to_combat_2")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: สนามพร้อมแล้ว ถ้าก้าวเข้าไปตอนนี้ มันจะดึงคุณเข้าสู่โหมดทดสอบบอสทันที
+	EVE: The arena is ready. If you step in now, it will pull you straight into the boss trial.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_win")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: สุดยอดไปเลย! คุณเคลียร์สนามแรกได้เร็วเกินคาดมาก
-	NPC: แต่แปลกตรงที่หลังการต่อสู้นั้น สัญญาณรบกวนกลับยิ่งแรงขึ้น... เหมือนมีใครกำลังสังเกตเราอยู่
-	NPC: ไปอ่านบันทึกฉบับที่สองก่อนเถอะ ฉันซ่อนไว้ใกล้ๆ ร้านค้า เผื่อมันจะบอกได้ว่าบอสครั้งต่อไปคืออะไร
+	EVE: Fantastic! You cleared the first arena faster than I expected.
+	EVE: But it's strange... after that fight, the interference became even stronger... as if someone is watching us.
+	EVE: Go read the second note first. I hid it near the shop; maybe it can tell us what the next boss will be.
 	do hide_portrait("all")
-	do EventManager.notify_interaction("village_npc")
+	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("talk_after_boss_win")
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: คุณทำได้จริงๆ... ตัวต้นสัญญาณถูกทำลายแล้ว
-	NPC: อย่างน้อยตอนนี้หมู่บ้านก็ปลอดภัยพอให้เราหายใจได้อีกครั้ง
-	NPC: ถือว่านี่คือจุดจบของเดโมเทสนี้ก่อนนะ เดี๋ยวเราจะต่อยอดมันให้กลายเป็นศึกที่ใหญ่กว่านี้กัน
+	EVE: You actually did it... the signal source has been destroyed.
+	EVE: At least for now, the village is safe enough for us to breathe again.
+	EVE: This marks the end of this demo test. We'll expand this into a much larger battle later.
 	do hide_portrait("all")
-	do EventManager.notify_interaction("village_npc")
+	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 else
-	do set_portrait("left", "npc", "default")
 	do set_portrait("right", "player", "default")
-	NPC: ตอนนี้ยังไม่มีอะไรให้ทำเพิ่มนะ เตรียมตัวให้พร้อมสำหรับการต่อสู้ครั้งต่อไปเถอะ!
+	EVE: There's nothing more to do for now. Just get yourself ready for the next battle!
 	do hide_portrait("all")
 	=> END
