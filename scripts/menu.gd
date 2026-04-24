@@ -7,6 +7,8 @@ func _ready():
 
 func _on_start_game_pressed():
 	if start_scene:
+		if Autoload.has_node("/root/SaveManager"):
+			SaveManager.begin_new_game()
 		get_tree().change_scene_to_packed(start_scene)
 	else:
 		print("Not have Scene in Inspector")

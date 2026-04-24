@@ -34,7 +34,7 @@ func _ready() -> void:
 	visibility_layer = 1
 	light_mask = 1
 	z_index = 100
-	scale = Vector2(3, 3) # ขยายขนาดให้เท่ากับ Player เพื่อให้เห็นชัดๆ
+	scale = Vector2(1.1, 1.1) # ขยายขนาดให้เท่ากับ Player เพื่อให้เห็นชัดๆ
 	
 	# สร้างเครื่องหมายตกใจสีแดง (!) ลอยบนหัว NPC
 	_exclamation_mark = Label.new()

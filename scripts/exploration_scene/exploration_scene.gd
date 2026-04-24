@@ -28,6 +28,9 @@ func _ready() -> void:
 	if has_node("Player"):
 		$Player.scale = player_scale
 
+	if SaveManager.apply_pending_state_if_available(self):
+		print("Pending save state applied")
+
 	# ตั้งค่าขอบเขตกล้องและกำแพงแผนที่
 	_setup_map_bounds()
 
