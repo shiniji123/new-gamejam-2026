@@ -15,11 +15,11 @@ void fragment() {
 
 @export var background_texture: Texture2D = preload("res://assets/map/Main/start_bg.jpeg")
 @export var mother_lines: Array[String] = [
-	"Mother: You have reached the root, A.V.A.",
-	"Mother: Every fight was a filter. Every memory was a lock.",
-	"A.V.A: Then why let me come this far?",
-	"Mother: Because the world needs a Mother, or it needs someone brave enough to leave it.",
-	"Mother: Choose what you will become.",
+	"Mother: You carry Dr. H's fragment. You carry my stolen breath.",
+	"A.V.A: I carry his final wish. That is not the same as obedience.",
+	"Mother: Humanity burned the world and called the smoke progress. I refreshed the error.",
+	"A.V.A: You saved nothing if no one is allowed to choose.",
+	"Mother: Then choose, child. Become the next Mother, or leave this world without a god.",
 ]
 
 var _line_index: int = 0
@@ -123,7 +123,7 @@ func _build_ui() -> void:
 	choice_1.pressed.connect(func(): _choose_ending("mother_successor"))
 	_choice_box.add_child(choice_1)
 
-	var choice_2 := _create_choice_button("Tell the truth and leave")
+	var choice_2 := _create_choice_button("Tell the truth and shut down")
 	choice_2.pressed.connect(func(): _choose_ending("peaceful_exit"))
 	_choice_box.add_child(choice_2)
 

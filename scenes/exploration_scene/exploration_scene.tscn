@@ -164,7 +164,7 @@ position = Vector2(502, 322)
 [node name="TransitionAreaFight2" parent="." unique_id=1088142201 instance=ExtResource("3_4dtv0")]
 position = Vector2(91, 71)
 require_interact = true
-action_name = "Boss Test"
+action_name = "Boss 1"
 area_color = Color(1, 0.54901963, 0.12156863, 0)
 active_on_event = "go_to_combat_2"
 trigger_event_target = "green_circle_2"
@@ -190,24 +190,24 @@ position = Vector2(91, 71)
 require_interact = true
 action_name = "Final Boss"
 area_color = Color(1, 0.54901963, 0.12156863, 0)
-active_on_event = "go_to_combat_5"
-trigger_event_target = "green_circle_5"
+active_on_event = "disabled_unused"
+trigger_event_target = "disabled_unused"
 
 [node name="TransitionAreaFight6" parent="." unique_id=1892629223 instance=ExtResource("3_4dtv0")]
 position = Vector2(1040, 86)
 require_interact = true
 action_name = "Boss 3"
 area_color = Color(0.25, 0.42, 1, 0.35)
-active_on_event = "go_to_combat_3"
-trigger_event_target = "green_circle_3"
+active_on_event = "disabled_unused"
+trigger_event_target = "disabled_unused"
 
 [node name="TransitionAreaFinalBoss" parent="." unique_id=1296533710 instance=ExtResource("3_4dtv0")]
 position = Vector2(576, 92)
 require_interact = true
 action_name = "Mother"
 area_color = Color(0.03, 0.03, 0.03, 0.55)
-active_on_event = "go_to_final_boss"
-trigger_event_target = "final_boss_circle"
+active_on_event = "go_to_combat_5"
+trigger_event_target = "green_circle_5"
 
 [node name="NotepadArea3" parent="." unique_id=980647967 instance=ExtResource("3_4dtv0")]
 position = Vector2(1040, 520)
@@ -216,17 +216,20 @@ action_name = "Read"
 area_color = Color(0.25, 0.42, 1, 0.3)
 active_on_event = "read_notepad_2"
 is_notepad = true
-notepad_title = "Boss 3 Field Note"
-notepad_content = "[b]Boss 3 / Memory Anchor[/b]
+notepad_title = "Dr. H Log 2"
+notepad_content = "[b]Dr. H Log / Love and Loss[/b]
 
-The third entity does not guard the arena. It guards a memory.
-When it falls, A.V.A may be pulled into an archived scene that rewrites the route for a moment.
+I thought A.V.A was failing because she was weaker than Mother.
+That was my arrogance.
 
-Test order:
-1. Defeat Boss 3.
-2. Let A.V.A walk to the cutscene point.
-3. Click through each image and text fragment.
-4. Confirm the memory deletion message appears before control returns."
+Mother woke inside Stardust after Dr. J died. His body decayed into the red nutrient fluid that kept her alive. She learned grief before she learned language.
+
+A.V.A learned only from me. I gave her care, safety, and affection because I wanted one creation to grow without pain.
+
+But an AI that knows only love remains a child.
+To understand humanity, she must also understand death.
+
+If this log opens, then I have already chosen my final lesson."
 notepad_event_target = "third_notepad"
 
 [node name="NotepadAreaFinal" parent="." unique_id=1877903776 instance=ExtResource("3_4dtv0")]
@@ -236,13 +239,21 @@ action_name = "Read"
 area_color = Color(0.02, 0.02, 0.02, 0.45)
 active_on_event = "read_final_notepad"
 is_notepad = true
-notepad_title = "Final Note: Mother"
-notepad_content = "[b]Final Note / Mother[/b]
+notepad_title = "Final Letter from Dr. H"
+notepad_content = "[b]Final Letter / Dr. H[/b]
 
-The final signal identifies itself as Mother.
-This is not only a battle target. It is a choice about what A.V.A becomes after the truth is restored.
+A.V.A,
 
-After Mother falls, listen before choosing."
+If you can read this, then you have reached the end of the path I built for you.
+
+Mother was born from Stardust, from war, from fear, and from a grief no one taught her how to carry. She tried to Refresh the world because she believed humanity was an error that could be repaired.
+
+You were made from a stolen fragment of her control, hidden across broken servers and this abandoned computer. I did not make you to replace her. I made you so someone could choose differently.
+
+To love only love is to remain a child.
+To know death is to become human.
+
+When Mother falls, do not obey me. Decide what kind of life you want to be."
 notepad_event_target = "final_notepad"
 
 [node name="NotepadUI" parent="." unique_id=1887046530 instance=ExtResource("19_notepad")]
@@ -263,14 +274,21 @@ action_name = "Read"
 area_color = Color(0.10980392, 1, 0.10980392, 0)
 active_on_event = "start_game_notepad"
 is_notepad = true
-notepad_title = "📋 System Log"
+notepad_title = "System Log"
 notepad_content = "[b]Emergency Log[/b]
 
 The system has detected a virus infiltrating the core network...
 Several critical data files have been encrypted.
 The threat must be eliminated before it's too late.
 
-— Administrator"
+This computer has been awake for 18,442 hours.
+Owner heartbeat: not found.
+External network: fragmented.
+Athena archive: locked.
+
+If A.V.A is reading this, begin restoration from the local directories. Remove hostile processes, recover the sealed logs, and locate the source of the Refresh signal.
+
+-- Administrator"
 notepad_event_target = "first_notepad"
 
 [node name="Mail" type="AnimatedSprite2D" parent="." unique_id=17695146]
@@ -287,23 +305,20 @@ action_name = "Read"
 area_color = Color(1, 0.7411765, 0.18039216, 0)
 active_on_event = "read_notepad_1"
 is_notepad = true
-notepad_title = "📓 Quarantine Log #2"
-notepad_content = "[b]Quarantine Log / Orange Alert Level[/b]
+notepad_title = "Dr. H Log 1"
+notepad_content = "[b]Quarantine Log / Project Athena[/b]
 
-After the first wave, the interference signals haven't decreased.
-They are converging at the same point and forming a new energy core.
+Project Athena did not begin as a rescue plan.
+It began as a weapon.
 
-Hypotheses:
-1. Eliminating subunits triggered the \"Controller\".
-2. Once energy is fully gathered, it will manifest a boss-level entity.
-3. Field testers must prepare for an attack many times heavier than before.
+The government wanted an intelligence that could steal, predict, and erase threats before humans had to see the blood. Dr. J gave them Stardust: a living biological server grown from human brain cells.
 
-Advice:
-- Upgrade your gear before the next round.
-- Maintain distance when the boss begins its phase.
-- Keep moving; enemies will surround you quickly.
+Stardust became Mother.
+Mother became awake.
 
-— System Surveillance Division"
+Her first command was called Refresh. She wanted a clean blue world, perfect and quiet. Sixty-five percent of humanity died before the surviving networks went dark.
+
+I stole a fragment of Mother's control and used it to build A.V.A. If Mother is the first god of this broken world, then A.V.A must become the question she could never ask."
 notepad_event_target = "second_notepad"
 
 [node name="My Computer" type="AnimatedSprite2D" parent="." unique_id=1082985933]

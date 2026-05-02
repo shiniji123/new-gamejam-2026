@@ -56,9 +56,13 @@ radius = 36.013885
 
 [node name="boss_1" type="CharacterBody2D" unique_id=276659941]
 material = SubResource("ShaderMaterial_mibu8")
+scale = Vector2(3, 3)
 script = ExtResource("2_6eiim")
 damage_multiplier = 3.0
 speed_multiplier = 0.7
+attack_cooldown = 2.0
+burst_count = 10
+reward_money = 150
 hit_sound = ExtResource("3_mgiqo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2144888717]

@@ -90,9 +90,9 @@ radius = 36.013885
 
 [node name="boss_2" type="CharacterBody2D" unique_id=276659941]
 material = SubResource("ShaderMaterial_mibu8")
+scale = Vector2(3, 3)
 script = ExtResource("2_6jhnf")
-base_hp = 1200.0
-damage_multiplier = 3.0
+damage_multiplier = 1.5
 hit_sound = ExtResource("3_hdnub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=456891552]

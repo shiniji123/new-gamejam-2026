@@ -67,7 +67,7 @@ func add_note(note_id: String, title: String, content: String) -> void:
 			return
 	_notes.append({ "id": note_id, "title": title, "content": content, "is_read": false })
 
-func open_notepad() -> void:
+func open_notepad(note_id: String = "") -> void:
 	## เปิดหน้ารายการ Note
 	_rebuild_note_list()
 	_current_view = "list"
@@ -77,6 +77,11 @@ func open_notepad() -> void:
 	_is_open = true
 	_input_cooldown = 0.3
 	get_tree().paused = true
+	if note_id != "":
+		var note_index := _find_note_index(note_id)
+		if note_index != -1:
+			_open_note(note_index)
+			_input_cooldown = 0.3
 
 func has_unread_notes() -> bool:
 	for n in _notes:
@@ -132,6 +137,13 @@ func _open_note(index: int) -> void:
 	_input_cooldown = 0.15
 	# อัปเดตจุดแดงในรายการ
 	_rebuild_note_list()
+
+
+func _find_note_index(note_id: String) -> int:
+	for i in range(_notes.size()):
+		if String(_notes[i].get("id", "")) == note_id:
+			return i
+	return -1
 
 func _close_notepad() -> void:
 	if not _is_open:

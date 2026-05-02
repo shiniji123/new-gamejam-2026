@@ -19,9 +19,9 @@ extends CanvasLayer
 @export_group("Slides")
 @export var slide_images: Array[Texture2D] = []
 @export var slide_texts: Array[String] = [
-	"The memory archive opens without permission.",
-	"A.V.A sees a record that should not exist.",
-	"The past rewrites itself, frame by frame.",
+	"The archive opens without permission.",
+	"A.V.A sees Dr. H beside the terminal, older than the voice in her logs.",
+	"One final lesson is written into the system: love, loss, and the choice to continue.",
 ]
 
 var _root_control: Control
@@ -243,8 +243,8 @@ func _get_default_images() -> Array[Texture2D]:
 	var defaults: Array[Texture2D] = []
 	var paths := [
 		"res://assets/map/Main/start_bg.jpeg",
-		"res://assets/portraits/map/shibuya.webp",
-		"res://assets/portraits/map/tokyo_tower.jpeg",
+		"res://assets/portraits/map/shibuya.png",
+		"res://assets/portraits/map/tokyo_tower.png",
 	]
 
 	for path in paths:
@@ -310,7 +310,7 @@ func _build_ui() -> void:
 
 	_delete_label = Label.new()
 	_delete_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_delete_label.text = "A.V.A has been deleated memory"
+	_delete_label.text = "A.V.A memory fragment deleted"
 	_delete_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_delete_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_delete_label.add_theme_font_size_override("font_size", 36)

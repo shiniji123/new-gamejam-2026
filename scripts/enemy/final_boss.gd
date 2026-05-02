@@ -15,13 +15,24 @@ extends BaseEnemy
 @export var dash_cooldown: float = 4.5
 @export var dash_speed: float = 760.0
 @export var dash_duration: float = 0.65
+@export var line_attack_scene: PackedScene = preload("res://scenes/enemy/final_boss_line_attack.tscn")
+@export var homing_projectile_scene: PackedScene = preload("res://scenes/enemy/final_boss_homing_projectile.tscn")
+@export var line_cooldown: float = 3.6
+@export var line_damage: float = 42.0
+@export var line_width: float = 34.0
+@export var line_telegraph_time: float = 0.72
+@export var summon_cooldown: float = 6.0
+@export var homing_damage: float = 30.0
+@export var homing_spawn_radius: float = 360.0
 
-enum State { CHASE, PULSE, DASH }
+enum State { CHASE, PULSE, DASH, LINE_BURST, SUMMON }
 
 var current_state: State = State.CHASE
 var current_phase: int = 1
 var pulse_timer: float = 0.0
 var dash_timer: float = 0.0
+var line_timer: float = 0.0
+var summon_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
 
 
@@ -64,9 +75,15 @@ func _physics_process(delta: float) -> void:
 		State.CHASE:
 			pulse_timer += delta
 			dash_timer += delta
+			line_timer += delta
+			summon_timer += delta
 			velocity = (move_direction * speed * _phase_speed_bonus()) + knockback_velocity
 
-			if dash_timer >= dash_cooldown:
+			if current_phase >= 2 and summon_timer >= summon_cooldown:
+				_start_homing_summon()
+			elif line_timer >= maxf(1.4, line_cooldown - (current_phase - 1) * 0.35):
+				_start_line_burst()
+			elif dash_timer >= dash_cooldown:
 				_start_dash(move_direction)
 			elif pulse_timer >= pulse_cooldown:
 				_start_pulse()
@@ -76,6 +93,9 @@ func _physics_process(delta: float) -> void:
 
 		State.DASH:
 			velocity = (dash_direction * dash_speed) + knockback_velocity
+
+		State.LINE_BURST, State.SUMMON:
+			velocity = knockback_velocity
 
 	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 1.0 - exp(-friction * 60.0 * delta))
 	if animated_sprite:
@@ -140,6 +160,50 @@ func _start_pulse() -> void:
 	current_state = State.CHASE
 
 
+func _start_line_burst() -> void:
+	current_state = State.LINE_BURST
+	line_timer = 0.0
+	_shake_camera(18.0 + current_phase * 5.0, 0.25)
+
+	var center := player.global_position if is_instance_valid(player) else _get_arena_center()
+	var directions: Array[Vector2] = [Vector2.RIGHT]
+	if current_phase >= 2:
+		directions.append(Vector2.DOWN)
+	if current_phase >= 3:
+		directions.append(Vector2(1.0, 1.0).normalized())
+		directions.append(Vector2(1.0, -1.0).normalized())
+
+	for direction in directions:
+		_spawn_line_attack(center, direction)
+		await get_tree().create_timer(0.18).timeout
+		if is_dead:
+			return
+
+	await get_tree().create_timer(line_telegraph_time + 0.22).timeout
+	if not is_dead:
+		current_state = State.CHASE
+
+
+func _start_homing_summon() -> void:
+	current_state = State.SUMMON
+	summon_timer = 0.0
+	_shake_camera(22.0 + current_phase * 6.0, 0.35)
+
+	var projectile_count := 3 + current_phase
+	var center := global_position
+	for i in range(projectile_count):
+		var angle := TAU * float(i) / float(projectile_count)
+		var spawn_position := center + Vector2.RIGHT.rotated(angle) * homing_spawn_radius
+		_spawn_homing_projectile(spawn_position)
+		await get_tree().create_timer(0.12).timeout
+		if is_dead:
+			return
+
+	await get_tree().create_timer(0.45).timeout
+	if not is_dead:
+		current_state = State.CHASE
+
+
 func _start_dash(direction: Vector2) -> void:
 	current_state = State.DASH
 	dash_timer = 0.0
@@ -162,6 +226,45 @@ func _check_player_collision() -> void:
 			if current_state == State.DASH:
 				final_damage *= 1.8
 			collider.get_node("HurtboxComponent").take_damage(final_damage, global_position)
+
+
+func _spawn_line_attack(center_position: Vector2, direction: Vector2) -> void:
+	if not line_attack_scene:
+		return
+
+	var attack := line_attack_scene.instantiate()
+	if attack.has_method("setup"):
+		attack.setup(
+			center_position,
+			direction,
+			1250.0,
+			line_width + float(current_phase - 1) * 8.0,
+			line_damage * (1.0 + float(current_phase - 1) * 0.25),
+			maxf(0.45, line_telegraph_time - float(current_phase - 1) * 0.08),
+			0.28
+		)
+
+	get_tree().current_scene.add_child(attack)
+
+
+func _spawn_homing_projectile(spawn_position: Vector2) -> void:
+	if not homing_projectile_scene or not is_instance_valid(player):
+		return
+
+	var projectile := homing_projectile_scene.instantiate()
+	if projectile.has_method("setup"):
+		projectile.setup(
+			spawn_position,
+			player,
+			self,
+			homing_damage * (1.0 + float(current_phase - 1) * 0.2)
+		)
+
+	get_tree().current_scene.add_child(projectile)
+
+
+func _get_arena_center() -> Vector2:
+	return get_viewport_rect().size * 0.5
 
 
 func _play_phase_animation() -> void:

@@ -10,5 +10,6 @@
 process_mode = 3
 layer = 90
 script = ExtResource("1_script")
+walk_target_position = Vector2(91, 74)
 slide_images = Array[Texture2D]([ExtResource("2_yght7"), ExtResource("3_07io5"), ExtResource("4_eixe1"), ExtResource("5_npxk6")])
-slide_texts = Array[String](["The memory archive opens without permission.", "A.V.A sees a record that should not exist.", "The past rewrites itself, frame by frame.", "Fin"])
+slide_texts = Array[String](["The File Explorer opens by itself.", "A.V.A finds an image archive Dr. H tried to bury.", "Outside the screen, the world is already broken. Inside the machine, Mother is still searching.", "A.V.A understands the missing piece: love protected her, but loss will wake her."])

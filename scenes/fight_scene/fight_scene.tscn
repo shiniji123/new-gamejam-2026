@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://qbvxpklkysc8" path="res://scripts/fight_scene/fight_scene.gd" id="1_nff5x"]
 [ext_resource type="Texture2D" uid="uid://bfcubf7arfdvc" path="res://assets/map/Main/fight_bg.png" id="1_p8b18"]
-[ext_resource type="AudioStream" uid="uid://crif56nfbs633" path="res://assets/sounds/fight_scene_bg.wav" id="2_28its"]
+[ext_resource type="AudioStream" uid="uid://dwrc3pha2pm70" path="res://assets/sounds/fight_scene.wav" id="2_qqmyc"]
+[ext_resource type="AudioStream" uid="uid://s542tiir434q" path="res://assets/sounds/Holy.mp3" id="2_holy"]
 [ext_resource type="PackedScene" uid="uid://cewf5008hfnol" path="res://scenes/player/player_transform.tscn" id="3_28its"]
 [ext_resource type="PackedScene" uid="uid://bbrrbau5kqd0o" path="res://scenes/combat/spawner.tscn" id="7_885g1"]
 [ext_resource type="PackedScene" uid="uid://ci2efubk23ul3" path="res://scenes/combat/wave_manager.tscn" id="8_gnakn"]
@@ -38,7 +39,8 @@ b = Vector2(1154, 649)
 
 [node name="fight_scene" type="Node2D" unique_id=261381658]
 script = ExtResource("1_nff5x")
-battle_music = ExtResource("2_28its")
+battle_music = ExtResource("2_qqmyc")
+final_boss_music = ExtResource("2_holy")
 
 [node name="Player_Transform" parent="." unique_id=45369660 instance=ExtResource("3_28its")]
 z_index = 5
@@ -142,40 +144,48 @@ elite_count = 1
 
 [node name="WaveItem" type="Node" parent="WaveManager_fight_wave_2" unique_id=1037289650]
 script = ExtResource("9_28its")
-normal_scale = Vector2(1.1, 1.1)
+start_delay = 1.0
+boss_scale = Vector2(1.8, 1.8)
 
 [node name="WaveItem2" type="Node" parent="WaveManager_fight_wave_2" unique_id=2056004883]
 script = ExtResource("9_28its")
-elite_count = 1
-normal_scale = Vector2(1.15, 1.15)
-elite_scale = Vector2(1.35, 1.35)
+normal_count = 0
+elite_count = 3
 
 [node name="WaveItem3" type="Node" parent="WaveManager_fight_wave_2" unique_id=1535231030]
 script = ExtResource("9_28its")
+normal_count = 0
 boss_count = 1
-boss_type = 1
-boss_scale = Vector2(1.8, 1.8)
 
 [node name="WaveManager_fight_wave_3" parent="." unique_id=595033611 instance=ExtResource("8_gnakn")]
 
 [node name="WaveItem" type="Node" parent="WaveManager_fight_wave_3" unique_id=365860627]
 script = ExtResource("9_28its")
-normal_count = 4
-elite_count = 1
-normal_scale = Vector2(1.15, 1.15)
-elite_scale = Vector2(1.35, 1.35)
+normal_count = 0
+elite_count = 3
+boss_type = 1
+start_delay = 1.0
+boss_scale = Vector2(2, 2)
 
 [node name="WaveItem2" type="Node" parent="WaveManager_fight_wave_3" unique_id=952677725]
 script = ExtResource("9_28its")
 normal_count = 0
 boss_count = 1
+boss_type = 1
+
+[node name="WaveManager_fight_wave_4" parent="." unique_id=307810520 instance=ExtResource("8_gnakn")]
+
+[node name="WaveItem" type="Node" parent="WaveManager_fight_wave_4" unique_id=869253194]
+script = ExtResource("9_28its")
+normal_count = 0
+boss_count = 1
 boss_type = 2
-start_delay = 1.0
+start_delay = 0.8
 boss_scale = Vector2(2, 2)
 
-[node name="WaveManager_fight_final_boss" parent="." unique_id=1075414301 instance=ExtResource("8_gnakn")]
+[node name="WaveManager_fight_wave_5" parent="." unique_id=1075414301 instance=ExtResource("8_gnakn")]
 
-[node name="WaveItem" type="Node" parent="WaveManager_fight_final_boss" unique_id=1216313229]
+[node name="WaveItem" type="Node" parent="WaveManager_fight_wave_5" unique_id=1216313229]
 script = ExtResource("9_28its")
 normal_count = 0
 boss_count = 1

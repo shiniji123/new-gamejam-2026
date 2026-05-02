@@ -48,9 +48,7 @@ func _on_start_game_pressed():
 			
 		if has_node("/root/SceneManager"):
 			print("Using SceneManager to transition")
-			# เพิ่ม Delay ก่อนเริ่ม Fade เล็กน้อยเพื่อให้ SFX เล่นจบหรือสร้างความรู้สึกที่นุ่มนวลขึ้น
-			# เพิ่ม duration เป็น 1.0 เพื่อให้ fade ช้าลง และ fade_in_delay 0.5 เพื่อให้จอมืดนานขึ้นเล็กน้อย
-			SceneManager.change_scene(start_scene.resource_path, 1.0, 0.5)
+			SceneManager.change_scene(start_scene.resource_path, 0.0, 0.0)
 		else:
 			print("SceneManager not found, using default change_scene_to_packed")
 			get_tree().change_scene_to_packed(start_scene)

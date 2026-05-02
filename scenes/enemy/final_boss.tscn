@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tcrwcygvmr3b"]
 
 [ext_resource type="Shader" uid="uid://dku3e73klkpm4" path="res://assets/shaders/hit_flash.gdshader" id="1_flash"]
-[ext_resource type="Script" path="res://scripts/enemy/final_boss.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://ca1kyqaiak4fq" path="res://scripts/enemy/final_boss.gd" id="2_script"]
 [ext_resource type="AudioStream" uid="uid://7htjfcgvylif" path="res://assets/sounds/enemy_hurt.wav" id="3_hurt"]
 [ext_resource type="Texture2D" uid="uid://d3ye3ihg45ud2" path="res://assets/character/enemy/boss/final_boss_phase1.PNG" id="4_phase1"]
 [ext_resource type="Texture2D" uid="uid://bsjp0foxw4bqo" path="res://assets/character/enemy/boss/final_boss_phase2.PNG" id="5_phase2"]
@@ -136,25 +136,26 @@ radius = 56.0
 [sub_resource type="CircleShape2D" id="HurtboxShape_final"]
 radius = 42.0
 
-[node name="final_boss" type="CharacterBody2D"]
+[node name="final_boss" type="CharacterBody2D" unique_id=991365179]
 material = SubResource("ShaderMaterial_flash")
 script = ExtResource("2_script")
+damage_multiplier = 2.0
 hit_sound = ExtResource("3_hurt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1008716532]
 sprite_frames = SubResource("SpriteFrames_final")
 animation = &"phase_1"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1040199237]
 shape = SubResource("CollisionShape_final")
 
-[node name="HurtboxArea" type="Area2D" parent="."]
+[node name="HurtboxArea" type="Area2D" parent="." unique_id=774014416]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxArea" unique_id=1247541409]
 shape = SubResource("HurtboxShape_final")
 
-[node name="HurtboxComponent" type="Node" parent="."]
+[node name="HurtboxComponent" type="Node" parent="." unique_id=1872147259]
 script = ExtResource("7_hurtbox")
 
-[node name="FlashEffects" type="Node" parent="."]
+[node name="FlashEffects" type="Node" parent="." unique_id=1413244032]
 script = ExtResource("8_flashfx")

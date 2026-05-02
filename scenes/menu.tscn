@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dpucpeempaxyb" path="res://scenes/exploration_scene/exploration_scene.tscn" id="2_vjb58"]
 [ext_resource type="AudioStream" uid="uid://nkjvq73hcf0q" path="res://assets/sounds/main_menu.wav" id="3_4ytvr"]
 [ext_resource type="Texture2D" uid="uid://bd1tjm6rc8ce6" path="res://assets/map/Main/main_menu.PNG" id="3_con2f"]
-[ext_resource type="AudioStream" uid="uid://c6sld2cll5v58" path="res://assets/sounds/main_menu_pressed.wav" id="4_g3eks"]
+[ext_resource type="AudioStream" uid="uid://bv1hx73em8y6l" path="res://assets/new_sound/select.wav" id="4_g3eks"]
 [ext_resource type="Texture2D" uid="uid://73rwmp8fuvwp" path="res://assets/map/Main/menu_logo.PNG" id="4_mhnvy"]
 
 [node name="menu" type="CanvasLayer" unique_id=1220189990]

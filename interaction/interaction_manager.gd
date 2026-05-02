@@ -9,6 +9,8 @@ var active_area = []
 @export var can_interact = true
 
 func register_area(area):
+	if active_area.has(area):
+		return
 	active_area.push_back(area)
 	
 func unregister_area(area):
@@ -17,6 +19,7 @@ func unregister_area(area):
 		active_area.remove_at(index)
 
 func _process(delta):
+	active_area = active_area.filter(func(area): return _is_area_usable(area))
 	if active_area.size() > 0 && can_interact:
 		if not is_instance_valid(player):
 			player = get_tree().get_first_node_in_group("player")
@@ -47,6 +50,7 @@ func _sort_by_distace_to_player(area1,area2):
 		
 func _input(event):
 	if event.is_action_pressed("interact")&& can_interact:
+		active_area = active_area.filter(func(area): return _is_area_usable(area))
 		if active_area.size() > 0 :
 			can_interact = false
 			label.hide()
@@ -54,3 +58,13 @@ func _input(event):
 			await  active_area[0].interact.call()
 			
 			can_interact = true
+
+
+func _is_area_usable(area) -> bool:
+	if not is_instance_valid(area):
+		return false
+	if "monitoring" in area and not area.monitoring:
+		return false
+	if area.has_node("CollisionShape2D") and area.get_node("CollisionShape2D").disabled:
+		return false
+	return true

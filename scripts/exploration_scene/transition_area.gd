@@ -173,8 +173,8 @@ func _open_notepad() -> void:
 	var note_id = notepad_event_target if notepad_event_target != "" else notepad_title
 	_notepad_ui.add_note(note_id, notepad_title, notepad_content)
 	
-	# เปิดหน้ารายการ Note
-	_notepad_ui.open_notepad()
+	# Open this note directly so the Read prompt always shows content.
+	_notepad_ui.open_notepad(note_id)
 	
 	# ฟังสัญญาณเมื่อปิด
 	if not _notepad_ui.notepad_closed.is_connected(_on_notepad_closed):

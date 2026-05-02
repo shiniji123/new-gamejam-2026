@@ -9,6 +9,7 @@ const FullscreenStripPlayerScene := preload("res://scripts/ui/fullscreen_strip_p
 @export_group("Audio")
 ## ลากไฟล์เพลงต่อสู้มาใส่ที่นี่ (ไม่ต้อง preload ในโค้ด)
 @export var battle_music: AudioStream
+@export var final_boss_music: AudioStream
 ## ระยะเวลา Fade-in ของเพลง (วินาที)
 @export var music_fade_duration: float = 1.5
 
@@ -39,8 +40,9 @@ func _ready() -> void:
 	Autoload.current_state = Autoload.State.COMBAT
 
 	# เปิดเพลงประกอบ
-	if battle_music:
-		AudioManager.play_bgm(battle_music, music_fade_duration)
+	var music_to_play := _get_music_for_current_event()
+	if music_to_play:
+		AudioManager.play_bgm(music_to_play, music_fade_duration)
 	else:
 		push_warning("[FightScene] ยังไม่ได้ใส่ battle_music ใน Inspector!")
 
@@ -84,6 +86,15 @@ func _play_transform_intro() -> void:
 	add_child(player)
 	player.play()
 	await player.finished
+
+
+func _get_music_for_current_event() -> AudioStream:
+	if Autoload.has_node("/root/EventManager"):
+		var current_event_id := String(EventManager.get_current_event().get("id", ""))
+		if current_event_id == "fight_wave_5" and final_boss_music:
+			return final_boss_music
+
+	return battle_music
 
 
 func _setup_active_wave_manager() -> void:

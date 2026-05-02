@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://6h1qunxstw30"]
 
-[ext_resource type="AudioStream" uid="uid://b1fo4vc6ae5ur" path="res://assets/new_sound/attacked.wav" id="2_3j4b4"]
 [ext_resource type="Texture2D" uid="uid://08xewdcdub24" path="res://assets/character/player/Idle/Idle.png" id="3_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://cnf68aue66e6t" path="res://assets/character/player/Walk/walk.png" id="4_h17s1"]
 [ext_resource type="Script" uid="uid://cxqn8ajmw6kn5" path="res://scripts/player/player.gd" id="13_8k2jx"]
@@ -104,7 +103,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=45369660]
 script = ExtResource("13_8k2jx")
-hit_sound = ExtResource("2_3j4b4")
+hit_sound = ExtResource("21_yj68g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=967638203]
 sprite_frames = SubResource("SpriteFrames_yj68g")

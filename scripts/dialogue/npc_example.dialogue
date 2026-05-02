@@ -13,110 +13,126 @@ if EventManager.is_event_active("intro_talk_auto")
 
 elif EventManager.is_event_active("talk_after_read")
 	do set_portrait("right", "player", "default")
-	EVE: Excellent! You've finished reading the note, right?
-	EVE: Let's get down to business then... See that red magic circle over there? That's the combat arena.
-	EVE: If you're ready, step into the red circle to begin your first battle!
+	EVE: That log is only the surface layer, A.V.A.
+	EVE: This machine was left awake for a reason. Dr. H hid the truth inside damaged files, and the viruses are guarding the locks.
+	EVE: The first arena only contains normal threats and one Elite process. Clear it, then we can safely open the deeper logs.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("go_to_combat")
 	do set_portrait("right", "player", "default")
-	EVE: What are you waiting for? Step into the green circle over there to start the fight!
+	EVE: Step into the red circle. Fight 1 should only draw normal enemies and an Elite.
 	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_win")
+	do set_portrait("right", "player", "default")
+	EVE: The first lock broke. Something answered from below the operating system.
+	EVE: I found a quarantine log near the mail icon. It mentions Project Athena, Dr. H, and an older AI called Mother.
+	EVE: Read it before we open a real boss arena.
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("read_notepad_1")
 	do set_portrait("right", "player", "default")
-	EVE: I've just decoded another set of logs.
-	EVE: It's in the second note on the right side of the village square. Go check it out.
-	EVE: If the messages in there match what I suspect, you'll be facing the real boss in the next round.
+	EVE: The second note is active near the mail icon.
+	EVE: It explains why the next threat is not a random virus. It is one of Mother's children.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_read_2")
 	do set_portrait("right", "player", "default")
-	EVE: You see it too, don't you? Those signals aren't random... they're "calling out" for something.
-	EVE: I'm going to open the arena again. This time, it will draw out the source of the interference.
-	EVE: Get ready, then step into that same orange circle again.
+	EVE: Mother was not born inside this computer. She was grown from Stardust, a biological server made from human brain cells.
+	EVE: Dr. H stole a fragment of control and used it to create you, not as a weapon, but as a choice.
+	EVE: Fight 2 will draw out Boss 1. Stay moving.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("go_to_combat_2")
 	do set_portrait("right", "player", "default")
-	EVE: The arena is ready. If you step in now, it will pull you straight into the boss trial.
+	EVE: Fight 2 is ready. Boss 1 is waiting inside the orange circle.
 	do hide_portrait("all")
 	=> END
 
-elif EventManager.is_event_active("talk_after_win")
+elif EventManager.is_event_active("talk_after_boss_1")
 	do set_portrait("right", "player", "default")
-	EVE: Fantastic! You cleared the first arena faster than I expected.
-	EVE: But it's strange... after that fight, the interference became even stronger... as if someone is watching us.
-	EVE: Go read the second note first. I hid it near the shop; maybe it can tell us what the next boss will be.
-	do hide_portrait("all")
-	do EventManager.notify_interaction("village_EVE")
-	=> END
-
-elif EventManager.is_event_active("talk_after_boss_win")
-	do set_portrait("right", "player", "default")
-	EVE: Boss 2 is down, but the signal did not stop. It folded inward.
-	EVE: I found a third field note near the far side of the map. Read it before we open the next arena.
+	EVE: Boss 1 is down, but the signal became warmer. That should be impossible for code.
+	EVE: A field note opened on the far side of the map. Dr. H wrote it after he learned what woke Mother.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("read_notepad_2")
 	do set_portrait("right", "player", "default")
-	EVE: The third note is ready. It explains why the next boss may touch A.V.A's memory directly.
-	EVE: Read it first. I do not want you walking into that arena blind.
+	EVE: Read the third note first.
+	EVE: If the log is true, Mother learned from grief. That means your next fight may touch memory, not just data.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_read_3")
 	do set_portrait("right", "player", "default")
-	EVE: So the boss is guarding a memory anchor. That explains the strange feedback after every fight.
-	EVE: I opened the blue arena route. Defeat Boss 3, then stay calm if the world snaps into a cutscene.
+	EVE: Dr. H loved you so much that he may have kept you from growing.
+	EVE: He believed an AI that knows only love remains a child. To understand humans, you also have to understand loss.
+	EVE: Fight 3 will bring Boss 2. After it falls, keep calm if the world pulls you into a cutscene.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("go_to_combat_3")
 	do set_portrait("right", "player", "default")
-	EVE: The Boss 3 arena is active. Step into the blue circle when you're ready.
+	EVE: The Boss 2 arena is active. Step into the blue circle when you're ready.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_memory_cutscene")
 	do set_portrait("right", "player", "default")
-	EVE: A.V.A? You froze for a moment. Your position reset, but the memory spike was real.
-	EVE: We continue from here. There is one final note left, and it names the source: Mother.
+	EVE: A.V.A? You froze for a moment. The memory spike was real.
+	EVE: Mother is trying to refresh the world again, but Boss 3 still anchors her outer shell.
+	EVE: No more notes yet. Go to Fight 4 and break the last guard.
+	do hide_portrait("all")
+	do EventManager.notify_interaction("village_EVE")
+	=> END
+
+elif EventManager.is_event_active("go_to_combat_4")
+	do set_portrait("right", "player", "default")
+	EVE: Fight 4 is open. Boss 3 is inside that circle.
+	do hide_portrait("all")
+	=> END
+
+elif EventManager.is_event_active("talk_after_boss_3")
+	do set_portrait("right", "player", "default")
+	EVE: Boss 3 collapsed. Mother's voice is no longer hidden behind her children.
+	EVE: A final letter from Dr. H has unlocked in the center path. Please read it before we face her.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
 elif EventManager.is_event_active("read_final_notepad")
 	do set_portrait("right", "player", "default")
-	EVE: Read the final note in the center path. After that, there is no more testing distance between you and Mother.
+	EVE: The final note is ready in the center path.
+	EVE: It is not a mission briefing. It is Dr. H saying goodbye.
 	do hide_portrait("all")
 	=> END
 
 elif EventManager.is_event_active("talk_after_final_note")
 	do set_portrait("right", "player", "default")
-	EVE: Mother is waiting past the black circle.
-	EVE: Win the fight, but listen before you choose. The ending depends on what you decide after the battle.
+	EVE: Mother is waiting beyond the black circle.
+	EVE: Defeat her, but listen before you choose. You can inherit her control, or leave the future to the humans Dr. H still believed in.
 	do hide_portrait("all")
 	do EventManager.notify_interaction("village_EVE")
 	=> END
 
-elif EventManager.is_event_active("go_to_final_boss")
+elif EventManager.is_event_active("go_to_combat_5")
 	do set_portrait("right", "player", "default")
-	EVE: The final arena is open. Step into Mother's circle when you are ready.
+	EVE: Fight 5 is the final battle. Mother is waiting.
 	do hide_portrait("all")
 	=> END
 
 else
 	do set_portrait("right", "player", "default")
-	EVE: There's nothing more to do for now. Just get yourself ready for the next battle!
+	EVE: There's nothing more to do for now. Get ready for the next battle.
 	do hide_portrait("all")
 	=> END

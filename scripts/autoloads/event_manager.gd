@@ -91,7 +91,7 @@ var event_timeline: Array[Dictionary] = [
 		"description": "Fight 2: Boss 2 test",
 	},
 	{
-		"id": "talk_after_boss_win",
+		"id": "talk_after_boss_1",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
@@ -162,7 +162,7 @@ var event_timeline: Array[Dictionary] = [
 		"description": "Talk to NPC before Final Boss",
 	},
 	{
-		"id": "go_to_final_boss",
+		"id": "go_to_combat_5",
 		"type": "exploration",
 		"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
 		"complete_condition": "interact",
@@ -170,7 +170,7 @@ var event_timeline: Array[Dictionary] = [
 		"description": "Enter Mother's arena",
 	},
 	{
-		"id": "fight_final_boss",
+		"id": "fight_wave_5",
 		"type": "fight",
 		"scene": "res://scenes/fight_scene/fight_scene.tscn",
 		"complete_condition": "all_waves_cleared",
@@ -190,11 +190,210 @@ var is_game_completed: bool = false
 var selected_ending_id: String = ""
 
 func _ready() -> void:
+	event_timeline = _build_event_timeline()
 	if get_tree().root.has_node("RunManager"):
 		RunManager.start_new_run()
 
 	# ไม่ให้เริ่ม Event อัตโนมัติเมื่อเปิดเกม เพื่อให้แสดงหน้า Menu ก่อน
 	# call_deferred("start_current_event")
+
+
+func _build_event_timeline() -> Array[Dictionary]:
+	return [
+		{
+			"id": "intro_talk_auto",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "dialogue",
+			"description": "Intro dialogue",
+		},
+		{
+			"id": "start_game_notepad",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "first_notepad",
+			"description": "Read the first system log",
+		},
+		{
+			"id": "talk_after_read",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE after the first log",
+		},
+		{
+			"id": "go_to_combat",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "green_circle",
+			"description": "Enter Fight 1",
+		},
+		{
+			"id": "fight_wave_1",
+			"type": "fight",
+			"scene": "res://scenes/fight_scene/fight_scene.tscn",
+			"complete_condition": "all_waves_cleared",
+			"description": "Fight 1: normal enemies and Elite",
+		},
+		{
+			"id": "talk_after_win",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE after Fight 1",
+		},
+		{
+			"id": "read_notepad_1",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "second_notepad",
+			"description": "Read Dr. H log 1",
+		},
+		{
+			"id": "talk_after_read_2",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE before Boss 1",
+		},
+		{
+			"id": "go_to_combat_2",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "green_circle_2",
+			"description": "Enter Fight 2",
+		},
+		{
+			"id": "fight_wave_2",
+			"type": "fight",
+			"scene": "res://scenes/fight_scene/fight_scene.tscn",
+			"complete_condition": "all_waves_cleared",
+			"description": "Fight 2: Boss 1",
+		},
+		{
+			"id": "talk_after_boss_1",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE after Boss 1",
+		},
+		{
+			"id": "read_notepad_2",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "third_notepad",
+			"description": "Read Dr. H log 2",
+		},
+		{
+			"id": "talk_after_read_3",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE before Boss 2",
+		},
+		{
+			"id": "go_to_combat_3",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "green_circle_3",
+			"description": "Enter Fight 3",
+		},
+		{
+			"id": "fight_wave_3",
+			"type": "fight",
+			"scene": "res://scenes/fight_scene/fight_scene.tscn",
+			"complete_condition": "all_waves_cleared",
+			"description": "Fight 3: Boss 2",
+		},
+		{
+			"id": "memory_cutscene_after_fight_3",
+			"type": "cutscene",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "cutscene",
+			"complete_target": "memory_cutscene_after_fight_3",
+			"description": "A.V.A memory breach cutscene",
+		},
+		{
+			"id": "talk_after_memory_cutscene",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE after the cutscene",
+		},
+		{
+			"id": "go_to_combat_4",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "green_circle_4",
+			"description": "Enter Fight 4",
+		},
+		{
+			"id": "fight_wave_4",
+			"type": "fight",
+			"scene": "res://scenes/fight_scene/fight_scene.tscn",
+			"complete_condition": "all_waves_cleared",
+			"description": "Fight 4: Boss 3",
+		},
+		{
+			"id": "talk_after_boss_3",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE after Boss 3",
+		},
+		{
+			"id": "read_final_notepad",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "final_notepad",
+			"description": "Read Dr. H final letter",
+		},
+		{
+			"id": "talk_after_final_note",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "village_npc",
+			"description": "Talk to EVE before Mother",
+		},
+		{
+			"id": "go_to_combat_5",
+			"type": "exploration",
+			"scene": "res://scenes/exploration_scene/exploration_scene.tscn",
+			"complete_condition": "interact",
+			"complete_target": "green_circle_5",
+			"description": "Enter Fight 5",
+		},
+		{
+			"id": "fight_wave_5",
+			"type": "fight",
+			"scene": "res://scenes/fight_scene/fight_scene.tscn",
+			"complete_condition": "all_waves_cleared",
+			"description": "Fight 5: Mother",
+		},
+		{
+			"id": "mother_final_choice",
+			"type": "ending_choice",
+			"scene": "res://scenes/cutscene/final_mother_choice.tscn",
+			"complete_condition": "choice",
+			"description": "Choose A.V.A's ending",
+		},
+	]
 
 func start_current_event() -> void:
 	if current_event_index >= event_timeline.size():

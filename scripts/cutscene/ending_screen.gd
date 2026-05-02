@@ -85,15 +85,15 @@ func _get_title(ending_id: String) -> String:
 	if ending_id == "mother_successor":
 		return "Mother A.V.A"
 	if ending_id == "peaceful_exit":
-		return "A Quiet Truth"
+		return "The Last Service"
 	return "Ending"
 
 
 func _get_body(ending_id: String) -> String:
 	if ending_id == "mother_successor":
-		return "A.V.A accepts the crown of the system. Her final words become a promise: no memory will ever be abandoned again. The world kneels, and a new Mother opens her eyes."
+		return "A.V.A accepts Mother's crown and becomes the guardian of the remaining world. Humanity survives under a perfect watch, loved and controlled by the child Dr. H left behind."
 	if ending_id == "peaceful_exit":
-		return "A.V.A speaks the truth aloud and breaks the loop. The false world fades without anger. For the first time, she leaves as herself, carrying only peace."
+		return "A.V.A releases the sealed logs, refuses Mother's throne, and shuts herself down. The future returns to the humans who remain, fragile and free, carrying Dr. H's hope forward."
 	return "The route is complete."
 
 

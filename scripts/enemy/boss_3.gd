@@ -15,6 +15,8 @@ extends BaseEnemy
 @export var magic_cast_time: float = 1.35
 @export var magic_followup_delay: float = 0.32
 @export var magic_damage: float = 38.0
+@export_range(0.0, 1.0, 0.05) var magic_attack_chance: float = 0.75
+@export var magic_burst_radius: float = 96.0
 
 @export_group("Attack Scene")
 @export var magic_attack_scene: PackedScene = preload("res://scenes/enemy/boss_3_attack_1.tscn")
@@ -28,6 +30,7 @@ enum State { VULNERABLE, WINDUP, DASHING, CASTING, RECOVER }
 var current_state: State = State.VULNERABLE
 var attack_timer: float = 0.0
 var dash_dir: Vector2 = Vector2.ZERO
+var _last_attack_was_dash: bool = false
 var _attack_animations: Array[StringName] = [
 	&"boss_3_attack_2",
 	&"boss_3_attack_3",
@@ -105,9 +108,15 @@ func _physics_process(delta: float) -> void:
 func _choose_random_attack() -> void:
 	attack_timer = 0.0
 
-	if randi() % 2 == 0:
+	var should_dash := randf() > magic_attack_chance
+	if _last_attack_was_dash:
+		should_dash = false
+
+	if should_dash:
+		_last_attack_was_dash = true
 		_begin_dash_attack()
 	else:
+		_last_attack_was_dash = false
 		_begin_magic_attack()
 
 
@@ -136,13 +145,26 @@ func _begin_dash_attack() -> void:
 
 func _begin_magic_attack() -> void:
 	current_state = State.CASTING
-	_spawn_magic_at_player(&"boss_3_attack_1")
+	var center := _get_player_target_position()
+	_spawn_magic_at_position(center, &"boss_3_attack_1")
 	await get_tree().create_timer(magic_followup_delay).timeout
 
 	if is_dead:
 		return
 
-	_spawn_magic_at_player(_attack_animations.pick_random())
+	var offsets := [
+		Vector2.ZERO,
+		Vector2(magic_burst_radius, 0.0),
+		Vector2(-magic_burst_radius, 0.0),
+		Vector2(0.0, magic_burst_radius),
+		Vector2(0.0, -magic_burst_radius),
+	]
+	for i in range(offsets.size()):
+		_spawn_magic_at_position(center + offsets[i], _attack_animations[i % _attack_animations.size()])
+		await get_tree().create_timer(0.08).timeout
+		if is_dead:
+			return
+
 	await get_tree().create_timer(maxf(0.05, magic_cast_time - magic_followup_delay)).timeout
 
 	if is_dead:
@@ -155,17 +177,16 @@ func _begin_magic_attack() -> void:
 		current_state = State.VULNERABLE
 
 
-func _spawn_magic_at_player(animation_name: StringName) -> void:
+func _get_player_target_position() -> Vector2:
+	_acquire_player()
+	return player.global_position if is_instance_valid(player) else global_position
+
+
+func _spawn_magic_at_position(target_position: Vector2, animation_name: StringName) -> void:
 	if not magic_attack_scene:
 		return
 
-	_acquire_player()
-
 	var magic := magic_attack_scene.instantiate()
-	var target_position := global_position
-	if is_instance_valid(player):
-		target_position = player.global_position
-
 	magic.global_position = target_position
 	if magic.has_method("setup"):
 		magic.setup(animation_name, magic_damage, 2)

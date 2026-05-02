@@ -1,22 +1,23 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://brw8bsn5ptg61"]
 
-[ext_resource type="Script" path="res://scripts/enemy/final_boss_line_attack.gd" id="1_line"]
+[ext_resource type="Script" uid="uid://drc6lv1h1m8p0" path="res://scripts/enemy/final_boss_line_attack.gd" id="1_line"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_line"]
 size = Vector2(1150, 34)
 
-[node name="FinalBossLineAttack" type="Area2D"]
+[node name="FinalBossLineAttack" type="Area2D" unique_id=1846619193]
 script = ExtResource("1_line")
+active_duration = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1269725028]
 shape = SubResource("RectangleShape2D_line")
 
-[node name="TelegraphLine" type="Line2D" parent="."]
+[node name="TelegraphLine" type="Line2D" parent="." unique_id=53458141]
 points = PackedVector2Array(-575, 0, 575, 0)
 width = 12.0
 default_color = Color(1, 0.16, 0.18, 0.45)
 
-[node name="Blade" type="Polygon2D" parent="."]
+[node name="Blade" type="Polygon2D" parent="." unique_id=1586765752]
 visible = false
 color = Color(1, 0.92, 0.78, 0.9)
 polygon = PackedVector2Array(-575, -7.65, 541, -17, 575, 0, 541, 17, -575, 7.65)
